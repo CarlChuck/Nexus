@@ -113,9 +113,9 @@ public class Player : StatBlock
         return mControls;
     }
 
-    public override void TakeDamage(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit)
+    public override void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
     {
-        base.TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+        base.TakeDamage(attacker, fDamage, sDamage, rDamage, pDamage);
     }
 
     void NewCharacter()

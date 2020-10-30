@@ -32,7 +32,7 @@ public class InfoPane : MonoBehaviour
             Weapon weapon = item as Weapon;
             infoText.text += "Weapon Type: " + weapon.wType.ToString() + "\n";
             infoText.text += "Handed: " + weapon.handedness.ToString() + "\n";
-            infoText.text += "Damage: " + weapon.damage.ToString() + "\n";
+            //infoText.text += "Damage: " + weapon.damage.ToString() + "\n"; //TODO Damage Range
         }
         else if (item.itemType == ItemType.Skill)
         {/*

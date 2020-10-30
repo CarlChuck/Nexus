@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     private StatBlock attacker;
     private DamageType dType;
     private WhoToDamage whoToDam;
+    private Weapon weaponUsed;
 
     //Projectile movement
     private Vector3 spawnPosition;
@@ -35,26 +36,25 @@ public class Projectile : MonoBehaviour
     private bool freeze = false;
 
     //Sets projectile and begins
-    public void StartProjectile(StatBlock attk, int dam, DamageType damType, Vector3 dir, DamageStat dStat, HexName[] inHexes = null, BoonName[] inBoons = null, 
-        float boonDur = 0f, float hexDur = 0f, bool toFreeze = false, int passthr = 0, bool causeDam  = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
+    public void StartProjectile(StatBlock attk, Weapon weap, DamageStat dStat, Vector3 dir, HexName[] inHexes = null, BoonName[] inBoons = null, float boonDur = 0f, float hexDur = 0f, 
+        bool toFreeze = false, int passthr = 0, bool causeDam  = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         speed = inSpeed;
         range = inRange;
         attacker = attk;
-        damage = dam;
-        dType = damType;
         direction = dir;
         hexes = inHexes;
         boons = inBoons;
         boonDuration = boonDur;
         hexDuration = hexDur;
-        damageStat = dStat;
         freeze = toFreeze;
         passthrough = passthr;
         causeDamage = causeDam;
         push = toPush;
         pull = toPull;
         persistent = persist;
+        weaponUsed = weap;
+        damageStat = dStat;
 
 
         if (attk is Player || attk is Ally)
@@ -255,7 +255,7 @@ public class Projectile : MonoBehaviour
         }
         if (causeDamage == true)
         {
-            attacker.DealDamage(target, damage, damageStat, dType);
+            attacker.DealDamage(target, damageStat, weaponUsed);
         }
         else
         {
@@ -313,8 +313,8 @@ public class Projectile : MonoBehaviour
         GameObject impactObj = Instantiate(onImpact, currentLoc.position, currentLoc.rotation);
         if (impactObj.GetComponent<Projectile>())
         {
-            impactObj.GetComponent<Projectile>().StartProjectile(attacker, damage, dType, direction, damageStat, hexes, boons, 
-                boonDuration, hexDuration, freeze, passthrough, true, push, pull, persistent, 0f, 0);
+            impactObj.GetComponent<Projectile>().StartProjectile(attacker, weaponUsed, damageStat, direction, hexes, boons, boonDuration, 
+                hexDuration, freeze, passthrough, true, push, pull, persistent, 0f, 0);
         }
         //TODO add bounce
     }

@@ -74,8 +74,7 @@ public class WeaponManager : MonoBehaviour
         {
             WeaponAttack1();            
         }
-    }
-    
+    }    
     public void Attack2()
     {
         if (inRightHand != null)
@@ -83,8 +82,7 @@ public class WeaponManager : MonoBehaviour
             WeaponAttack2();
         }
 
-    }
-    
+    }    
     public void Attack3()
     {
         if (inRightHand != null && inLeftHand == null)
@@ -101,8 +99,7 @@ public class WeaponManager : MonoBehaviour
                 WeaponAttack3();
             }
         }
-    }
-    
+    }    
     public void Attack4()
     {
         if (inRightHand != null && inLeftHand == null)
@@ -126,7 +123,6 @@ public class WeaponManager : MonoBehaviour
         Player player = Player.instance;
         Animator anim = player.anim;
         WeaponType wType = inRightHand.wType;
-        int damage = inRightHand.damage;
 
         //Muzzle Flashes
         if (rHandItem.GetComponent<WeaponModel>())
@@ -139,64 +135,62 @@ public class WeaponManager : MonoBehaviour
         {
             anim.SetTrigger("MeleeRSwipe");
             Transform emitter = player.centreEmitter;
-            Melee1(player, emitter, damage);
+            Melee1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.HPistol)
         {
             anim.SetTrigger("PistolRShoot");
             Transform emitter = player.rightEmitter;
-            HPistol1(player, emitter, damage);
+            HPistol1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.PPistol)
         {
             anim.SetTrigger("PistolRShoot");
             Transform emitter = player.rightEmitter;
-            PPistol1(player, emitter, damage);
+            PPistol1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Rifle)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Rifle1(player, emitter, damage);
+            Rifle1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.GravGun)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            GravGun1(player, emitter, damage);
+            GravGun1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Carbine)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Carbine1(player, emitter, damage);
+            Carbine1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Wand)
         {
             anim.SetTrigger("WandRShoot");
             Transform emitter = player.rightEmitter;
-            Wand1(player, emitter, damage);
+            Wand1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Staff)
         {
             anim.SetTrigger("StaffShoot");
             Transform emitter = player.centreEmitter;
-            Staff1(player, emitter, damage);
+            Staff1(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.NanoGlove)
         {
             anim.SetTrigger("NanoRShoot");
             Transform emitter = player.rightEmitter;
-            NanoGlove1(player, emitter, damage);
+            NanoGlove1(player, inRightHand, emitter);
         }
     }
-
     public void WeaponAttack2()
     {
         Player player = Player.instance;
         Animator anim = player.anim;
         WeaponType wType = inRightHand.wType;
-        int damage = inRightHand.damage;
 
         //Muzzle Flashes
         if (rHandItem.GetComponent<WeaponModel>())
@@ -209,64 +203,62 @@ public class WeaponManager : MonoBehaviour
         {
             anim.SetTrigger("MeleeRSwipe");
             Transform emitter = player.centreEmitter;
-            Melee2(player, emitter, damage);
+            Melee2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.HPistol)
         {
             anim.SetTrigger("PistolRShoot");
             Transform emitter = player.rightEmitter;
-            HPistol2(player, emitter, damage);
+            HPistol2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.PPistol)
         {
             anim.SetTrigger("PistolRShoot");
             Transform emitter = player.rightEmitter;
-            PPistol2(player, emitter, damage);
+            PPistol2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Rifle)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Rifle2(player, emitter, damage);
+            Rifle2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.GravGun)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            GravGun2(player, emitter, damage);
+            GravGun2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Carbine)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Carbine2(player, emitter, damage);
+            Carbine2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Wand)
         {
             anim.SetTrigger("WandRShoot");
             Transform emitter = player.rightEmitter;
-            Wand2(player, emitter, damage);
+            Wand2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.Staff)
         {
             anim.SetTrigger("StaffShoot");
             Transform emitter = player.centreEmitter;
-            Staff2(player, emitter, damage);
+            Staff2(player, inRightHand, emitter);
         }
         else if (wType == WeaponType.NanoGlove)
         {
             anim.SetTrigger("NanoRShoot");
             Transform emitter = player.rightEmitter;
-            NanoGlove2(player, emitter, damage);
+            NanoGlove2(player, inRightHand, emitter);
         }
-    }
-    
+    }    
     public void WeaponAttack3()
     {
         Player player = Player.instance;
         Animator anim = player.anim;
         WeaponType wType = inLeftHand.wType;
-        int damage = inLeftHand.damage;
 
         //Muzzle Flashes
         if (lHandItem.GetComponent<WeaponModel>())
@@ -284,82 +276,80 @@ public class WeaponManager : MonoBehaviour
         {
             anim.SetTrigger("MeleeLSwipe");
             Transform emitter = player.centreEmitter;
-            Melee3(player, emitter, damage);
+            Melee3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.HPistol)
         {
             anim.SetTrigger("PistolLShoot");
             Transform emitter = player.leftEmitter;
-            HPistol3(player, emitter, damage);
+            HPistol3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.PPistol)
         {
             anim.SetTrigger("PistolLShoot");
             Transform emitter = player.leftEmitter;
-            PPistol3(player, emitter, damage);
+            PPistol3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Shield)
         {
             anim.SetTrigger("ShieldSwing");
             Transform emitter = player.centreEmitter;
-            Shield3(player, emitter, damage);
+            Shield3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Launcher)
         {
             anim.SetTrigger("PistolLShoot");
             Transform emitter = player.leftEmitter;
-            Launcher3(player, emitter, damage);
+            Launcher3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Rifle)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Rifle3(player, emitter, damage);
+            Rifle3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Carbine)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Carbine3(player, emitter, damage);
+            Carbine3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.GravGun)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            GravGun3(player, emitter, damage);
+            GravGun3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Wand)
         {
             anim.SetTrigger("WandLShoot");
             Transform emitter = player.leftEmitter;
-            Wand3(player, emitter, damage);
+            Wand3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Foci)
         {
             anim.SetTrigger("FociCast");
             Transform emitter = player.leftEmitter;
-            Foci3(player, emitter, damage);
+            Foci3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Staff)
         {
             anim.SetTrigger("StaffShoot");
             Transform emitter = player.centreEmitter;
-            Staff3(player, emitter, damage);
+            Staff3(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.NanoGlove)
         {
             anim.SetTrigger("NanoLShoot");
             Transform emitter = player.leftEmitter;
-            NanoGlove3(player, emitter, damage);
+            NanoGlove3(player, inLeftHand, emitter);
         }
     }
-
     public void WeaponAttack4()
     {
         Player player = Player.instance;
         Animator anim = player.anim;
         WeaponType wType = inLeftHand.wType;
-        int damage = inLeftHand.damage;
 
         //Muzzle Flashes
         if (lHandItem.GetComponent<WeaponModel>())
@@ -377,77 +367,77 @@ public class WeaponManager : MonoBehaviour
         {
             anim.SetTrigger("MeleeLSwipe");
             Transform emitter = player.centreEmitter;
-            Melee4(player, emitter, damage);
+            Melee4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.HPistol)
         {
             anim.SetTrigger("PistolLShoot");
             Transform emitter = player.leftEmitter;
-            HPistol4(player, emitter, damage);
+            HPistol4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.PPistol)
         {
             anim.SetTrigger("PistolLShoot");
             Transform emitter = player.leftEmitter;
-            PPistol4(player, emitter, damage);
+            PPistol4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Shield)
         {
             anim.SetTrigger("ShieldSwing");
             Transform emitter = player.centreEmitter;
-            Shield4(player, emitter, damage);
+            Shield4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Launcher)
         {
             anim.SetTrigger("PistolLShoot");
             Transform emitter = player.leftEmitter;
-            Launcher4(player, emitter, damage);
+            Launcher4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Rifle)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Rifle4(player, emitter, damage);
+            Rifle4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Carbine)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            Carbine4(player, emitter, damage);
+            Carbine4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.GravGun)
         {
             anim.SetTrigger("RifleShoot");
             Transform emitter = player.centreEmitter;
-            GravGun4(player, emitter, damage);
+            GravGun4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Wand)
         {
             anim.SetTrigger("WandLShoot");
             Transform emitter = player.leftEmitter;
-            Wand4(player, emitter, damage);
+            Wand4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Foci)
         {
             anim.SetTrigger("FociCast");
             Transform emitter = player.leftEmitter;
-            Foci4(player, emitter, damage);
+            Foci4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.Staff)
         {
             anim.SetTrigger("StaffShoot");
             Transform emitter = player.centreEmitter;
-            Staff4(player, emitter, damage);
+            Staff4(player, inLeftHand, emitter);
         }
         else if (wType == WeaponType.NanoGlove)
         {
             anim.SetTrigger("NanoLShoot");
             Transform emitter = player.leftEmitter;
-            NanoGlove4(player, emitter, damage);
+            NanoGlove4(player, inLeftHand, emitter);
         }
     }
 
-    public void Melee1(Player player, Transform emitter, int damage)
+    public void Melee1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -482,7 +472,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Melee2(Player player, Transform emitter, int damage)
+    public void Melee2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -503,7 +493,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Melee3(Player player, Transform emitter, int damage)
+    public void Melee3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -538,7 +528,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Melee4(Player player, Transform emitter, int damage)
+    public void Melee4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -560,7 +550,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Shield3(Player player, Transform emitter, int damage)
+    public void Shield3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -603,7 +593,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Shield4(Player player, Transform emitter, int damage)
+    public void Shield4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -647,23 +637,23 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void HPistol1(Player player, Transform emitter, int damage)
+    public void HPistol1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
         {
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.LightningRound(player, emitter, damage);
+                abilities.LightningRound(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.EarthRound(player, emitter, damage);
+                abilities.EarthRound(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.FlameRound(player, emitter, damage);
+                abilities.FlameRound(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.IceRound(player, emitter, damage);
+                abilities.IceRound(player, weap, emitter);
                 break;
 
             //Mystic
@@ -703,23 +693,23 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void HPistol2(Player player, Transform emitter, int damage)
+    public void HPistol2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
         {
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.LightningPulse(player, emitter, damage);
+                abilities.LightningPulse(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.MeteorShot(player, emitter, damage);
+                abilities.MeteorShot(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.Conflagration(player, emitter, damage);
+                abilities.Conflagration(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.FrostSpear(player, emitter, damage);
+                abilities.FrostSpear(player, weap, emitter);
                 break;
 
             //Envoy
@@ -738,23 +728,23 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void HPistol3(Player player, Transform emitter, int damage)
+    public void HPistol3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
         {
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.AirRound(player, emitter, damage);
+                abilities.AirRound(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.CrystalRound(player, emitter, damage);
+                abilities.CrystalRound(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.MagmaRound(player, emitter, damage);
+                abilities.MagmaRound(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.WaterRound(player, emitter, damage);
+                abilities.WaterRound(player, weap, emitter);
                 break;
 
             //Mystic
@@ -794,23 +784,23 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void HPistol4(Player player, Transform emitter, int damage)
+    public void HPistol4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
         {
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.StaticForce(player, emitter, damage);
+                abilities.StaticForce(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.GravitonCrystal(player, emitter, damage);
+                abilities.GravitonCrystal(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.FlameBlast(player, emitter, damage);
+                abilities.FlameBlast(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.VapourRound(player, emitter, damage);
+                abilities.VapourRound(player, weap, emitter);
                 break;
 
             //Envoy
@@ -830,7 +820,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void PPistol1(Player player, Transform emitter, int damage)
+    public void PPistol1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -856,7 +846,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void PPistol2(Player player, Transform emitter, int damage)
+    public void PPistol2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -878,7 +868,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void PPistol3(Player player, Transform emitter, int damage)
+    public void PPistol3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -904,7 +894,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void PPistol4(Player player, Transform emitter, int damage)
+    public void PPistol4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -927,7 +917,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Carbine1(Player player, Transform emitter, int damage)
+    public void Carbine1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -962,7 +952,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Carbine2(Player player, Transform emitter, int damage)
+    public void Carbine2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -997,7 +987,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Carbine3(Player player, Transform emitter, int damage)
+    public void Carbine3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1032,7 +1022,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Carbine4(Player player, Transform emitter, int damage)
+    public void Carbine4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1068,7 +1058,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Rifle1(Player player, Transform emitter, int damage)
+    public void Rifle1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1094,7 +1084,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Rifle2(Player player, Transform emitter, int damage)
+    public void Rifle2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1120,7 +1110,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Rifle3(Player player, Transform emitter, int damage)
+    public void Rifle3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1146,7 +1136,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Rifle4(Player player, Transform emitter, int damage)
+    public void Rifle4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1173,7 +1163,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Launcher3(Player player, Transform emitter, int damage)
+    public void Launcher3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1205,7 +1195,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Launcher4(Player player, Transform emitter, int damage)
+    public void Launcher4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1238,76 +1228,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Wand1(Player player, Transform emitter, int damage)
-    {
-        Abilities abilities = Abilities.instance;
-        switch (player.classMechanic.eAttunement)
-        {
-            //Golemancer
-            case AttunementType.GolemancerStone:
-
-                break;
-            case AttunementType.GolemancerCrystal:
-
-                break;
-            case AttunementType.GolemancerSteel:
-
-                break;
-            case AttunementType.GolemancerArcane:
-
-                break;
-
-            //Elementalist
-            case AttunementType.ElementalistAir:
-                abilities.LightningBolt(player, emitter, damage);
-                break;
-            case AttunementType.ElementalistEarth:
-                abilities.CrystalSwarm(player, emitter, damage);
-                break;
-            case AttunementType.ElementalistFire:
-                abilities.FireBolts(player, emitter, damage);
-                break;
-            case AttunementType.ElementalistWater:
-                abilities.WaterBolt(player, emitter, damage);
-                break;
-
-            //Psyc
-            case AttunementType.Psyc:
-
-                break;
-
-            //Mystic
-            case AttunementType.Mystic:
-
-                break;
-        }
-    }
-    public void Wand2(Player player, Transform emitter, int damage)
-    {
-        Abilities abilities = Abilities.instance;
-        switch (player.classMechanic.eAttunement)
-        {
-            //Elementalist
-            case AttunementType.ElementalistAir:
-                abilities.ChainLightning(player, emitter, damage);
-                break;
-            case AttunementType.ElementalistEarth:
-                abilities.CrystalWave(player, emitter, damage);
-                break;
-            case AttunementType.ElementalistFire:
-                abilities.PyroclasticSurge(player, emitter, damage);
-                break;
-            case AttunementType.ElementalistWater:
-                abilities.WaterBlast(player, emitter, damage);
-                break;
-
-            //Psyc
-            case AttunementType.Psyc:
-
-                break;
-        }
-    }
-    public void Wand3(Player player, Transform emitter, int damage)
+    public void Wand1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1328,16 +1249,16 @@ public class WeaponManager : MonoBehaviour
 
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.AirBurst(player, emitter, damage);
+                abilities.LightningBolt(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.RockLance(player, emitter, damage);
+                abilities.CrystalSwarm(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.FireBall(player, emitter, damage);
+                abilities.FireBolts(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.GlacialSpike(player, emitter, damage);
+                abilities.WaterBolt(player, weap, emitter);
                 break;
 
             //Psyc
@@ -1351,23 +1272,23 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Wand4(Player player, Transform emitter, int damage)
+    public void Wand2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
         {
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.Cyclone(player, emitter, damage);
+                abilities.ChainLightning(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.Earthquake(player, emitter, damage);
+                abilities.CrystalWave(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.Firestorm(player, emitter, damage);
+                abilities.PyroclasticSurge(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.Permafrost(player, emitter, damage);
+                abilities.WaterBlast(player, weap, emitter);
                 break;
 
             //Psyc
@@ -1376,129 +1297,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-
-    public void Staff1(Player player, Transform emitter, int damage)
-    {
-        Abilities abilities = Abilities.instance;
-        switch (player.classMechanic.eAttunement)
-        {
-            //Golemancer
-            case AttunementType.GolemancerStone:
-
-                break;
-            case AttunementType.GolemancerCrystal:
-
-                break;
-            case AttunementType.GolemancerSteel:
-
-                break;
-            case AttunementType.GolemancerArcane:
-
-                break;
-
-            //Psyc
-            case AttunementType.Psyc:
-
-                break;
-
-            //Mystic
-            case AttunementType.Mystic:
-
-                break;
-        }
-    }
-    public void Staff2(Player player, Transform emitter, int damage)
-    {
-        Abilities abilities = Abilities.instance;
-        switch (player.classMechanic.eAttunement)
-        {
-            //Golemancer
-            case AttunementType.GolemancerStone:
-
-                break;
-            case AttunementType.GolemancerCrystal:
-
-                break;
-            case AttunementType.GolemancerSteel:
-
-                break;
-            case AttunementType.GolemancerArcane:
-
-                break;
-
-            //Psyc
-            case AttunementType.Psyc:
-
-                break;
-
-            //Mystic
-            case AttunementType.Mystic:
-
-                break;
-        }
-    }
-    public void Staff3(Player player, Transform emitter, int damage)
-    {
-        Abilities abilities = Abilities.instance;
-        switch (player.classMechanic.eAttunement)
-        {
-            //Golemancer
-            case AttunementType.GolemancerStone:
-
-                break;
-            case AttunementType.GolemancerCrystal:
-
-                break;
-            case AttunementType.GolemancerSteel:
-
-                break;
-            case AttunementType.GolemancerArcane:
-
-                break;
-
-            //Psyc
-            case AttunementType.Psyc:
-
-                break;
-
-            //Mystic
-            case AttunementType.Mystic:
-
-                break;
-        }
-    }
-    public void Staff4(Player player, Transform emitter, int damage)
-    {
-        Abilities abilities = Abilities.instance;
-        switch (player.classMechanic.eAttunement)
-        {
-            //Golemancer
-            case AttunementType.GolemancerStone:
-
-                break;
-            case AttunementType.GolemancerCrystal:
-
-                break;
-            case AttunementType.GolemancerSteel:
-
-                break;
-            case AttunementType.GolemancerArcane:
-
-                break;
-
-            //Psyc
-            case AttunementType.Psyc:
-
-                break;
-
-            //Mystic
-            case AttunementType.Mystic:
-
-                break;
-        }
-    }
-
-    public void Foci3(Player player, Transform emitter, int damage)
+    public void Wand3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1519,16 +1318,16 @@ public class WeaponManager : MonoBehaviour
 
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.GustOfWind(player, emitter, damage);
+                abilities.AirBurst(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.MagneticPulse(player, emitter, damage);
+                abilities.RockLance(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.RingOfFire(player, emitter, damage);
+                abilities.FireBall(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.CleansingFog(player, emitter, damage);
+                abilities.GlacialSpike(player, weap, emitter);
                 break;
 
             //Psyc
@@ -1542,7 +1341,154 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Foci4(Player player, Transform emitter, int damage)
+    public void Wand4(Player player, Weapon weap, Transform emitter)
+    {
+        Abilities abilities = Abilities.instance;
+        switch (player.classMechanic.eAttunement)
+        {
+            //Elementalist
+            case AttunementType.ElementalistAir:
+                abilities.Cyclone(player, weap, emitter);
+                break;
+            case AttunementType.ElementalistEarth:
+                abilities.Earthquake(player, weap, emitter);
+                break;
+            case AttunementType.ElementalistFire:
+                abilities.Firestorm(player, weap, emitter);
+                break;
+            case AttunementType.ElementalistWater:
+                abilities.Permafrost(player, weap, emitter);
+                break;
+
+            //Psyc
+            case AttunementType.Psyc:
+
+                break;
+        }
+    }
+
+    public void Staff1(Player player, Weapon weap, Transform emitter)
+    {
+        Abilities abilities = Abilities.instance;
+        switch (player.classMechanic.eAttunement)
+        {
+            //Golemancer
+            case AttunementType.GolemancerStone:
+
+                break;
+            case AttunementType.GolemancerCrystal:
+
+                break;
+            case AttunementType.GolemancerSteel:
+
+                break;
+            case AttunementType.GolemancerArcane:
+
+                break;
+
+            //Psyc
+            case AttunementType.Psyc:
+
+                break;
+
+            //Mystic
+            case AttunementType.Mystic:
+
+                break;
+        }
+    }
+    public void Staff2(Player player, Weapon weap, Transform emitter)
+    {
+        Abilities abilities = Abilities.instance;
+        switch (player.classMechanic.eAttunement)
+        {
+            //Golemancer
+            case AttunementType.GolemancerStone:
+
+                break;
+            case AttunementType.GolemancerCrystal:
+
+                break;
+            case AttunementType.GolemancerSteel:
+
+                break;
+            case AttunementType.GolemancerArcane:
+
+                break;
+
+            //Psyc
+            case AttunementType.Psyc:
+
+                break;
+
+            //Mystic
+            case AttunementType.Mystic:
+
+                break;
+        }
+    }
+    public void Staff3(Player player, Weapon weap, Transform emitter)
+    {
+        Abilities abilities = Abilities.instance;
+        switch (player.classMechanic.eAttunement)
+        {
+            //Golemancer
+            case AttunementType.GolemancerStone:
+
+                break;
+            case AttunementType.GolemancerCrystal:
+
+                break;
+            case AttunementType.GolemancerSteel:
+
+                break;
+            case AttunementType.GolemancerArcane:
+
+                break;
+
+            //Psyc
+            case AttunementType.Psyc:
+
+                break;
+
+            //Mystic
+            case AttunementType.Mystic:
+
+                break;
+        }
+    }
+    public void Staff4(Player player, Weapon weap, Transform emitter)
+    {
+        Abilities abilities = Abilities.instance;
+        switch (player.classMechanic.eAttunement)
+        {
+            //Golemancer
+            case AttunementType.GolemancerStone:
+
+                break;
+            case AttunementType.GolemancerCrystal:
+
+                break;
+            case AttunementType.GolemancerSteel:
+
+                break;
+            case AttunementType.GolemancerArcane:
+
+                break;
+
+            //Psyc
+            case AttunementType.Psyc:
+
+                break;
+
+            //Mystic
+            case AttunementType.Mystic:
+
+                break;
+        }
+    }
+
+    public void Foci3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1563,16 +1509,60 @@ public class WeaponManager : MonoBehaviour
 
             //Elementalist
             case AttunementType.ElementalistAir:
-                abilities.ShockingAura(player, emitter, damage);
+                abilities.GustOfWind(player, weap, emitter);
                 break;
             case AttunementType.ElementalistEarth:
-                abilities.GraniteAura(player, emitter, damage);
+                abilities.MagneticPulse(player, weap, emitter);
                 break;
             case AttunementType.ElementalistFire:
-                abilities.FlamingAura(player, emitter, damage);
+                abilities.RingOfFire(player, weap, emitter);
                 break;
             case AttunementType.ElementalistWater:
-                abilities.MistAura(player, emitter, damage);
+                abilities.CleansingFog(player, weap, emitter);
+                break;
+
+            //Psyc
+            case AttunementType.Psyc:
+
+                break;
+
+            //Mystic
+            case AttunementType.Mystic:
+
+                break;
+        }
+    }
+    public void Foci4(Player player, Weapon weap, Transform emitter)
+    {
+        Abilities abilities = Abilities.instance;
+        switch (player.classMechanic.eAttunement)
+        {
+            //Golemancer
+            case AttunementType.GolemancerStone:
+
+                break;
+            case AttunementType.GolemancerCrystal:
+
+                break;
+            case AttunementType.GolemancerSteel:
+
+                break;
+            case AttunementType.GolemancerArcane:
+
+                break;
+
+            //Elementalist
+            case AttunementType.ElementalistAir:
+                abilities.ShockingAura(player, weap, emitter);
+                break;
+            case AttunementType.ElementalistEarth:
+                abilities.GraniteAura(player, weap, emitter);
+                break;
+            case AttunementType.ElementalistFire:
+                abilities.FlamingAura(player, weap, emitter);
+                break;
+            case AttunementType.ElementalistWater:
+                abilities.MistAura(player, weap, emitter);
                 break;
 
             //Psyc
@@ -1587,7 +1577,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void NanoGlove1(Player player, Transform emitter, int damage)
+    public void NanoGlove1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1614,7 +1604,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void NanoGlove2(Player player, Transform emitter, int damage)
+    public void NanoGlove2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1635,7 +1625,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void NanoGlove3(Player player, Transform emitter, int damage)
+    public void NanoGlove3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1662,7 +1652,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void NanoGlove4(Player player, Transform emitter, int damage)
+    public void NanoGlove4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1684,7 +1674,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void GravGun1(Player player, Transform emitter, int damage)
+    public void GravGun1(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1716,7 +1706,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void GravGun2(Player player, Transform emitter, int damage)
+    public void GravGun2(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1748,7 +1738,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void GravGun3(Player player, Transform emitter, int damage)
+    public void GravGun3(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1780,7 +1770,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void GravGun4(Player player, Transform emitter, int damage)
+    public void GravGun4(Player player, Weapon weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)

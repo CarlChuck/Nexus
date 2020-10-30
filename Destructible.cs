@@ -13,15 +13,15 @@ public class Destructible : StatBlock
         base.Start();
     }
 
-    public override void TakeDamage(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit)
+    public override void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
     {
-        base.TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+        base.TakeDamage(attacker, fDamage, sDamage, rDamage, pDamage);
     }
 
-    public override void TakeDamageFinal(int damage, StatBlock attacker)
+    public override void TakeDamageFinal(StatBlock attacker, int damage)
     {
         Debug.Log("boom");
-        base.TakeDamageFinal(damage, attacker);
+        base.TakeDamageFinal(attacker, damage);
     }
 
     public override void OnDeath()

@@ -176,9 +176,12 @@ public class Inventory : MonoBehaviour
                 Add(item, skills);
                 break;
             case ItemType.Weapon:
+                Weapon weap = item as Weapon;
+                weap.InitialiseWeapon();
                 if (rHand == null)
                 {
-                    Weapon weap = item as Weapon;
+
+
                     if (weap.wType == WeaponType.HPistol || weap.wType == WeaponType.PPistol || weap.wType == WeaponType.Wand)
                     {
                         rHand = weap;
@@ -186,12 +189,12 @@ public class Inventory : MonoBehaviour
                     }
                     else
                     {
-                        Add(item, weaponry);
+                        Add(weap, weaponry);
                     }
                 }
                 else
                 {
-                    Add(item, weaponry);
+                    Add(weap, weaponry);
                 }
                 break;
             default:

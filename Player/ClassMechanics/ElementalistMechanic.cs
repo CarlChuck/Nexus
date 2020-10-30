@@ -272,25 +272,25 @@ public class ElementalistMechanic : ClassMechanic
         switch (eleSkill)
         {
             case EleSkill.LightningWarp:
-                Abilities.instance.LightningWarp(damage);
+                //Abilities.instance.LightningWarp(damage);
                 break;
             case EleSkill.CrystalSkin:
-                Abilities.instance.CrystalSkin(damage);
+                //Abilities.instance.CrystalSkin(damage);
                 break;
             case EleSkill.HealingRiver:
-                Abilities.instance.HealingRiver(damage);
+                //Abilities.instance.HealingRiver(damage);
                 break;
             case EleSkill.Fog:
-                Abilities.instance.Fog(damage);
+                //Abilities.instance.Fog(damage);
                 break;
             case EleSkill.Sandstorm:
-                Abilities.instance.Sandstorm(damage);
+                //Abilities.instance.Sandstorm(damage);
                 break;
             case EleSkill.Static:
-                Abilities.instance.Static(damage);
+                //Abilities.instance.Static(damage);
                 break;
             case EleSkill.EarthenArmour:
-                Abilities.instance.EarthenArmour(damage);
+                //Abilities.instance.EarthenArmour(damage);
                 break;
         }
     }
@@ -299,7 +299,7 @@ public class ElementalistMechanic : ClassMechanic
         switch (eleEliteSkill)
         {
             case EleEliteSkill.ElementalRay:
-                Abilities.instance.LightningWarp(damage);
+                //Abilities.instance.LightningWarp(damage);
                 break;
         }
     }

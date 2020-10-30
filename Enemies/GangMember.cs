@@ -9,6 +9,7 @@ public class GangMember : Enemy
     private EnemyWeaponMounts eWeaps;
     public GangMemberType gType;
     public RagdollEffect rDoll;
+    [SerializeField] private Weapon equippedWeap;
 
     public override void Start()
     {
@@ -40,16 +41,15 @@ public class GangMember : Enemy
             //TODO Sound
             eAnimator.SetTrigger("MeleeRSwipe");
 
-            CreateProjectile(projectile, this, emitter, damage, dType, damageStat, null, null, 0, 0, false, 0, true, false, false, false, 0, 20);
+            CreateProjectile(projectile, this, emitter, damageStat, null, null, 0, 0, false, 0, true, false, false, false, 0, 20);
         }
         else if (gType == GangMemberType.Rifle)
         {
             //TODO Sound
             eAnimator.SetTrigger("RifleShoot");
-            CreateProjectile(projectile, this, emitter, damage, dType, damageStat, null, null, 0, 0, false, 0, true, false, false, false, 30, 20);
+            CreateProjectile(projectile, this, emitter, damageStat, null, null, 0, 0, false, 0, true, false, false, false, 30, 20);
             eWeaps.FireRWeapon();
         }
-
         //TODO attacks
     }
     
@@ -74,12 +74,12 @@ public class GangMember : Enemy
         eAnimator.SetFloat("ForwardMovement", speed);
     }
 
-    public Projectile CreateProjectile(Projectile proj, StatBlock attacker, Transform emitter, int damage, DamageType dType, DamageStat dStat,
+    public Projectile CreateProjectile(Projectile proj, StatBlock attacker, Transform emitter, DamageStat dStat,
    BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true,
    bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         Projectile projectileInstance = Instantiate(proj, emitter.position, emitter.rotation);
-        projectileInstance.StartProjectile(attacker, damage, dType, emitter.forward, dStat, hexes, boons, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
+        projectileInstance.StartProjectile(attacker, equippedWeap, dStat, emitter.forward, hexes, boons, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
 
         return projectileInstance;
     }

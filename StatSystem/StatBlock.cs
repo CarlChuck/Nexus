@@ -6,10 +6,15 @@ using UnityEngine;
 
 public class StatBlock : MonoBehaviour
 {
+    int level;
+    #region Stat Variables
     //Health and Primary Skills
     public Stat vitality;
     public int currentHealth { get; protected set; }
     public Stat armour;
+    public Stat block;
+    public int armourIncreasePercentage;
+    public int totalArmour;
     public Stat strength;
     public Stat marksmanship;
     public Stat arcana;
@@ -28,13 +33,16 @@ public class StatBlock : MonoBehaviour
     public Stat affliction;
     public Stat persistence;
     public Stat luck;
+    public int xpModifier;
 
     //Hidden Skills
     public Stat physDamage;
     public Stat fireDamage;
     public Stat shockDamage;
     public Stat radDamage;
+    #endregion
 
+    #region prefabs/variables
     public List<Boon> boons;
     public List<Hex> hexes;
 
@@ -45,13 +53,16 @@ public class StatBlock : MonoBehaviour
 
     [SerializeField] private float takeDamageTimer;
     [SerializeField] private float takeDamageCooldown;
+    #endregion
 
-
+    #region Initialisation and Update
     // Start with max HP.
     public virtual void Start()
     {
         takeDamageCooldown = 0.2f;
         currentHealth = vitality.GetValue();
+        armourIncreasePercentage = 0;
+        level = 1;
         //boonTemplate = Resources.Load("BoonHexes/Boon") as Boon;
         //hexTemplate = Resources.Load("BoonHexes/Hex") as Hex;
     }
@@ -66,70 +77,112 @@ public class StatBlock : MonoBehaviour
             return (float)currentHealth / (float)vitality.GetValue();
         }
     }
-
-    //Apply damage calculation
-    public virtual void TakeDamage(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit)
+    public void SetTotalArmour()
     {
+        totalArmour = (armour.GetValue() + ((armour.GetValue() / 100) * armourIncreasePercentage)) + ((strength.GetValue()) * 5);
+    }
+    #endregion
+
+    #region Damage Calculation
+    //To Deal Damage
+    public void DealDamage(StatBlock target, DamageStat dStat, Weapon weap)
+    {
+        //Get Weapon Damage and Critical
+        bool hasCrit = CriticalHitCalc();
+        float fire = Random.Range(weap.finalFireDamageMin, weap.finalFireDamageMax + 1);
+        float shock = Random.Range(weap.finalShockDamageMin, weap.finalShockDamageMax + 1);
+        float radiation = Random.Range(weap.finalRadDamageMin, weap.finalRadDamageMax + 1);
+        float physical = Random.Range(weap.finalPhysDamageMin, weap.finalPhysDamageMax + 1);
+
+        if (hasCrit == true)
+        {
+            fire += fire * devastation.GetValue();
+            shock += shock * devastation.GetValue();
+            radiation += radiation * devastation.GetValue();
+            physical += physical * devastation.GetValue();
+        }
+        Debug.Log(" Fire Damage: " + fire + " Shock Damage: " + shock + " Radiation Damage: " + radiation + " Physical Damage: " + physical);
+        if (GetBoon(BoonName.Stealth) != null)
+        {
+            GetBoon(BoonName.Stealth).EndBoon();
+        }
+
+        //Add Stat Damage
+        int damageStat = 0;
+        switch (dStat)
+        {
+            case DamageStat.Strength:
+                damageStat = strength.GetValue() + HasPowerBoon() - HasWeakenHex();
+                break;
+            case DamageStat.Marksmanship:
+                damageStat = marksmanship.GetValue() + HasPowerBoon() - HasWeakenHex();
+                break;
+            case DamageStat.Arcana:
+                damageStat = arcana.GetValue() + HasPowerBoon() - HasWeakenHex();
+                break;
+        }
+        //FIX THIS
+        float finalFire = fire + (fire * (damageStat/100) * ((fireDamage.GetValue() + HasRendBoon()) / 100));
+        float finalShock = shock + (shock * (damageStat / 100) * ((shockDamage.GetValue() + HasRendBoon()) / 100));
+        float finalRadiation = radiation + (radiation * (damageStat / 100) * ((radDamage.GetValue() + HasRendBoon()) / 100));
+        float finalPhysical = physical + (physical * (damageStat / 100) * ((physDamage.GetValue() + HasRendBoon()) / 100));
+        Debug.Log("Fire Damage: " + finalFire + " Shock Damage: " + finalShock + " Radiation Damage: " + finalRadiation + " Physical Damage: " + finalPhysical);
+        //Apply Damage, and get HexBlind HexIntimidate miss chance
+        if (GetHex(HexName.Blind) != null)
+        {
+            target.TakeDamage(target, 0, 0, 0, 0);
+            GetHex(HexName.Blind).EndHex();
+        }
+        else if (HasIntimidateHex())
+        {
+            target.TakeDamage(target, 0, 0, 0, 0);
+        }
+        else
+        {
+            target.TakeDamage(target, finalFire, finalShock, finalRadiation, finalPhysical);
+        }
+
+    }
+
+    //To Recieve Damage
+    public virtual void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
+    {
+
         if (takeDamageTimer < 0)
         {
-            int attackerDevastation = attacker.devastation.GetValue();
+            float fire = fDamage;
+            float shock = sDamage;
+            float rad = rDamage;
+            float phys = pDamage;
+            float damage;
 
             if (HasReflectionBoon())
             {
-                attacker.TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+                attacker.TakeDamage(attacker, fire, shock, rad, phys);
                 GetBoon(BoonName.Reflection).EndBoon();
             }
             else
             {
                 if (HasFeedbackBoon())
                 {
-                    attacker.TakeDamageFinal(5, attacker);
+                    attacker.TakeDamageFinal(attacker, level);
                 }
                 int armourValue = armour.GetValue() + HasDefenceBoon();
-                int damage = (weapDamage + (weapDamage * (damageStat - armourValue) / 100)) * (dTypeValue / 100);
 
-                if (hasCrit == true)
-                {
-                    damage = damage + ((damage * attackerDevastation) / 100);
-                }
+                fire -= (fire * ((fireResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                shock -= (shock * ((shockResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                rad -= (rad * ((physicalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                phys -= (phys * ((radResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
 
-                if (dType == DamageType.Fire)
-                {
-                    damage = damage - (damage * ((fireResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                    TakeDamageFinal(damage, attacker);
-                }
-                else if (dType == DamageType.Shock)
-                {
-                    damage = damage - (damage * ((shockResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                    TakeDamageFinal(damage, attacker);
-                }
-                else if (dType == DamageType.Physical)
-                {
-                    damage = damage - (damage * ((physicalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                    TakeDamageFinal(damage, attacker);
-                }
-                else if (dType == DamageType.Radiation)
-                {
-                    damage = damage - (damage * ((radResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                    TakeDamageFinal(damage, attacker);
-                }
+                damage = (fire + shock + rad + phys);
+                damage -= damage * ArmourMitigation(attacker.level);
+                TakeDamageFinal(attacker, (int)damage);
             }
         }
     }
 
-    //Run damage through Critical Hits formula
-    public bool CriticalHitCalc()
-    {
-        int critChance = ferocity.GetValue() + HasPrecisionBoon();
-        if (Random.Range(0, 100) < critChance)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    // Damage the character
-    public virtual void TakeDamageFinal(int damage, StatBlock attacker)
+    //Damage the character
+    public virtual void TakeDamageFinal(StatBlock attacker, int damage)
     {
         // limit damage taken within bounds
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
@@ -153,7 +206,7 @@ public class StatBlock : MonoBehaviour
         {
             currentHealth -= damage;
         }
-        Debug.Log(transform.name + " takes " + damage + " damage.");
+        TakeDamageFeedback(damage);
 
         // If we hit 0. Die.
         if (currentHealth <= 0)
@@ -175,69 +228,32 @@ public class StatBlock : MonoBehaviour
         }
     }
 
-    public void DealDamage(StatBlock target, int wDamage, DamageStat dStat, DamageType dType)
+    //Method to trigger events on taking damage (such as damage numbers flying up off enemies)
+    public virtual void TakeDamageFeedback(int damage)
     {
-        int dTypeValue = 100;
-        int damageStat = 0;
-        bool hasCrit = CriticalHitCalc();
-
-        if (GetBoon(BoonName.Stealth) != null)
-        {
-            GetBoon(BoonName.Stealth).EndBoon();
-        }
-
-        switch (dStat)
-        {
-            case DamageStat.Strength:
-                damageStat = strength.GetValue() + HasPowerBoon() - HasWeakenHex();
-                break;
-            case DamageStat.Marksmanship:
-                damageStat = marksmanship.GetValue() + HasPowerBoon() - HasWeakenHex();
-                break;
-            case DamageStat.Arcana:
-                damageStat = arcana.GetValue() + HasPowerBoon() - HasWeakenHex();
-                break;
-            default:
-                damageStat = strength.GetValue();
-                Debug.Log("NO DAMAGE STAT ASSIGNED TO ATTACK");
-                break;
-        }
-
-        switch (dType)
-        {
-            case DamageType.Fire:
-                dTypeValue = fireDamage.GetValue() + HasRendBoon();
-                break;
-            case DamageType.Shock:
-                dTypeValue = shockDamage.GetValue() + HasRendBoon();
-                break;
-            case DamageType.Radiation:
-                dTypeValue = radDamage.GetValue() + HasRendBoon();
-                break;
-            case DamageType.Physical:
-                dTypeValue = physDamage.GetValue() + HasRendBoon();
-                break;
-            default:
-                dTypeValue = physDamage.GetValue() + HasRendBoon();
-                Debug.Log("NO DAMAGE TYPE ASSIGNED TO ATTACK");
-                break;
-        }
-        if (GetHex(HexName.Blind) != null)
-        {
-            target.TakeDamage(this, 0, damageStat, dType, dTypeValue, hasCrit);
-            GetHex(HexName.Blind).EndHex();
-        }
-        else if (HasIntimidateHex())
-        {
-            target.TakeDamage(this, 0, damageStat, dType, dTypeValue, hasCrit);
-        }
-        else
-        {
-            target.TakeDamage(this, wDamage, damageStat, dType, dTypeValue, hasCrit);
-        }
-
+        Debug.Log(transform.name + " takes " + damage + " damage.");
     }
 
+    //Run damage through Critical Hits formula
+    public bool CriticalHitCalc()
+    {
+        int critChance = ferocity.GetValue() + HasPrecisionBoon();
+        if (Random.Range(0, 100) < critChance)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public float ArmourMitigation(int attackerLevel)
+    {
+        float mitigation = totalArmour / ((attackerLevel * 50) + totalArmour);
+
+        return mitigation;
+    }
+    #endregion
+
+    #region Healing And Health
     // Heal the character.
     public void Heal(int amount)
     {
@@ -250,6 +266,9 @@ public class StatBlock : MonoBehaviour
     {
         //To Override
     }
+    #endregion
+
+    #region OnHit OnDeath etc
     public void OnHitByProjectile()
     {
         //GameObject onHitVFX = Instantiate(onHitEffect, gameObject.transform);
@@ -270,8 +289,9 @@ public class StatBlock : MonoBehaviour
     {
         //To Override
     }
+    #endregion
 
-    //BOON checks, each tailored for their use cases
+    #region BOON checks, each tailored for their use cases
     public int HasResistanceBoon()
     {
         if (GetBoon(BoonName.Resistance) != null)
@@ -406,8 +426,9 @@ public class StatBlock : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         HasRegenerationBoon(regen);
     }
+    #endregion
 
-    //HEX checks, each tailored for their use cases
+    #region HEX checks, each tailored for their use cases
     public int HasVulnerabilityHex()
     {
         if (GetHex(HexName.Vulnerability) != null)
@@ -547,71 +568,61 @@ public class StatBlock : MonoBehaviour
             return false;
         }
     }//TODO add enemy AI target change
-    public void HasBurnHex(StatBlock attacker, int weapDamage, int damageStat, float waitTime = 1f)
+    public void HasBurnHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
     {
         if (GetHex(HexName.Burn) != null)
         {
-            DamageType dType = DamageType.Fire;
-            int dTypeValue = attacker.fireDamage.GetValue() + attacker.HasRendBoon();
-            bool hasCrit = attacker.CriticalHitCalc();
-            StartCoroutine(RunBurnHex(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit, waitTime));
+            StartCoroutine(RunBurnHex(attacker, weapDamage, waitTime));
         }
     }
-    public void HasElectrocuteHex(StatBlock attacker, int weapDamage, int damageStat, float waitTime = 1f)
+    public void HasElectrocuteHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
     {
         if (GetHex(HexName.Electrocute) != null)
         {
-            DamageType dType = DamageType.Shock;
-            int dTypeValue = attacker.shockDamage.GetValue() + attacker.HasRendBoon();
-            bool hasCrit = attacker.CriticalHitCalc();
-            StartCoroutine(RunElectrocuteHex(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit, waitTime));
+            StartCoroutine(RunElectrocuteHex(attacker, weapDamage, waitTime));
         }
     }
-    public void HasIrradiateHex(StatBlock attacker, int weapDamage, int damageStat, float waitTime = 1f)
+    public void HasIrradiateHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
     {
         if (GetHex(HexName.Irradiate) != null)
         {
-            DamageType dType = DamageType.Radiation;
-            int dTypeValue = attacker.radDamage.GetValue() + attacker.HasRendBoon();
-            bool hasCrit = attacker.CriticalHitCalc();
-            StartCoroutine(RunIrradiateHex(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit, waitTime));
+            StartCoroutine(RunIrradiateHex(attacker, weapDamage, waitTime));
         }
     }
-    public void HasBleedHex(StatBlock attacker, int weapDamage, int damageStat, float waitTime = 1f)
+    public void HasBleedHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
     {
         if (GetHex(HexName.Bleed) != null)
         {
-            DamageType dType = DamageType.Physical;
-            int dTypeValue = attacker.physDamage.GetValue() + attacker.HasRendBoon();
-            bool hasCrit = attacker.CriticalHitCalc();
-            StartCoroutine(RunBleedHex(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit, waitTime));
+            StartCoroutine(RunBleedHex(attacker, weapDamage, waitTime));
         }
     }
-    IEnumerator RunBurnHex(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit, float waitTime)
+    IEnumerator RunBurnHex(StatBlock attacker, int weapDamage, float waitTime)
     {
-        TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+        TakeDamage(attacker, weapDamage, 0, 0, 0);
         yield return new WaitForSeconds(waitTime);
-        HasBurnHex(attacker, weapDamage, damageStat, waitTime);
+        HasBurnHex(attacker, weapDamage,  waitTime);
     }
-    IEnumerator RunElectrocuteHex(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit, float waitTime)
+    IEnumerator RunElectrocuteHex(StatBlock attacker, int weapDamage,  float waitTime)
     {
-        TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+        TakeDamage(attacker, 0, weapDamage, 0, 0);
         yield return new WaitForSeconds(waitTime);
-        HasElectrocuteHex(attacker, weapDamage, damageStat, waitTime);
+        HasElectrocuteHex(attacker, weapDamage, waitTime);
     }
-    IEnumerator RunIrradiateHex(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit, float waitTime)
+    IEnumerator RunIrradiateHex(StatBlock attacker, int weapDamage, float waitTime)
     {
-        TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+        TakeDamage(attacker, 0, 0, weapDamage, 0);
         yield return new WaitForSeconds(waitTime);
-        HasIrradiateHex(attacker, weapDamage, damageStat, waitTime);
+        HasIrradiateHex(attacker, weapDamage, waitTime);
     }
-    IEnumerator RunBleedHex(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit, float waitTime)
+    IEnumerator RunBleedHex(StatBlock attacker, int weapDamage, float waitTime)
     {
-        TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+        TakeDamage(attacker, 0, 0, 0, weapDamage);
         yield return new WaitForSeconds(waitTime);
-        HasBleedHex(attacker, weapDamage, damageStat, waitTime);
+        HasBleedHex(attacker, weapDamage, waitTime);
     }
+    #endregion
 
+    #region Hex/Boon Management
     public void AddBoon(BoonName boonName, StatBlock applier, float dur, int eShield = 20)
     {
         if (GetBoon(boonName) != null)
@@ -703,7 +714,9 @@ public class StatBlock : MonoBehaviour
         }
         return null;
     }
+    #endregion
 
+    #region Timers
     public void UpdateTakeDamageTimer()
     {
         takeDamageTimer -= Time.deltaTime;
@@ -713,6 +726,7 @@ public class StatBlock : MonoBehaviour
     {
         takeDamageTimer = takeDamageCooldown;
     }
+    #endregion
 }
 public enum CharClass { Blank, Golemancer, Elementalist, Psyc, Mystic, Crypter, Apoch, Artificer, NanoMage, Vigil, Shadow, Envoy, StreetDoctor }
 public enum BoonName { Blank, Resistance, Velocity, Swiftness, Power, Defence, Reflection, Precision, Shielding, Regeneration, Rend, Feedback, Stealth }

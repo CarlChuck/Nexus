@@ -108,17 +108,17 @@ public class Enemy : StatBlock
         }
     }
 
-    public override void TakeDamage(StatBlock attacker, int weapDamage, int damageStat, DamageType dType, int dTypeValue, bool hasCrit)
+    public override void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
     {
         if (state != AIstate.Dead)
         {
-            base.TakeDamage(attacker, weapDamage, damageStat, dType, dTypeValue, hasCrit);
+            base.TakeDamage(attacker, fDamage, sDamage, rDamage, pDamage);
         }
     }
 
-    public override void TakeDamageFinal(int damage, StatBlock attacker)
+    public override void TakeDamageFinal(StatBlock attacker, int damage)
     {
-        base.TakeDamageFinal(damage, attacker);
+        base.TakeDamageFinal(attacker, damage);
         AddHex(HexName.Stun, attacker, 0.1f);
         EnemyKnockback(damage * 600, attacker);
     }
