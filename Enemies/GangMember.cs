@@ -10,6 +10,7 @@ public class GangMember : Enemy
     public GangMemberType gType;
     public RagdollEffect rDoll;
     [SerializeField] private Weapon equippedWeap;
+    private float damageModifier;
 
     public override void Start()
     {
@@ -24,7 +25,7 @@ public class GangMember : Enemy
         {
             eAnimator.SetBool("RifleEquipped", true);
         }
-
+        damageModifier = 1;
     }
 
     public override void Update()
@@ -79,7 +80,7 @@ public class GangMember : Enemy
    bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         Projectile projectileInstance = Instantiate(proj, emitter.position, emitter.rotation);
-        projectileInstance.StartProjectile(attacker, equippedWeap, dStat, emitter.forward, hexes, boons, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
+        projectileInstance.StartProjectile(attacker, equippedWeap, dStat, emitter.forward, damageModifier, hexes, boons, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
 
         return projectileInstance;
     }

@@ -11,19 +11,13 @@ public class StatBlock : MonoBehaviour
     //Health and Primary Skills
     public Stat vitality;
     public int currentHealth { get; protected set; }
-    public Stat armour;
-    public Stat block;
     public int armourIncreasePercentage;
     public int totalArmour;
+    public Stat armour;
+    public Stat block;
     public Stat strength;
     public Stat marksmanship;
     public Stat arcana;
-
-    //Defence Skills
-    public Stat fireResistance;
-    public Stat shockResistance;
-    public Stat radResistance;
-    public Stat physicalResistance;
 
     //Secondary Skills
     public Stat movement;
@@ -34,12 +28,33 @@ public class StatBlock : MonoBehaviour
     public Stat persistence;
     public Stat luck;
     public int xpModifier;
+    public Stat leech;
+    public Stat regen;
+    public Stat feedback;
+
+    //Resistances
+    public Stat thermalResistance;
+    public Stat cryoResistance;
+    public Stat shockResistance;
+    public Stat radiationResistance;
+    public Stat psiResistance;
+    public Stat dimensionResistance;
+    public Stat kineticResistance;
+    public Stat poisonResistance;
+    public Stat bioResistance;
+    public Stat corruptionResistance;
 
     //Hidden Skills
-    public Stat physDamage;
-    public Stat fireDamage;
+    public Stat thermalDamage;
+    public Stat cryoDamage;
     public Stat shockDamage;
-    public Stat radDamage;
+    public Stat radiationDamage;
+    public Stat psiDamage;
+    public Stat dimensionDamage;
+    public Stat kineticDamage;
+    public Stat poisonDamage;
+    public Stat bioDamage;
+    public Stat corruptionDamage;
     #endregion
 
     #region prefabs/variables
@@ -85,23 +100,35 @@ public class StatBlock : MonoBehaviour
 
     #region Damage Calculation
     //To Deal Damage
-    public void DealDamage(StatBlock target, DamageStat dStat, Weapon weap)
+    public void DealDamage(StatBlock target, DamageStat dStat, Weapon weap, float multiplier)
     {
         //Get Weapon Damage and Critical
         bool hasCrit = CriticalHitCalc();
-        float fire = Random.Range(weap.finalFireDamageMin, weap.finalFireDamageMax + 1);
-        float shock = Random.Range(weap.finalShockDamageMin, weap.finalShockDamageMax + 1);
-        float radiation = Random.Range(weap.finalRadDamageMin, weap.finalRadDamageMax + 1);
-        float physical = Random.Range(weap.finalPhysDamageMin, weap.finalPhysDamageMax + 1);
+        float thermal = Random.Range(weap.finalThermalMin, weap.finalThermalMax + 1);
+        float cryo = Random.Range(weap.finalCryoMin, weap.finalCryoMax + 1);
+        float shock = Random.Range(weap.finalShockMin, weap.finalShockMax + 1);
+        float radiation = Random.Range(weap.finalRadMin, weap.finalRadMax + 1);
+        float psi = Random.Range(weap.finalPsiMin, weap.finalPsiMax + 1);
+        float dimensional = Random.Range(weap.finalDimensionMin, weap.finalDimensionMax + 1);
+        float kinetic = Random.Range(weap.finalKineticMin, weap.finalKineticMax + 1);
+        float poison = Random.Range(weap.finalPoisonMin, weap.finalPoisonMax + 1);
+        float bio = Random.Range(weap.finalBioMin, weap.finalBioMax + 1);
+        float corruption = Random.Range(weap.finalCorruptionMin, weap.finalCorruptionMax + 1);
 
         if (hasCrit == true)
         {
-            fire += fire * devastation.GetValue();
+            thermal += thermal * devastation.GetValue();
+            cryo += cryo * devastation.GetValue();
             shock += shock * devastation.GetValue();
             radiation += radiation * devastation.GetValue();
-            physical += physical * devastation.GetValue();
+            psi += psi * devastation.GetValue();
+            dimensional += dimensional * devastation.GetValue();
+            kinetic += kinetic * devastation.GetValue();
+            poison += poison * devastation.GetValue();
+            bio += bio * devastation.GetValue();
+            corruption += corruption * devastation.GetValue();
         }
-        Debug.Log(" Fire Damage: " + fire + " Shock Damage: " + shock + " Radiation Damage: " + radiation + " Physical Damage: " + physical);
+
         if (GetBoon(BoonName.Stealth) != null)
         {
             GetBoon(BoonName.Stealth).EndBoon();
@@ -121,44 +148,56 @@ public class StatBlock : MonoBehaviour
                 damageStat = arcana.GetValue() + HasPowerBoon() - HasWeakenHex();
                 break;
         }
-        //FIX THIS
-        float finalFire = fire + (fire * (damageStat/100) * ((fireDamage.GetValue() + HasRendBoon()) / 100));
-        float finalShock = shock + (shock * (damageStat / 100) * ((shockDamage.GetValue() + HasRendBoon()) / 100));
-        float finalRadiation = radiation + (radiation * (damageStat / 100) * ((radDamage.GetValue() + HasRendBoon()) / 100));
-        float finalPhysical = physical + (physical * (damageStat / 100) * ((physDamage.GetValue() + HasRendBoon()) / 100));
-        Debug.Log("Fire Damage: " + finalFire + " Shock Damage: " + finalShock + " Radiation Damage: " + finalRadiation + " Physical Damage: " + finalPhysical);
+        float finalThermal = (thermal + (thermal * (damageStat / 100) * ((thermalDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalCryo = (cryo + (cryo * (damageStat / 100) * ((cryoDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalShock = (shock + (shock * (damageStat / 100) * ((shockDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalRadiation = (radiation + (radiation * (damageStat / 100) * ((radiationDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalPsi = (psi + (psi * (damageStat / 100) * ((psiDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalDimensional = (dimensional + (dimensional * (damageStat / 100) * ((dimensionDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalKinetic = (kinetic + (kinetic * (damageStat / 100) * ((kineticDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalPoison = (poison + (poison * (damageStat / 100) * ((poisonDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalBio = (bio + (bio * (damageStat / 100) * ((bioDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+        float finalCorruption = (corruption + (corruption * (damageStat / 100) * ((corruptionDamage.GetValue() + HasRendBoon()) / 100))) * multiplier;
+
         //Apply Damage, and get HexBlind HexIntimidate miss chance
         if (GetHex(HexName.Blind) != null)
         {
-            target.TakeDamage(target, 0, 0, 0, 0);
+            target.TakeDamage(target, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             GetHex(HexName.Blind).EndHex();
         }
         else if (HasIntimidateHex())
         {
-            target.TakeDamage(target, 0, 0, 0, 0);
+            target.TakeDamage(target, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
         else
         {
-            target.TakeDamage(target, finalFire, finalShock, finalRadiation, finalPhysical);
+            target.TakeDamage(target, finalThermal, finalCryo, finalShock, finalRadiation, finalPsi, finalDimensional, finalKinetic, finalPoison, finalBio, finalCorruption);
         }
 
     }
 
     //To Recieve Damage
-    public virtual void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
+    public virtual void TakeDamage(StatBlock attacker, float thermDamage, float cryoDamage, float shockDamage, float radDamage, float psiDamage, float dimensionDamage, 
+        float kineticDamage, float poisonDamage, float bioDamage, float corruptionDamage)
     {
 
         if (takeDamageTimer < 0)
         {
-            float fire = fDamage;
-            float shock = sDamage;
-            float rad = rDamage;
-            float phys = pDamage;
+            float thermal = thermDamage;
+            float cryo = cryoDamage;
+            float shock = shockDamage;
+            float radiation = radDamage;
+            float psi = psiDamage;
+            float dimensional = dimensionDamage;
+            float kinetic = kineticDamage;
+            float poison = poisonDamage;
+            float bio = bioDamage;
+            float corruption = corruptionDamage;
             float damage;
 
             if (HasReflectionBoon())
             {
-                attacker.TakeDamage(attacker, fire, shock, rad, phys);
+                attacker.TakeDamage(attacker, thermal, cryo, shock, radiation, psi, dimensional, kinetic, poison, bio, corruption);
                 GetBoon(BoonName.Reflection).EndBoon();
             }
             else
@@ -169,12 +208,19 @@ public class StatBlock : MonoBehaviour
                 }
                 int armourValue = armour.GetValue() + HasDefenceBoon();
 
-                fire -= (fire * ((fireResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                shock -= (shock * ((shockResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                rad -= (rad * ((physicalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
-                phys -= (phys * ((radResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                thermal -= (thermal * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                cryo -= (cryo * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                shock -= (shock * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                radiation -= (radiation * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                psi -= (psi * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                dimensional -= (dimensional * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                kinetic -= (kinetic * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                poison -= (poison * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                bio -= (bio * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
+                corruption -= (corruption * ((thermalResistance.GetValue() + HasResistanceBoon() - HasVulnerabilityHex()) / 100));
 
-                damage = (fire + shock + rad + phys);
+
+                damage = (thermal + cryo + shock + radiation + psi + dimensional + kinetic + poison + bio + corruption);
                 damage -= damage * ArmourMitigation(attacker.level);
                 TakeDamageFinal(attacker, (int)damage);
             }

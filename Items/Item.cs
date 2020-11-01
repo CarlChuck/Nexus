@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
-    new public string name = "New Item"; 
+    [Header("Main")]
     public Sprite icon = null; //Set in Inspector
-    public Animator anim; //Set in Inspector
     public ItemType itemType; //Set in Inspector
     public Quality quality;
     public string description; //Set in Inspector
@@ -15,6 +14,7 @@ public class Item : ScriptableObject
     private List<Suffix> suffixes;
 
     #region StatModifiers
+    [Header("Stat Mods")]
     //Stats
     public int vitality;
     public int strength;
@@ -43,12 +43,7 @@ public class Item : ScriptableObject
     public int xpGain;
     public int leechHealth;
 
-    //Hidden Skills
-    public int physDamage;
-    public int fireDamage;
-    public int shockDamage;
-    public int radDamage;
-
+    [Header("OnHit/Struck")]
     //Item On Hit/Struck Abilities
     public int onStruckResistance;
     public int onStruckPrecision;
@@ -66,19 +61,41 @@ public class Item : ScriptableObject
     public int onHitBleed;
     public int onHitShock;
 
-    //Weapon Damage additional
-    public int weaponFireDamageMin;
-    public int weaponFireDamageMax;
+    [Header("Weapons Only")]
+    //Weapon additional
+    public Animator anim; 
+    public int weaponThermalDamageMin;
+    public int weaponThermalDamageMax;
+    public int weaponCryoDamageMin;
+    public int weaponCryoDamageMax;
     public int weaponShockDamageMin;
     public int weaponShockDamageMax;
     public int weaponRadDamageMin;
     public int weaponRadDamageMax;
-    public int weaponPhysDamageMin;
-    public int weaponPhysDamageMax;
+    public int weaponPsiDamageMin;
+    public int weaponPsiDamageMax;
+    public int weaponDimensionDamageMin;
+    public int weaponDimensionDamageMax;
+    public int weaponKineticDamageMin;
+    public int weaponKineticDamageMax;
+    public int weaponPoisonDamageMin;
+    public int weaponPoisonDamageMax;
+    public int weaponBioDamageMin;
+    public int weaponBioDamageMax;
+    public int weaponCorruptionDamageMin;
+    public int weaponCorruptionDamageMax;
 
+    [Header("Armour Only")]
     //Armour Additionals
     public int armourMin;
     public int armourMax;
+
+    [Header("Mods Only")]
+    //Hidden Skills
+    public int physDamage;
+    public int fireDamage;
+    public int shockDamage;
+    public int radDamage;
     #endregion
 
     #region Create Item

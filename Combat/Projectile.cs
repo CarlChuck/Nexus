@@ -30,13 +30,14 @@ public class Projectile : MonoBehaviour
     private BoonName[] boons;
     private float boonDuration;
     private float hexDuration;
+    private float multiplier;
     private bool push = false;
     private bool pull = false;
     private bool persistent = false;
     private bool freeze = false;
 
     //Sets projectile and begins
-    public void StartProjectile(StatBlock attk, Weapon weap, DamageStat dStat, Vector3 dir, HexName[] inHexes = null, BoonName[] inBoons = null, float boonDur = 0f, float hexDur = 0f, 
+    public void StartProjectile(StatBlock attk, Weapon weap, DamageStat dStat, Vector3 dir, float mPlier, HexName[] inHexes = null, BoonName[] inBoons = null, float boonDur = 0f, float hexDur = 0f, 
         bool toFreeze = false, int passthr = 0, bool causeDam  = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         speed = inSpeed;
@@ -55,7 +56,7 @@ public class Projectile : MonoBehaviour
         persistent = persist;
         weaponUsed = weap;
         damageStat = dStat;
-
+        multiplier = mPlier;
 
         if (attk is Player || attk is Ally)
         {
@@ -255,7 +256,7 @@ public class Projectile : MonoBehaviour
         }
         if (causeDamage == true)
         {
-            attacker.DealDamage(target, damageStat, weaponUsed);
+            attacker.DealDamage(target, damageStat, weaponUsed, multiplier);
         }
         else
         {
@@ -313,8 +314,8 @@ public class Projectile : MonoBehaviour
         GameObject impactObj = Instantiate(onImpact, currentLoc.position, currentLoc.rotation);
         if (impactObj.GetComponent<Projectile>())
         {
-            impactObj.GetComponent<Projectile>().StartProjectile(attacker, weaponUsed, damageStat, direction, hexes, boons, boonDuration, 
-                hexDuration, freeze, passthrough, true, push, pull, persistent, 0f, 0);
+            impactObj.GetComponent<Projectile>().StartProjectile(attacker, weaponUsed, damageStat, direction, multiplier, hexes, boons, boonDuration, 
+                hexDuration,  freeze, passthrough, true, push, pull, persistent, 0f, 0);
         }
         //TODO add bounce
     }
