@@ -69,9 +69,9 @@ public class StatPane : MonoBehaviour
         UpdateStat(player.devastation, devastationText);
         UpdateStat(player.affliction, afflictionText);
         UpdateStat(player.persistence, persistenceText);
-        UpdateStat(player.physicalResistance, physResistText);
-        UpdateStat(player.radResistance, radResistText);
+        //UpdateStat(player.physicalResistance, physResistText);
+        //UpdateStat(player.radResistance, radResistText);
         UpdateStat(player.shockResistance, shockResistText);
-        UpdateStat(player.fireResistance, fireResistText);
+        //UpdateStat(player.fireResistance, fireResistText);
     }
 }

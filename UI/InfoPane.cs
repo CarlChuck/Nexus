@@ -47,7 +47,8 @@ public class InfoPane : MonoBehaviour
             }*/
         }
         else
-        {            
+        {  
+            /*
             if (item.vitality != 0)
             {
                 infoText.text += item.vitality.ToString() + "\n";
@@ -123,7 +124,7 @@ public class InfoPane : MonoBehaviour
             if (item.radDamage != 0)
             {
                 infoText.text += item.radDamage.ToString() + "\n";
-            }
+            }*/
         }
         infoText.text += "\n" + item.description;
     }

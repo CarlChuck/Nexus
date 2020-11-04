@@ -113,9 +113,10 @@ public class Player : StatBlock
         return mControls;
     }
 
-    public override void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
+    public override void TakeDamage(StatBlock attacker, float thermDamage, float cryoDamage, float shockDamage, float radDamage, float psiDamage, float dimensionDamage,
+        float kineticDamage, float poisonDamage, float bioDamage, float corruptionDamage)
     {
-        base.TakeDamage(attacker, fDamage, sDamage, rDamage, pDamage);
+        base.TakeDamage(attacker, thermDamage, cryoDamage, shockDamage, radDamage, psiDamage, dimensionDamage, kineticDamage, poisonDamage, bioDamage, corruptionDamage);
     }
 
     void NewCharacter()
@@ -134,14 +135,31 @@ public class Player : StatBlock
         devastation.baseValue = 50;
         affliction.baseValue = 10;
         persistence.baseValue = 100;
-        physDamage.baseValue = 100;
-        fireDamage.baseValue = 100;
+        leech.baseValue = 0;
+        regen.baseValue = 0;
+        feedback.baseValue = 0;
+        thermalDamage.baseValue = 100;
+        cryoDamage.baseValue = 100;
         shockDamage.baseValue = 100;
-        radDamage.baseValue = 100;
-        fireResistance.baseValue = 10;
+        radiationDamage.baseValue = 100;
+        psiDamage.baseValue = 100;
+        dimensionDamage.baseValue = 100;
+        kineticDamage.baseValue = 100;
+        psiDamage.baseValue = 100;
+        poisonDamage.baseValue = 100;
+        bioDamage.baseValue = 100;
+        corruptionDamage.baseValue = 100;
+        thermalResistance.baseValue = 10;
+        cryoResistance.baseValue = 10;
         shockResistance.baseValue = 10;
-        radResistance.baseValue = 10;
-        physicalResistance.baseValue = 10;
+        radiationResistance.baseValue = 10;
+        psiResistance.baseValue = 10;
+        dimensionResistance.baseValue = 10;
+        kineticResistance.baseValue = 10;
+        poisonResistance.baseValue = 10;
+        bioResistance.baseValue = 10;
+        corruptionResistance.baseValue = 10;
+
         if (cClass == CharClass.Elementalist)
         {
             gameObject.AddComponent<ElementalistMechanic>();

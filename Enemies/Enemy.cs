@@ -108,11 +108,12 @@ public class Enemy : StatBlock
         }
     }
 
-    public override void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
+    public override void TakeDamage(StatBlock attacker, float thermDamage, float cryoDamage, float shockDamage, float radDamage, float psiDamage, float dimensionDamage,
+        float kineticDamage, float poisonDamage, float bioDamage, float corruptionDamage)
     {
         if (state != AIstate.Dead)
         {
-            base.TakeDamage(attacker, fDamage, sDamage, rDamage, pDamage);
+            base.TakeDamage(attacker, thermDamage, cryoDamage, shockDamage, radDamage, psiDamage, dimensionDamage, kineticDamage, poisonDamage, bioDamage, corruptionDamage);
         }
     }
 
@@ -140,7 +141,7 @@ public class Enemy : StatBlock
     }
 
     //To add extra effects in the time to decay, such as removing ragdoll.
-    public virtual void OnDeathExtra()
+    public override void OnDeathExtra()
     {
         //to override
     }

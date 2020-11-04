@@ -13,9 +13,10 @@ public class Destructible : StatBlock
         base.Start();
     }
 
-    public override void TakeDamage(StatBlock attacker, float fDamage, float sDamage, float rDamage, float pDamage)
+    public override void TakeDamage(StatBlock attacker, float thermDamage, float cryoDamage, float shockDamage, float radDamage, float psiDamage, float dimensionDamage,
+        float kineticDamage, float poisonDamage, float bioDamage, float corruptionDamage)
     {
-        base.TakeDamage(attacker, fDamage, sDamage, rDamage, pDamage);
+        base.TakeDamage(attacker, thermDamage, cryoDamage, shockDamage, radDamage, psiDamage, dimensionDamage, kineticDamage, poisonDamage, bioDamage, corruptionDamage);
     }
 
     public override void TakeDamageFinal(StatBlock attacker, int damage)

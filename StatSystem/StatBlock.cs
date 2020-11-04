@@ -325,7 +325,17 @@ public class StatBlock : MonoBehaviour
     }
     public virtual void OnDeath()
     {
+        OnDeathExtra();
         //To Override
+    }
+    public virtual void OnDeathExtra()
+    {
+        FloatingDamageText();
+        //to override
+    }
+    private void FloatingDamageText()
+    {
+
     }
     public virtual void OnStunned(float timer, bool freeze = true)
     {
@@ -621,6 +631,13 @@ public class StatBlock : MonoBehaviour
             StartCoroutine(RunBurnHex(attacker, weapDamage, waitTime));
         }
     }
+    public void HasChillHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
+    {
+        if (GetHex(HexName.Chill) != null)
+        {
+            StartCoroutine(RunChillHex(attacker, weapDamage, waitTime));
+        }
+    }
     public void HasElectrocuteHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
     {
         if (GetHex(HexName.Electrocute) != null)
@@ -635,6 +652,20 @@ public class StatBlock : MonoBehaviour
             StartCoroutine(RunIrradiateHex(attacker, weapDamage, waitTime));
         }
     }
+    public void HasDeteriorateHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
+    {
+        if (GetHex(HexName.Deteriorate) != null)
+        {
+            StartCoroutine(RunDeteriorateHex(attacker, weapDamage, waitTime));
+        }
+    }
+    public void HasPhaseHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
+    {
+        if (GetHex(HexName.Phase) != null)
+        {
+            StartCoroutine(RunPhaseHex(attacker, weapDamage, waitTime));
+        }
+    }
     public void HasBleedHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
     {
         if (GetHex(HexName.Bleed) != null)
@@ -642,29 +673,86 @@ public class StatBlock : MonoBehaviour
             StartCoroutine(RunBleedHex(attacker, weapDamage, waitTime));
         }
     }
+    public void HasDiseaseHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
+    {
+        if (GetHex(HexName.Disease) != null)
+        {
+            StartCoroutine(RunDiseaseHex(attacker, weapDamage, waitTime));
+        }
+    }
+    public void HasVirusHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
+    {
+        if (GetHex(HexName.Virus) != null)
+        {
+            StartCoroutine(RunVirusHex(attacker, weapDamage, waitTime));
+        }
+    }
+    public void HasCorruptHex(StatBlock attacker, int weapDamage, float waitTime = 1f)
+    {
+        if (GetHex(HexName.Corrupt) != null)
+        {
+            StartCoroutine(RunCorruptHex(attacker, weapDamage, waitTime));
+        }
+    }
     IEnumerator RunBurnHex(StatBlock attacker, int weapDamage, float waitTime)
     {
-        TakeDamage(attacker, weapDamage, 0, 0, 0);
+        TakeDamage(attacker, weapDamage, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         yield return new WaitForSeconds(waitTime);
         HasBurnHex(attacker, weapDamage,  waitTime);
     }
+    IEnumerator RunChillHex(StatBlock attacker, int weapDamage, float waitTime)
+    {
+        TakeDamage(attacker, 0, weapDamage, 0, 0, 0, 0, 0, 0, 0, 0);
+        yield return new WaitForSeconds(waitTime);
+        HasBurnHex(attacker, weapDamage, waitTime);
+    }
     IEnumerator RunElectrocuteHex(StatBlock attacker, int weapDamage,  float waitTime)
     {
-        TakeDamage(attacker, 0, weapDamage, 0, 0);
+        TakeDamage(attacker, 0, 0, weapDamage, 0, 0, 0, 0, 0, 0, 0);
         yield return new WaitForSeconds(waitTime);
         HasElectrocuteHex(attacker, weapDamage, waitTime);
     }
     IEnumerator RunIrradiateHex(StatBlock attacker, int weapDamage, float waitTime)
     {
-        TakeDamage(attacker, 0, 0, weapDamage, 0);
+        TakeDamage(attacker, 0, 0, 0, weapDamage, 0, 0, 0, 0, 0, 0);
         yield return new WaitForSeconds(waitTime);
         HasIrradiateHex(attacker, weapDamage, waitTime);
     }
+    IEnumerator RunDeteriorateHex(StatBlock attacker, int weapDamage, float waitTime)
+    {
+        TakeDamage(attacker, 0, 0, 0, 0, weapDamage, 0, 0, 0, 0, 0);
+        yield return new WaitForSeconds(waitTime);
+        HasBurnHex(attacker, weapDamage, waitTime);
+    }
+    IEnumerator RunPhaseHex(StatBlock attacker, int weapDamage, float waitTime)
+    {
+        TakeDamage(attacker, 0, 0, 0, 0, 0, weapDamage, 0, 0, 0, 0);
+        yield return new WaitForSeconds(waitTime);
+        HasBurnHex(attacker, weapDamage, waitTime);
+    }
     IEnumerator RunBleedHex(StatBlock attacker, int weapDamage, float waitTime)
     {
-        TakeDamage(attacker, 0, 0, 0, weapDamage);
+        TakeDamage(attacker, 0, 0, 0, 0, 0, 0, weapDamage, 0, 0, 0);
         yield return new WaitForSeconds(waitTime);
         HasBleedHex(attacker, weapDamage, waitTime);
+    }
+    IEnumerator RunDiseaseHex(StatBlock attacker, int weapDamage, float waitTime)
+    {
+        TakeDamage(attacker, 0, 0, 0, 0, 0, 0, 0, weapDamage, 0, 0);
+        yield return new WaitForSeconds(waitTime);
+        HasBurnHex(attacker, weapDamage, waitTime);
+    }
+    IEnumerator RunVirusHex(StatBlock attacker, int weapDamage, float waitTime)
+    {
+        TakeDamage(attacker, 0, 0, 0, 0, 0, 0, 0, 0, weapDamage, 0);
+        yield return new WaitForSeconds(waitTime);
+        HasBurnHex(attacker, weapDamage, waitTime);
+    }
+    IEnumerator RunCorruptHex(StatBlock attacker, int weapDamage, float waitTime)
+    {
+        TakeDamage(attacker, 0, 0, 0, 0, 0, 0, 0, 0, 0, weapDamage);
+        yield return new WaitForSeconds(waitTime);
+        HasBurnHex(attacker, weapDamage, waitTime);
     }
     #endregion
 
@@ -776,5 +864,6 @@ public class StatBlock : MonoBehaviour
 }
 public enum CharClass { Blank, Golemancer, Elementalist, Psyc, Mystic, Crypter, Apoch, Artificer, NanoMage, Vigil, Shadow, Envoy, StreetDoctor }
 public enum BoonName { Blank, Resistance, Velocity, Swiftness, Power, Defence, Reflection, Precision, Shielding, Regeneration, Rend, Feedback, Stealth }
-public enum HexName { Blank, Vulnerability, Slow, Snare, Weaken, Blind, Intimidate, Fear, Pin, Charm, Daze, Stun, Taunt, Burn, Electrocute, Irradiate, Bleed }
+public enum HexName { Blank, Vulnerability, Slow, Snare, Weaken, Blind, Intimidate, Fear, Pin, Charm, Daze, Stun, Taunt, Burn, Chill, 
+                        Electrocute, Irradiate, Deteriorate, Phase, Bleed, Disease, Virus, Corrupt }
 public enum DamageStat { Strength, Marksmanship, Arcana }

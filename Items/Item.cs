@@ -21,11 +21,17 @@ public class Item : ScriptableObject
     public int marksmanship;
     public int arcana;
 
-    //Defence Skills
-    public int fireResistance;
+    //Resistances
+    public int thermalResistance;
+    public int cryoResistance;
     public int shockResistance;
-    public int radResistance;
-    public int physicalResistance;
+    public int radiationResistance;
+    public int psiResistance;
+    public int dimensionResistance;
+    public int kineticResistance;
+    public int poisonResistance;
+    public int bioResistance;
+    public int corruptionResistance;
 
     //Secondary Skills
     public int healthRegen;
@@ -92,10 +98,16 @@ public class Item : ScriptableObject
 
     [Header("Mods Only")]
     //Hidden Skills
-    public int physDamage;
-    public int fireDamage;
+    public int thermalDamage;
+    public int cryoDamage;
     public int shockDamage;
-    public int radDamage;
+    public int radiationDamage;
+    public int psiDamage;
+    public int dimensionDamage;
+    public int kineticDamage;
+    public int poisonDamage;
+    public int bioDamage;
+    public int corruptionDamage;
     #endregion
 
     #region Create Item
@@ -237,22 +249,40 @@ public class Item : ScriptableObject
                     armourPercent += rValue;
                     break;
                 case PrefixName.Carnelian:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
                     break;
                 case PrefixName.Spinel:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
                     break;
                 case PrefixName.Russet:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
                     break;
                 case PrefixName.Jasper:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
                     break;
                 case PrefixName.Garnet:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
                     break;
                 case PrefixName.Ruby:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    break;
+                case PrefixName.Cryo1:
+                    cryoResistance += rValue;
+                    break;
+                case PrefixName.Cryo2:
+                    cryoResistance += rValue;
+                    break;
+                case PrefixName.Cryo3:
+                    cryoResistance += rValue;
+                    break;
+                case PrefixName.Cryo4:
+                    cryoResistance += rValue;
+                    break;
+                case PrefixName.Cryo5:
+                    cryoResistance += rValue;
+                    break;
+                case PrefixName.Cryo6:
+                    cryoResistance += rValue;
                     break;
                 case PrefixName.Citrine:
                     shockResistance += rValue;
@@ -272,77 +302,275 @@ public class Item : ScriptableObject
                 case PrefixName.Topaz:
                     shockResistance += rValue;
                     break;
+                case PrefixName.AllEle1:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
+                case PrefixName.AllEle2:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
+                case PrefixName.AllEle3:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
+                case PrefixName.AllEle4:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
+                case PrefixName.AllEle5:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
+                case PrefixName.AllEle6:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
                 case PrefixName.Peridot:
-                    radResistance += rValue;
+                    radiationResistance += rValue;
                     break;
                 case PrefixName.Verdelite:
-                    radResistance += rValue;
+                    radiationResistance += rValue;
                     break;
                 case PrefixName.Beryl:
-                    radResistance += rValue;
+                    radiationResistance += rValue;
                     break;
                 case PrefixName.Viridian:
-                    radResistance += rValue;
+                    radiationResistance += rValue;
                     break;
                 case PrefixName.Jade:
-                    radResistance += rValue;
+                    radiationResistance += rValue;
                     break;
                 case PrefixName.Emerald:
-                    radResistance += rValue;
+                    radiationResistance += rValue;
+                    break;
+                case PrefixName.Psi1:
+                    psiResistance += rValue;
+                    break;
+                case PrefixName.Psi2:
+                    psiResistance += rValue;
+                    break;
+                case PrefixName.Psi3:
+                    psiResistance += rValue;
+                    break;
+                case PrefixName.Psi4:
+                    psiResistance += rValue;
+                    break;
+                case PrefixName.Psi5:
+                    psiResistance += rValue;
+                    break;
+                case PrefixName.Psi6:
+                    psiResistance += rValue;
+                    break;
+                case PrefixName.Dimension1:
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Dimension2:
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Dimension3:
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Dimension4:
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Dimension5:
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Dimension6:
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.AllCyber1:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.AllCyber2:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.AllCyber3:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.AllCyber4:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.AllCyber5:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.AllCyber6:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
                     break;
                 case PrefixName.Flourite:
-                    physicalResistance += rValue;
+                    kineticResistance += rValue;
                     break;
                 case PrefixName.Charoite:
-                    physicalResistance += rValue;
+                    kineticResistance += rValue;
                     break;
                 case PrefixName.Sugilite:
-                    physicalResistance += rValue;
+                    kineticResistance += rValue;
                     break;
                 case PrefixName.Kunzite:
-                    physicalResistance += rValue;
+                    kineticResistance += rValue;
                     break;
                 case PrefixName.Iolite:
-                    physicalResistance += rValue;
+                    kineticResistance += rValue;
                     break;
                 case PrefixName.Amethyst:
-                    physicalResistance += rValue;
+                    kineticResistance += rValue;
+                    break;
+                case PrefixName.Poison1:
+                    poisonResistance += rValue;
+                    break;
+                case PrefixName.Poison2:
+                    poisonResistance += rValue;
+                    break;
+                case PrefixName.Poison3:
+                    poisonResistance += rValue;
+                    break;
+                case PrefixName.Poison4:
+                    poisonResistance += rValue;
+                    break;
+                case PrefixName.Poison5:
+                    poisonResistance += rValue;
+                    break;
+                case PrefixName.Poison6:
+                    poisonResistance += rValue;
+                    break;
+                case PrefixName.Bio1:
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Bio2:
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Bio3:
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Bio4:
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Bio5:
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Bio6:
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.AllMundane1:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.AllMundane2:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.AllMundane3:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.AllMundane4:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.AllMundane5:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.AllMundane6:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
                     break;
                 case PrefixName.Quartz:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
                     shockResistance += rValue;
-                    radResistance += rValue;
-                    physicalResistance += rValue;
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Coral:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
                     shockResistance += rValue;
-                    radResistance += rValue;
-                    physicalResistance += rValue;
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Moonstone:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
                     shockResistance += rValue;
-                    radResistance += rValue;
-                    physicalResistance += rValue;
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Opal:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
                     shockResistance += rValue;
-                    radResistance += rValue;
-                    physicalResistance += rValue;
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Pearl:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
                     shockResistance += rValue;
-                    radResistance += rValue;
-                    physicalResistance += rValue;
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Diamond:
-                    fireResistance += rValue;
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
                     shockResistance += rValue;
-                    radResistance += rValue;
-                    physicalResistance += rValue;
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Favoured:
                     luck += rValue;
@@ -668,28 +896,52 @@ public class Item : ScriptableObject
                     xpGain += rValue;
                     break;
                 case SuffixName.Blistering:
-                    weaponFireDamageMin += sfix.min;
-                    weaponFireDamageMax += sfix.max;
+                    weaponThermalDamageMin += sfix.min;
+                    weaponThermalDamageMax += sfix.max;
                     break;
                 case SuffixName.Smouldering:
-                    weaponFireDamageMin += sfix.min;
-                    weaponFireDamageMax += sfix.max;
+                    weaponThermalDamageMin += sfix.min;
+                    weaponThermalDamageMax += sfix.max;
                     break;
                 case SuffixName.Scorching:
-                    weaponFireDamageMin += sfix.min;
-                    weaponFireDamageMax += sfix.max;
+                    weaponThermalDamageMin += sfix.min;
+                    weaponThermalDamageMax += sfix.max;
                     break;
                 case SuffixName.Searing:
-                    weaponFireDamageMin += sfix.min;
-                    weaponFireDamageMax += sfix.max;
+                    weaponThermalDamageMin += sfix.min;
+                    weaponThermalDamageMax += sfix.max;
                     break;
                 case SuffixName.Blazing:
-                    weaponFireDamageMin += sfix.min;
-                    weaponFireDamageMax += sfix.max;
+                    weaponThermalDamageMin += sfix.min;
+                    weaponThermalDamageMax += sfix.max;
                     break;
                 case SuffixName.Flame:
-                    weaponFireDamageMin += sfix.min;
-                    weaponFireDamageMax += sfix.max;
+                    weaponThermalDamageMin += sfix.min;
+                    weaponThermalDamageMax += sfix.max;
+                    break;
+                case SuffixName.Cryo1:
+                    weaponCryoDamageMin += sfix.min;
+                    weaponCryoDamageMax += sfix.max;
+                    break;
+                case SuffixName.Cryo2:
+                    weaponCryoDamageMin += sfix.min;
+                    weaponCryoDamageMax += sfix.max;
+                    break;
+                case SuffixName.Cryo3:
+                    weaponCryoDamageMin += sfix.min;
+                    weaponCryoDamageMax += sfix.max;
+                    break;
+                case SuffixName.Cryo4:
+                    weaponCryoDamageMin += sfix.min;
+                    weaponCryoDamageMax += sfix.max;
+                    break;
+                case SuffixName.Cryo5:
+                    weaponCryoDamageMin += sfix.min;
+                    weaponCryoDamageMax += sfix.max;
+                    break;
+                case SuffixName.Cryo6:
+                    weaponCryoDamageMin += sfix.min;
+                    weaponCryoDamageMax += sfix.max;
                     break;
                 case SuffixName.Glowing:
                     weaponShockDamageMin += sfix.min;
@@ -739,29 +991,125 @@ public class Item : ScriptableObject
                     weaponRadDamageMin += sfix.min;
                     weaponRadDamageMax += sfix.max;
                     break;
+                case SuffixName.Psi1:
+                    weaponPsiDamageMin += sfix.min;
+                    weaponPsiDamageMax += sfix.max;
+                    break;
+                case SuffixName.Psi2:
+                    weaponPsiDamageMin += sfix.min;
+                    weaponPsiDamageMax += sfix.max;
+                    break;
+                case SuffixName.Psi3:
+                    weaponPsiDamageMin += sfix.min;
+                    weaponPsiDamageMax += sfix.max;
+                    break;
+                case SuffixName.Psi4:
+                    weaponPsiDamageMin += sfix.min;
+                    weaponPsiDamageMax += sfix.max;
+                    break;
+                case SuffixName.Psi5:
+                    weaponPsiDamageMin += sfix.min;
+                    weaponPsiDamageMax += sfix.max;
+                    break;
+                case SuffixName.Psi6:
+                    weaponPsiDamageMin += sfix.min;
+                    weaponPsiDamageMax += sfix.max;
+                    break;
+                case SuffixName.Dimension1:
+                    weaponDimensionDamageMin += sfix.min;
+                    weaponDimensionDamageMax += sfix.max;
+                    break;
+                case SuffixName.Dimension2:
+                    weaponDimensionDamageMin += sfix.min;
+                    weaponDimensionDamageMax += sfix.max;
+                    break;
+                case SuffixName.Dimension3:
+                    weaponDimensionDamageMin += sfix.min;
+                    weaponDimensionDamageMax += sfix.max;
+                    break;
+                case SuffixName.Dimension4:
+                    weaponDimensionDamageMin += sfix.min;
+                    weaponDimensionDamageMax += sfix.max;
+                    break;
+                case SuffixName.Dimension5:
+                    weaponDimensionDamageMin += sfix.min;
+                    weaponDimensionDamageMax += sfix.max;
+                    break;
+                case SuffixName.Dimension6:
+                    weaponDimensionDamageMin += sfix.min;
+                    weaponDimensionDamageMax += sfix.max;
+                    break;
                 case SuffixName.Clout:
-                    weaponPhysDamageMin += sfix.min;
-                    weaponPhysDamageMax += sfix.max;
+                    weaponKineticDamageMin += sfix.min;
+                    weaponKineticDamageMax += sfix.max;
                     break;
                 case SuffixName.Mutilation:
-                    weaponPhysDamageMin += sfix.min;
-                    weaponPhysDamageMax += sfix.max;
+                    weaponKineticDamageMin += sfix.min;
+                    weaponKineticDamageMax += sfix.max;
                     break;
                 case SuffixName.Destruction:
-                    weaponPhysDamageMin += sfix.min;
-                    weaponPhysDamageMax += sfix.max;
+                    weaponKineticDamageMin += sfix.min;
+                    weaponKineticDamageMax += sfix.max;
                     break;
                 case SuffixName.Calamity:
-                    weaponPhysDamageMin += sfix.min;
-                    weaponPhysDamageMax += sfix.max;
+                    weaponKineticDamageMin += sfix.min;
+                    weaponKineticDamageMax += sfix.max;
                     break;
                 case SuffixName.Havoc:
-                    weaponPhysDamageMin += sfix.min;
-                    weaponPhysDamageMax += sfix.max;
+                    weaponKineticDamageMin += sfix.min;
+                    weaponKineticDamageMax += sfix.max;
                     break;
                 case SuffixName.Annihilation:
-                    weaponPhysDamageMin += sfix.min;
-                    weaponPhysDamageMax += sfix.max;
+                    weaponKineticDamageMin += sfix.min;
+                    weaponKineticDamageMax += sfix.max;
+                    break;
+                case SuffixName.Poison1:
+                    weaponPoisonDamageMin += sfix.min;
+                    weaponPoisonDamageMax += sfix.max;
+                    break;
+                case SuffixName.Poison2:
+                    weaponPoisonDamageMin += sfix.min;
+                    weaponPoisonDamageMax += sfix.max;
+                    break;
+                case SuffixName.Poison3:
+                    weaponPoisonDamageMin += sfix.min;
+                    weaponPoisonDamageMax += sfix.max;
+                    break;
+                case SuffixName.Poison4:
+                    weaponPoisonDamageMin += sfix.min;
+                    weaponPoisonDamageMax += sfix.max;
+                    break;
+                case SuffixName.Poison5:
+                    weaponPoisonDamageMin += sfix.min;
+                    weaponPoisonDamageMax += sfix.max;
+                    break;
+                case SuffixName.Poison6:
+                    weaponPoisonDamageMin += sfix.min;
+                    weaponPoisonDamageMax += sfix.max;
+                    break;
+                case SuffixName.Bio1:
+                    weaponBioDamageMin += sfix.min;
+                    weaponBioDamageMax += sfix.max;
+                    break;
+                case SuffixName.Bio2:
+                    weaponBioDamageMin += sfix.min;
+                    weaponBioDamageMax += sfix.max;
+                    break;
+                case SuffixName.Bio3:
+                    weaponBioDamageMin += sfix.min;
+                    weaponBioDamageMax += sfix.max;
+                    break;
+                case SuffixName.Bio4:
+                    weaponBioDamageMin += sfix.min;
+                    weaponBioDamageMax += sfix.max;
+                    break;
+                case SuffixName.Bio5:
+                    weaponBioDamageMin += sfix.min;
+                    weaponBioDamageMax += sfix.max;
+                    break;
+                case SuffixName.Bio6:
+                    weaponBioDamageMin += sfix.min;
+                    weaponBioDamageMax += sfix.max;
                     break;
                 case SuffixName.Draining:
                     leechHealth += rValue;
@@ -872,22 +1220,40 @@ public class Item : ScriptableObject
                     onHitShock += rValue;
                     break;
                 case SuffixName.Warmth:
-                    fireDamage += rValue;
+                    thermalDamage += rValue;
                     break;
                 case SuffixName.Luminosity:
-                    fireDamage += rValue;
+                    thermalDamage += rValue;
                     break;
                 case SuffixName.Incandescence:
-                    fireDamage += rValue;
+                    thermalDamage += rValue;
                     break;
                 case SuffixName.Combustion:
-                    fireDamage += rValue;
+                    thermalDamage += rValue;
                     break;
                 case SuffixName.Conflagration:
-                    fireDamage += rValue;
+                    thermalDamage += rValue;
                     break;
                 case SuffixName.Inferno:
-                    fireDamage += rValue;
+                    thermalDamage += rValue;
+                    break;
+                case SuffixName.CryoDam1:
+                    cryoDamage += rValue;
+                    break;
+                case SuffixName.CryoDam2:
+                    cryoDamage += rValue;
+                    break;
+                case SuffixName.CryoDam3:
+                    cryoDamage += rValue;
+                    break;
+                case SuffixName.CryoDam4:
+                    cryoDamage += rValue;
+                    break;
+                case SuffixName.CryoDam5:
+                    cryoDamage += rValue;
+                    break;
+                case SuffixName.CryoDam6:
+                    cryoDamage += rValue;
                     break;
                 case SuffixName.Sparks:
                     shockDamage += rValue;
@@ -908,40 +1274,112 @@ public class Item : ScriptableObject
                     shockDamage += rValue;
                     break;
                 case SuffixName.Emission:
-                    radDamage += rValue;
+                    radiationDamage += rValue;
                     break;
                 case SuffixName.Gamma:
-                    radDamage += rValue;
+                    radiationDamage += rValue;
                     break;
                 case SuffixName.Cosmic:
-                    radDamage += rValue;
+                    radiationDamage += rValue;
                     break;
                 case SuffixName.Neutrons:
-                    radDamage += rValue;
+                    radiationDamage += rValue;
                     break;
                 case SuffixName.Uranium:
-                    radDamage += rValue;
+                    radiationDamage += rValue;
                     break;
                 case SuffixName.Thorium:
-                    radDamage += rValue;
+                    radiationDamage += rValue;
                     break;
                 case SuffixName.Substantial:
-                    physDamage += rValue;
+                    radiationDamage += rValue;
+                    break;
+                case SuffixName.PsiDam1:
+                    psiDamage += rValue;
+                    break;
+                case SuffixName.PsiDam2:
+                    psiDamage += rValue;
+                    break;
+                case SuffixName.PsiDam3:
+                    psiDamage += rValue;
+                    break;
+                case SuffixName.PsiDam4:
+                    psiDamage += rValue;
+                    break;
+                case SuffixName.PsiDam5:
+                    psiDamage += rValue;
+                    break;
+                case SuffixName.PsiDam6:
+                    psiDamage += rValue;
+                    break;
+                case SuffixName.DimensionDam1:
+                    dimensionDamage += rValue;
+                    break;
+                case SuffixName.DimensionDam2:
+                    dimensionDamage += rValue;
+                    break;
+                case SuffixName.DimensionDam3:
+                    dimensionDamage += rValue;
+                    break;
+                case SuffixName.DimensionDam4:
+                    dimensionDamage += rValue;
+                    break;
+                case SuffixName.DimensionDam5:
+                    dimensionDamage += rValue;
+                    break;
+                case SuffixName.DimensionDam6:
+                    dimensionDamage += rValue;
                     break;
                 case SuffixName.Corporeal:
-                    physDamage += rValue;
+                    kineticDamage += rValue;
                     break;
                 case SuffixName.Material:
-                    physDamage += rValue;
+                    kineticDamage += rValue;
                     break;
                 case SuffixName.Somatic:
-                    physDamage += rValue;
+                    kineticDamage += rValue;
                     break;
                 case SuffixName.Solid:
-                    physDamage += rValue;
+                    kineticDamage += rValue;
                     break;
                 case SuffixName.Kinetic:
-                    physDamage += rValue;
+                    kineticDamage += rValue;
+                    break;
+                case SuffixName.PoisonDam1:
+                    poisonDamage += rValue;
+                    break;
+                case SuffixName.PoisonDam2:
+                    poisonDamage += rValue;
+                    break;
+                case SuffixName.PoisonDam3:
+                    poisonDamage += rValue;
+                    break;
+                case SuffixName.PoisonDam4:
+                    poisonDamage += rValue;
+                    break;
+                case SuffixName.PoisonDam5:
+                    poisonDamage += rValue;
+                    break;
+                case SuffixName.PoisonDam6:
+                    poisonDamage += rValue;
+                    break;
+                case SuffixName.BioDam1:
+                    bioDamage += rValue;
+                    break;
+                case SuffixName.BioDam2:
+                    bioDamage += rValue;
+                    break;
+                case SuffixName.BioDam3:
+                    bioDamage += rValue;
+                    break;
+                case SuffixName.BioDam4:
+                    bioDamage += rValue;
+                    break;
+                case SuffixName.BioDam5:
+                    bioDamage += rValue;
+                    break;
+                case SuffixName.BioDam6:
+                    bioDamage += rValue;
                     break;
             }
         }
@@ -985,21 +1423,45 @@ public class Item : ScriptableObject
         {
             player.arcana.AddModifier(arcana);
         }
-        if (fireResistance > 0)
+        if (thermalResistance > 0)
         {
-            player.fireResistance.AddModifier(fireResistance);
+            player.thermalResistance.AddModifier(thermalResistance);
+        }
+        if (cryoResistance > 0)
+        {
+            player.cryoResistance.AddModifier(cryoResistance);
         }
         if (shockResistance > 0)
         {
             player.shockResistance.AddModifier(shockResistance);
         }
-        if (radResistance > 0)
+        if (radiationResistance > 0)
         {
-            player.radResistance.AddModifier(radResistance);
+            player.radiationResistance.AddModifier(radiationResistance);
         }
-        if (physicalResistance > 0)
+        if (psiResistance > 0)
         {
-            player.physicalResistance.AddModifier(physicalResistance);
+            player.psiResistance.AddModifier(psiResistance);
+        }
+        if (dimensionResistance > 0)
+        {
+            player.dimensionResistance.AddModifier(dimensionResistance);
+        }
+        if (kineticResistance > 0)
+        {
+            player.kineticResistance.AddModifier(kineticResistance);
+        }
+        if (poisonResistance > 0)
+        {
+            player.poisonResistance.AddModifier(poisonResistance);
+        }
+        if (bioResistance > 0)
+        {
+            player.bioResistance.AddModifier(bioResistance);
+        }
+        if (corruptionResistance > 0)
+        {
+            player.corruptionResistance.AddModifier(corruptionResistance);
         }
         if (movement > 0)
         {
@@ -1029,21 +1491,45 @@ public class Item : ScriptableObject
         {
             player.luck.AddModifier(luck);
         }
-        if (physDamage > 0)
+        if (thermalDamage > 0)
         {
-            player.physDamage.AddModifier(physDamage);
+            player.thermalDamage.AddModifier(thermalDamage);
         }
-        if (fireDamage > 0)
+        if (cryoDamage > 0)
         {
-            player.fireDamage.AddModifier(fireDamage);
+            player.cryoDamage.AddModifier(cryoDamage);
         }
         if (shockDamage > 0)
         {
             player.shockDamage.AddModifier(shockDamage);
         }
-        if (radDamage > 0)
+        if (radiationDamage > 0)
         {
-            player.radDamage.AddModifier(radDamage);
+            player.radiationDamage.AddModifier(radiationDamage);
+        }
+        if (psiDamage > 0)
+        {
+            player.psiDamage.AddModifier(psiDamage);
+        }
+        if (dimensionDamage > 0)
+        {
+            player.dimensionDamage.AddModifier(dimensionDamage);
+        }
+        if (kineticDamage > 0)
+        {
+            player.kineticDamage.AddModifier(kineticDamage);
+        }
+        if (poisonDamage > 0)
+        {
+            player.poisonDamage.AddModifier(poisonDamage);
+        }
+        if (bioDamage > 0)
+        {
+            player.bioDamage.AddModifier(bioDamage);
+        }
+        if (corruptionDamage > 0)
+        {
+            player.corruptionDamage.AddModifier(corruptionDamage);
         }
         if (xpGain > 0)
         {
@@ -1084,21 +1570,45 @@ public class Item : ScriptableObject
         {
             player.arcana.RemoveModifier(arcana);
         }
-        if (fireResistance > 0)
+        if (thermalResistance > 0)
         {
-            player.fireResistance.RemoveModifier(fireResistance);
+            player.thermalResistance.RemoveModifier(thermalResistance);
+        }
+        if (cryoResistance > 0)
+        {
+            player.cryoResistance.RemoveModifier(cryoResistance);
         }
         if (shockResistance > 0)
         {
             player.shockResistance.RemoveModifier(shockResistance);
         }
-        if (radResistance > 0)
+        if (radiationResistance > 0)
         {
-            player.radResistance.RemoveModifier(radResistance);
+            player.radiationResistance.RemoveModifier(radiationResistance);
         }
-        if (physicalResistance > 0)
+        if (psiResistance > 0)
         {
-            player.physicalResistance.RemoveModifier(physicalResistance);
+            player.psiResistance.RemoveModifier(psiResistance);
+        }
+        if (dimensionResistance > 0)
+        {
+            player.dimensionResistance.RemoveModifier(dimensionResistance);
+        }
+        if (kineticResistance > 0)
+        {
+            player.kineticResistance.RemoveModifier(kineticResistance);
+        }
+        if (poisonResistance > 0)
+        {
+            player.poisonResistance.RemoveModifier(poisonResistance);
+        }
+        if (bioResistance > 0)
+        {
+            player.bioResistance.RemoveModifier(bioResistance);
+        }
+        if (corruptionResistance > 0)
+        {
+            player.corruptionResistance.RemoveModifier(corruptionResistance);
         }
         if (movement > 0)
         {
@@ -1128,28 +1638,55 @@ public class Item : ScriptableObject
         {
             player.luck.RemoveModifier(luck);
         }
-        if (physDamage > 0)
+        if (kineticDamage > 0)
         {
-            player.physDamage.RemoveModifier(physDamage);
+            player.kineticDamage.RemoveModifier(kineticDamage);
         }
-        if (fireDamage > 0)
+        if (thermalDamage > 0)
         {
-            player.fireDamage.RemoveModifier(fireDamage);
+            player.thermalDamage.RemoveModifier(thermalDamage);
+        }
+        if (cryoDamage > 0)
+        {
+            player.cryoDamage.RemoveModifier(cryoDamage);
         }
         if (shockDamage > 0)
         {
             player.shockDamage.RemoveModifier(shockDamage);
         }
-        if (radDamage > 0)
+        if (radiationDamage > 0)
         {
-            player.radDamage.RemoveModifier(radDamage);
+            player.radiationDamage.RemoveModifier(radiationDamage);
+        }
+        if (psiDamage > 0)
+        {
+            player.psiDamage.RemoveModifier(psiDamage);
+        }
+        if (dimensionDamage > 0)
+        {
+            player.dimensionDamage.RemoveModifier(dimensionDamage);
+        }
+        if (kineticDamage > 0)
+        {
+            player.kineticDamage.RemoveModifier(kineticDamage);
+        }
+        if (poisonDamage > 0)
+        {
+            player.poisonDamage.RemoveModifier(poisonDamage);
+        }
+        if (bioDamage > 0)
+        {
+            player.bioDamage.RemoveModifier(bioDamage);
+        }
+        if (corruptionDamage > 0)
+        {
+            player.corruptionDamage.RemoveModifier(corruptionDamage);
         }
         if (xpGain > 0)
         {
             player.xpModifier -= xpGain;
         }
     }
-
     #endregion
 }
 public enum ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, ModDex, ModStr, ModSta, ModHeal, Skill }
