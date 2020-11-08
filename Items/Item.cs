@@ -13,6 +13,12 @@ public class Item : ScriptableObject
     private List<Prefix> prefixes;
     private List<Suffix> suffixes;
 
+    [Header("Requirements")]
+    public int requiredLevel = 0;
+    public int requiredStrength = 0;
+    public int requiredMarksmanship = 0;
+    public int requiredArcana = 0;
+
     #region StatModifiers
     [Header("Stat Mods")]
     //Stats
@@ -1387,6 +1393,23 @@ public class Item : ScriptableObject
     #endregion
 
     #region Equip Item
+
+    public bool CheckRequirements(Player player)
+    {
+
+        if (player.level >= requiredLevel && 
+            player.strength.GetValue() >= requiredStrength && 
+            player.marksmanship.GetValue() >= requiredMarksmanship && 
+            player.arcana.GetValue() >= requiredArcana)
+        {
+           return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     //Add/Remove Stats to/from Player
     public void AddStats(StatBlock player)
     {
@@ -1689,6 +1712,6 @@ public class Item : ScriptableObject
     }
     #endregion
 }
-public enum ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, ModDex, ModStr, ModSta, ModHeal, Skill }
+public enum ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, Cybernetic, Bionetic, Genetic, Enchantment, Skill }
 public enum Quality { Common, Uncommon, Masterwork, Rare, Legendary, Unique }
 

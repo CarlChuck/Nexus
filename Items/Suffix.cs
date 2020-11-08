@@ -54,16 +54,15 @@ public enum SuffixName
     Scarring, Bright, Shocking,                                             // OnHit - Shock %
 
     //Mods
+
+    //Mod Enchantment only
     Warmth, Luminosity, Incandescence, Combustion, Conflagration, Inferno,                      // Thermal Damage %
     CryoDam1, CryoDam2, CryoDam3, CryoDam4, CryoDam5, CryoDam6,                                 // Cryo Damage %
     Sparks, Light, Magnetism, Electrons, Volts, Electricity,                                    // Shock Damage %
-    AllEleDam1, AllEleDam2, AllEleDam3, AllEleDam4, AllEleDam5, AllEleDam6,                     // All Elemental Damage %
     Emission, Gamma, Cosmic, Neutrons, Uranium, Thorium,                                        // Radiation Damage %
     PsiDam1, PsiDam2, PsiDam3, PsiDam4, PsiDam5, PsiDam6,                                       // Psi Damage %
     DimensionDam1, DimensionDam2, DimensionDam3, DimensionDam4, DimensionDam5, DimensionDam6,   // Dimensional Damage %
-    AllCyberDam1, AllCyberDam2, AllCyberDam3, AllCyberDam4, AllCyberDam5, AllCyberDam6,         // All Cyber Damage %
     Substantial, Corporeal, Material, Somatic, Solid, Kinetic,                                  // Kinetic Damage %
     PoisonDam1, PoisonDam2, PoisonDam3, PoisonDam4, PoisonDam5, PoisonDam6,                     // Poison Damage %
     BioDam1, BioDam2, BioDam3, BioDam4, BioDam5, BioDam6,                                       // Bio Damage %
-    AllMundane1, AllMundane2, AllMundane3, AllMundane4, AllMundane5, AllMundane6,               // All Mundane Damage %
 }

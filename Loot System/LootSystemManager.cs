@@ -21,10 +21,10 @@ public class LootSystemManager : MonoBehaviour
     public List<ItemChest> chestItems1;
     public List<ItemFeet> feetItems1;
     public List<ItemLegs> legItems1;
-    public List<ModDex> modDexItems1;
-    public List<ModStr> modStrItems1;
-    public List<ModSta> modStaItems1;
-    public List<ModHeal> modHealItems1;
+    public List<CyberneticMod> modCyberneticItems1;
+    public List<EnchantmentMod> modEnchantmentItems1;
+    public List<GeneticMod> modGeneticItems1;
+    public List<BioneticMod> modBioneticItems1;
     public List<Weapon> weapons1;
     public List<ElementalistSkill> elementalSkills;
     public List<GolemancerSkill> golemancerSkills;
@@ -46,10 +46,10 @@ public class LootSystemManager : MonoBehaviour
     public List<ItemChest> chestItems2;
     public List<ItemFeet> feetItems2;
     public List<ItemLegs> legItems2;
-    public List<ModDex> modDexItems2;
-    public List<ModStr> modStrItems2;
-    public List<ModSta> modStaItems2;
-    public List<ModHeal> modHealItems2;
+    public List<CyberneticMod> modCyberneticItems2;
+    public List<EnchantmentMod> modEnchantmentItems2;
+    public List<GeneticMod> modGeneticItems2;
+    public List<BioneticMod> modBioneticItems2;
     public List<Weapon> weapons2;
     #endregion
 
@@ -59,10 +59,10 @@ public class LootSystemManager : MonoBehaviour
     public List<ItemChest> chestItems3;
     public List<ItemFeet> feetItems3;
     public List<ItemLegs> legItems3;
-    public List<ModDex> modDexItems3;
-    public List<ModStr> modStrItems3;
-    public List<ModSta> modStaItems3;
-    public List<ModHeal> modHealItems3;
+    public List<CyberneticMod> modCyberneticItems3;
+    public List<EnchantmentMod> modEnchantmentItems3;
+    public List<GeneticMod> modGeneticItems3;
+    public List<BioneticMod> modBioneticItems3;
     public List<Weapon> weapons3;
     #endregion
 
@@ -398,19 +398,19 @@ public class LootSystemManager : MonoBehaviour
         int randNum = Random.Range(1, 5);
         if (randNum == 1)
         {
-            newItem = RandomiseModDex(lootTier);
+            newItem = RandomiseModCybernetic(lootTier);
         }
         else if (randNum == 2)
         {
-            newItem = RandomiseModStr(lootTier);
+            newItem = RandomiseModEnchantment(lootTier);
         }
         else if (randNum == 3)
         {
-            newItem = RandomiseModSta(lootTier);
+            newItem = RandomiseModGenetic(lootTier);
         }
         else if (randNum == 4)
         {
-            newItem = RandomiseModHeal(lootTier);
+            newItem = RandomiseModBionetic(lootTier);
         }
         newItem.quality = DifficultyRandomResult(DifficultyLevel(), Player.instance.luck.GetValue());
         if (newItem.quality == Quality.Unique)
@@ -656,83 +656,83 @@ public class LootSystemManager : MonoBehaviour
         }
     }
     //modDexItems
-    public ModDex RandomiseModDex(int lootTier)
+    public CyberneticMod RandomiseModCybernetic(int lootTier)
     {
-        ModDex newItem;
+        CyberneticMod newItem;
         if (lootTier == 2)
         {
-            int randomNumber = Random.Range(0, modDexItems2.Count + 1);
-            return newItem = Instantiate(modDexItems2[randomNumber]);
+            int randomNumber = Random.Range(0, modCyberneticItems2.Count + 1);
+            return newItem = Instantiate(modCyberneticItems2[randomNumber]);
         }
         else if (lootTier == 3)
         {
-            int randomNumber = Random.Range(0, modDexItems3.Count + 1);
-            return newItem = Instantiate(modDexItems3[randomNumber]);
+            int randomNumber = Random.Range(0, modCyberneticItems3.Count + 1);
+            return newItem = Instantiate(modCyberneticItems3[randomNumber]);
         }
         else
         {
-            int randomNumber = Random.Range(0, modDexItems1.Count + 1);
-            return newItem = Instantiate(modDexItems1[randomNumber]);
+            int randomNumber = Random.Range(0, modCyberneticItems1.Count + 1);
+            return newItem = Instantiate(modCyberneticItems1[randomNumber]);
         }    
     }
     //modStrItems
-    public ModStr RandomiseModStr(int lootTier)
+    public EnchantmentMod RandomiseModEnchantment(int lootTier)
     {
-        ModStr newItem;
+        EnchantmentMod newItem;
         if (lootTier == 2)
         {
-            int randomNumber = Random.Range(0, modStrItems2.Count + 1);
-            return newItem = Instantiate(modStrItems2[randomNumber]);
+            int randomNumber = Random.Range(0, modEnchantmentItems2.Count + 1);
+            return newItem = Instantiate(modEnchantmentItems2[randomNumber]);
         }
         else if (lootTier == 3)
         {
-            int randomNumber = Random.Range(0, modStrItems3.Count + 1);
-            return newItem = Instantiate(modStrItems3[randomNumber]);
+            int randomNumber = Random.Range(0, modEnchantmentItems3.Count + 1);
+            return newItem = Instantiate(modEnchantmentItems3[randomNumber]);
         }
         else
         {
-            int randomNumber = Random.Range(0, modStrItems1.Count + 1);
-            return newItem = Instantiate(modStrItems1[randomNumber]);
+            int randomNumber = Random.Range(0, modEnchantmentItems1.Count + 1);
+            return newItem = Instantiate(modEnchantmentItems1[randomNumber]);
         }
     }
     //modStaItems
-    public ModSta RandomiseModSta(int lootTier)
+    public GeneticMod RandomiseModGenetic(int lootTier)
     {
-        ModSta newItem;
+        GeneticMod newItem;
         if (lootTier == 2)
         {
-            int randomNumber = Random.Range(0, modStaItems2.Count + 1);
-            return newItem = Instantiate(modStaItems2[randomNumber]);
+            int randomNumber = Random.Range(0, modGeneticItems2.Count + 1);
+            return newItem = Instantiate(modGeneticItems2[randomNumber]);
         }
         else if (lootTier == 3)
         {
-            int randomNumber = Random.Range(0, modStaItems3.Count + 1);
-            return newItem = Instantiate(modStaItems3[randomNumber]);
+            int randomNumber = Random.Range(0, modGeneticItems3.Count + 1);
+            return newItem = Instantiate(modGeneticItems3[randomNumber]);
         }
         else
         {
-            int randomNumber = Random.Range(0, modStaItems1.Count + 1);
-            return newItem = Instantiate(modStaItems1[randomNumber]);
+            int randomNumber = Random.Range(0, modGeneticItems1.Count + 1);
+            return newItem = Instantiate(modGeneticItems1[randomNumber]);
         }
     }
     //modHealItems
-    public ModHeal RandomiseModHeal(int lootTier)
+    public BioneticMod RandomiseModBionetic(int lootTier)
     {
-        ModHeal newItem;
+        BioneticMod newItem;
         if (lootTier == 2)
         {
-            int randomNumber = Random.Range(0, modHealItems2.Count + 1);
-            return newItem = Instantiate(modHealItems2[randomNumber]);
+            int randomNumber = Random.Range(0, modBioneticItems2.Count + 1);
+            return newItem = Instantiate(modBioneticItems2[randomNumber]);
         }
         else if (lootTier == 3)
         {
-            int randomNumber = Random.Range(0, modHealItems3.Count + 1);
-            return newItem = Instantiate(modHealItems3[randomNumber]);
+            int randomNumber = Random.Range(0, modBioneticItems3.Count + 1);
+            return newItem = Instantiate(modBioneticItems3[randomNumber]);
         }
         else
         {
-            int randomNumber = Random.Range(0, modHealItems1.Count + 1);
-            return newItem = Instantiate(modHealItems1[randomNumber]);
+            int randomNumber = Random.Range(0, modBioneticItems1.Count + 1);
+            return newItem = Instantiate(modBioneticItems1[randomNumber]);
         }        
     }
     //weapons

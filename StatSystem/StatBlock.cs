@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class StatBlock : MonoBehaviour
 {
-    int level;
+    public int level;
     #region Stat Variables
     //Health and Primary Skills
     public Stat vitality;
@@ -65,6 +65,7 @@ public class StatBlock : MonoBehaviour
     public Hex hexTemplate;
 
     public GameObject onHitEffect;
+    [SerializeField] private GameObject FloatingDamage;
 
     [SerializeField] private float takeDamageTimer;
     [SerializeField] private float takeDamageCooldown;
@@ -77,6 +78,7 @@ public class StatBlock : MonoBehaviour
         takeDamageCooldown = 0.2f;
         currentHealth = vitality.GetValue();
         armourIncreasePercentage = 0;
+        NaturalRegen();
         level = 1;
         //boonTemplate = Resources.Load("BoonHexes/Boon") as Boon;
         //hexTemplate = Resources.Load("BoonHexes/Hex") as Hex;
@@ -277,7 +279,7 @@ public class StatBlock : MonoBehaviour
     //Method to trigger events on taking damage (such as damage numbers flying up off enemies)
     public virtual void TakeDamageFeedback(int damage)
     {
-        Debug.Log(transform.name + " takes " + damage + " damage.");
+        FloatingDamageText(damage);
     }
 
     //Run damage through Critical Hits formula
@@ -307,6 +309,27 @@ public class StatBlock : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, vitality.GetValue());
         UpdateHealth();
     }
+    public void NaturalRegen()
+    {
+        int pRegen = regen.GetValue();
+
+        if (HasRegenerationBoon())
+        {
+            pRegen = regen.GetValue() + (vitality.GetValue() / 200);
+        }
+
+        StartCoroutine(RunNaturalRegen(pRegen));
+
+    }
+    IEnumerator RunNaturalRegen(int regen)
+    {
+        if (currentHealth > 0 && currentHealth < vitality.baseValue)
+        {
+            Heal(regen);
+        }
+        yield return new WaitForSeconds(1f);
+        NaturalRegen();
+    }
 
     public virtual void UpdateHealth()
     {
@@ -330,12 +353,13 @@ public class StatBlock : MonoBehaviour
     }
     public virtual void OnDeathExtra()
     {
-        FloatingDamageText();
         //to override
     }
-    private void FloatingDamageText()
+    private void FloatingDamageText(int damNum)
     {
-
+        GameObject damageNumber = Instantiate(FloatingDamage, transform.position, Quaternion.identity, transform);
+        FloatingDamage fDam = damageNumber.GetComponent<FloatingDamage>();
+        fDam.OnActivate(damNum);
     }
     public virtual void OnStunned(float timer, bool freeze = true)
     {
@@ -436,11 +460,15 @@ public class StatBlock : MonoBehaviour
             return 0;
         }
     }
-    public void HasRegenerationBoon(int regenHit = 5, float waitTime = 1f)
+    public bool HasRegenerationBoon()
     {
         if (GetBoon(BoonName.Regeneration) != null)
         {
-            StartCoroutine(RunRegeneration(regenHit, waitTime));
+            return true;
+        }
+        else 
+        { 
+            return false; 
         }
     }
     public int HasRendBoon()
@@ -476,12 +504,7 @@ public class StatBlock : MonoBehaviour
             return false;
         }
     }//TODO add custom shader, and enemy AI unable to add this person as a target
-    IEnumerator RunRegeneration(int regen, float waitTime)
-    {
-        Heal(regen);
-        yield return new WaitForSeconds(waitTime);
-        HasRegenerationBoon(regen);
-    }
+
     #endregion
 
     #region HEX checks, each tailored for their use cases
@@ -860,7 +883,7 @@ public class StatBlock : MonoBehaviour
     {
         takeDamageTimer = takeDamageCooldown;
     }
-    #endregion
+    #endregion       
 }
 public enum CharClass { Blank, Golemancer, Elementalist, Psyc, Mystic, Crypter, Apoch, Artificer, NanoMage, Vigil, Shadow, Envoy, StreetDoctor }
 public enum BoonName { Blank, Resistance, Velocity, Swiftness, Power, Defence, Reflection, Precision, Shielding, Regeneration, Rend, Feedback, Stealth }

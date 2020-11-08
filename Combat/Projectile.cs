@@ -236,7 +236,6 @@ public class Projectile : MonoBehaviour
         
         else if (collision.gameObject.layer == 18)
         {
-            Debug.Log(collision.gameObject.layer);
             if (persistent == false && range > 1)
             {
                 EndProjectile();

@@ -53,17 +53,17 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
             case ItemType.ItemHands:
                 inv.AddHandSlot(item as ItemHands);
                 break;
-            case ItemType.ModDex:
-                inv.AddModDexSlot(item as ModDex);
+            case ItemType.Cybernetic:
+                inv.AddModCybernetic(item as CyberneticMod);
                 break;
-            case ItemType.ModStr:
-                inv.AddModStrSlot(item as ModStr);
+            case ItemType.Enchantment:
+                inv.AddModEnchantment(item as EnchantmentMod);
                 break;
-            case ItemType.ModSta:
-                inv.AddModStaSlot(item as ModSta);
+            case ItemType.Genetic:
+                inv.AddModGenetic(item as GeneticMod);
                 break;
-            case ItemType.ModHeal:
-                inv.AddModHeallot(item as ModHeal);
+            case ItemType.Bionetic:
+                inv.AddModBionetic(item as BioneticMod);
                 break;
             case ItemType.Weapon:
                 inv.AddWeapon(item as Weapon, slotNum);

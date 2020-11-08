@@ -25,10 +25,10 @@ public class Inventory : MonoBehaviour
     public List<Item> handSlots = new List<Item>();
     public List<Item> feetSlots = new List<Item>();
 
-    public List<Item> modHealSlots = new List<Item>();
-    public List<Item> modDexSlots = new List<Item>();
-    public List<Item> modStrSlots = new List<Item>();
-    public List<Item> modStaSlots = new List<Item>();
+    public List<Item> modBionetics = new List<Item>();
+    public List<Item> modCybernetics = new List<Item>();
+    public List<Item> modEnchantments = new List<Item>();
+    public List<Item> modGenetics = new List<Item>();
 
     public List<Item> skills = new List<Item>();
 
@@ -44,10 +44,10 @@ public class Inventory : MonoBehaviour
     public ItemLegs legSlot;
     public ItemFeet feetSlot;
 
-    public ModHeal modHealSlot;
-    public ModDex modDexSlot;
-    public ModStr modStrSlot;
-    public ModSta modStaSlot;
+    public BioneticMod modBionetic;
+    public CyberneticMod modCybernetic;
+    public EnchantmentMod modEnchantment;
+    public GeneticMod modGenetic;
 
 
     //***CLASS SPECIFIC AREA***
@@ -208,7 +208,10 @@ public class Inventory : MonoBehaviour
     #region Base add/removes
     private void Add(Item item, List<Item> items)
     {
-        items.Add(item);
+        if (item.CheckRequirements(player))
+        {
+            items.Add(item);
+        }
     }
     public void Add(Item item)
     {
@@ -232,21 +235,21 @@ public class Inventory : MonoBehaviour
         {
             Add(item, feetSlots);
         }
-        else if (item.itemType == ItemType.ModDex)
+        else if (item.itemType == ItemType.Cybernetic)
         {
-            Add(item, modDexSlots);
+            Add(item, modCybernetics);
         }
-        else if (item.itemType == ItemType.ModSta)
+        else if (item.itemType == ItemType.Genetic)
         {
-            Add(item, modStaSlots);
+            Add(item, modGenetics);
         }
-        else if (item.itemType == ItemType.ModStr)
+        else if (item.itemType == ItemType.Enchantment)
         {
-            Add(item, modStrSlots);
+            Add(item, modEnchantments);
         }
-        else if (item.itemType == ItemType.ModHeal)
+        else if (item.itemType == ItemType.Bionetic)
         {
-            Add(item, modHealSlots);
+            Add(item, modBionetics);
         }
         else if (item.itemType == ItemType.Skill)
         {
@@ -284,21 +287,21 @@ public class Inventory : MonoBehaviour
         {
             Remove(item, feetSlots);
         }
-        else if (item.itemType == ItemType.ModDex)
+        else if (item.itemType == ItemType.Cybernetic)
         {
-            Remove(item, modDexSlots);
+            Remove(item, modCybernetics);
         }
-        else if (item.itemType == ItemType.ModSta)
+        else if (item.itemType == ItemType.Genetic)
         {
-            Remove(item, modStaSlots);
+            Remove(item, modGenetics);
         }
-        else if (item.itemType == ItemType.ModStr)
+        else if (item.itemType == ItemType.Enchantment)
         {
-            Remove(item, modStrSlots);
+            Remove(item, modEnchantments);
         }
-        else if (item.itemType == ItemType.ModHeal)
+        else if (item.itemType == ItemType.Bionetic)
         {
-            Remove(item, modHealSlots);
+            Remove(item, modBionetics);
         }
         else if (item.itemType == ItemType.Skill)
         {
@@ -356,29 +359,29 @@ public class Inventory : MonoBehaviour
         Add(feetSlot);
         feetSlot = null;
     }
-    private void RemoveModDexSlot()
+    private void RemovemodCybernetic()
     {
-        modDexSlot.RemoveStats(player);
-        Add(modDexSlot);
-        modDexSlot = null;
+        modCybernetic.RemoveStats(player);
+        Add(modCybernetic);
+        modCybernetic = null;
     }
-    private void RemoveModStrSlot()
+    private void RemovemodEnchantment()
     {
-        modStrSlot.RemoveStats(player);
-        Add(modStrSlot);
-        modStrSlot = null;
+        modEnchantment.RemoveStats(player);
+        Add(modEnchantment);
+        modEnchantment = null;
     }
-    private void RemoveModStaSlot()
+    private void RemovemodGenetic()
     {
-        modStaSlot.RemoveStats(player);
-        Add(modStaSlot);
-        modStaSlot = null;
+        modGenetic.RemoveStats(player);
+        Add(modGenetic);
+        modGenetic = null;
     }
-    private void RemoveModHealSlot()
+    private void RemovemodBionetic()
     {
-        modHealSlot.RemoveStats(player);
-        Add(modHealSlot);
-        modHealSlot = null;
+        modBionetic.RemoveStats(player);
+        Add(modBionetic);
+        modBionetic = null;
     }
     private void RemoveElementalistSkill1()
     {
@@ -440,39 +443,39 @@ public class Inventory : MonoBehaviour
                 }
                 break;
             case ItemType.ItemFeet:
-                if (legSlot != null)
+                if (feetSlot != null)
                 {
                     RemoveFeetSlot();
                 }
                 break;
             case ItemType.ItemHands:
-                if (legSlot != null)
+                if (handSlot != null)
                 {
                     RemoveHandSlot();
                 }
                 break;
-            case ItemType.ModDex:
-                if (legSlot != null)
+            case ItemType.Cybernetic:
+                if (modCybernetic != null)
                 {
-                    RemoveModDexSlot();
+                    RemovemodCybernetic();
                 }
                 break;
-            case ItemType.ModSta:
-                if (legSlot != null)
+            case ItemType.Genetic:
+                if (modGenetic != null)
                 {
-                    RemoveModStaSlot();
+                    RemovemodGenetic();
                 }
                 break;
-            case ItemType.ModStr:
-                if (legSlot != null)
+            case ItemType.Enchantment:
+                if (modEnchantment != null)
                 {
-                    RemoveModStrSlot();
+                    RemovemodEnchantment();
                 }
                 break;
-            case ItemType.ModHeal:
-                if (legSlot != null)
+            case ItemType.Bionetic:
+                if (modBionetic != null)
                 {
-                    RemoveModHealSlot();
+                    RemovemodBionetic();
                 }
                 break;
             default:
@@ -856,43 +859,43 @@ public class Inventory : MonoBehaviour
         item.AddStats(player);
         Remove(item);
     }
-    public void AddModStrSlot(ModStr item)
+    public void AddModEnchantment(EnchantmentMod item)
     {
-        if (modStrSlot != null)
+        if (modEnchantment != null)
         {
             RemoveEquipment(item.itemType);
         }
-        modStrSlot = item;
+        modEnchantment = item;
         item.AddStats(player);
         Remove(item);
     }
-    public void AddModStaSlot(ModSta item)
+    public void AddModGenetic(GeneticMod item)
     {
-        if (modStaSlot != null)
+        if (modGenetic != null)
         {
             RemoveEquipment(item.itemType);
         }
-        modStaSlot = item;
+        modGenetic = item;
         item.AddStats(player);
         Remove(item);
     }
-    public void AddModDexSlot(ModDex item)
+    public void AddModCybernetic(CyberneticMod item)
     {
-        if (modDexSlot != null)
+        if (modCybernetic != null)
         {
             RemoveEquipment(item.itemType);
         }
-        modDexSlot = item;
+        modCybernetic = item;
         item.AddStats(player);
         Remove(item);
     }
-    public void AddModHeallot(ModHeal item)
+    public void AddModBionetic(BioneticMod item)
     {
-        if (modHealSlot != null)
+        if (modBionetic != null)
         {
             RemoveEquipment(item.itemType);
         }
-        modHealSlot = item;
+        modBionetic = item;
         item.AddStats(player);
         Remove(item);
     }

@@ -15,10 +15,6 @@ public class Boon : MonoBehaviour
         //TODO add UI element
         name = boonName.ToString();
         duration = duration * (appliedBy.persistence.GetValue() / 100);
-        if (boonName == BoonName.Regeneration)
-        {
-            owner.HasRegenerationBoon();
-        }
     }
 
     private void FixedUpdate()
@@ -28,12 +24,10 @@ public class Boon : MonoBehaviour
         {
             EndBoon();
         }
-        Debug.Log("Boon: " + boonName + "On: " + owner + "Timer:" + duration);
     }
 
     public void EndBoon()
     {
-        Debug.Log("Boon: " + boonName + "Ended");
         //TODO remove UI element
         owner.boons.Remove(owner.GetBoon(boonName));
         Destroy(gameObject);

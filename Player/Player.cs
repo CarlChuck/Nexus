@@ -78,7 +78,6 @@ public class Player : StatBlock
         globalTimer = 0;
         DontDestroyOnLoad(this);
         UpdateHealth();
-        PlayerNaturalRegen();
     }
 
     public override void Update()
@@ -308,20 +307,5 @@ public class Player : StatBlock
     {
         gameObject.transform.position = newLoc;
     }
-    public void PlayerNaturalRegen()
-    {
-        int pRegen = vitality.baseValue / 100;
-        Debug.Log(pRegen);
-        StartCoroutine(RunPlayerNaturalRegen(pRegen));
 
-    }
-    IEnumerator RunPlayerNaturalRegen(int regen)
-    {
-        if (currentHealth > 0 && currentHealth < vitality.baseValue)
-        {
-            Heal(regen);
-        }
-        yield return new WaitForSeconds(1f);
-        PlayerNaturalRegen();
-    }
 }
