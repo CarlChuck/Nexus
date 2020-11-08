@@ -119,16 +119,16 @@ public class StatBlock : MonoBehaviour
 
         if (hasCrit == true)
         {
-            thermal += thermal * devastation.GetValue();
-            cryo += cryo * devastation.GetValue();
-            shock += shock * devastation.GetValue();
-            radiation += radiation * devastation.GetValue();
-            psi += psi * devastation.GetValue();
-            dimensional += dimensional * devastation.GetValue();
-            kinetic += kinetic * devastation.GetValue();
-            poison += poison * devastation.GetValue();
-            bio += bio * devastation.GetValue();
-            corruption += corruption * devastation.GetValue();
+            thermal += thermal * (devastation.GetValue() / 100);
+            cryo += cryo * (devastation.GetValue() / 100);
+            shock += shock * (devastation.GetValue() / 100);
+            radiation += radiation * (devastation.GetValue() / 100);
+            psi += psi * (devastation.GetValue() / 100);
+            dimensional += dimensional * (devastation.GetValue() / 100);
+            kinetic += kinetic * (devastation.GetValue() / 100);
+            poison += poison * (devastation.GetValue() / 100);
+            bio += bio * (devastation.GetValue() / 100);
+            corruption += corruption * (devastation.GetValue() / 100);
         }
 
         if (GetBoon(BoonName.Stealth) != null)
