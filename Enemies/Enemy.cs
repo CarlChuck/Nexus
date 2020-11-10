@@ -137,7 +137,7 @@ public class Enemy : StatBlock
             StartCoroutine(BodyDecay(6));
         }
         enemyUI.SetActive(false);
-
+        GiveXP();
     }
 
     //To add extra effects in the time to decay, such as removing ragdoll.
@@ -221,6 +221,11 @@ public class Enemy : StatBlock
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
-
+    private void GiveXP()
+    {
+        float multiplier;
+        //Set multiplier as rarity
+        //give player xp based on level x rarity
+    }
     public enum AIstate {Passive, Aggressive, Search, Contact, Attack, Stun, Fear, Dead }
 }

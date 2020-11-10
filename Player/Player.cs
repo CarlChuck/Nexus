@@ -31,6 +31,7 @@ public class Player : StatBlock
     public GameObject player;
     public TwoBoneIKConstraint rhIK;
     public TwoBoneIKConstraint lhIK;
+    public Xp xp;
 
     public bool inventoryOpen = false;
 
@@ -71,7 +72,7 @@ public class Player : StatBlock
 
         wManager = WeaponManager.instance;
         inventory = Inventory.instance;
-
+        level = xp.CurrentLevel();
         globalCoolDown = 0.1f;
         globalTimer = 0;
         DontDestroyOnLoad(this);
