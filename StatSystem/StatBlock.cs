@@ -204,9 +204,9 @@ public class StatBlock : MonoBehaviour
             }
             else
             {
-                if (HasFeedbackBoon())
+                if (feedback.GetValue() >= 1)
                 {
-                    attacker.TakeDamageFinal(attacker, level);
+                    attacker.TakeDamageFinal(attacker, feedback.GetValue() + HasFeedbackBoon());
                 }
                 int armourValue = armour.GetValue() + HasDefenceBoon();
 
@@ -274,6 +274,8 @@ public class StatBlock : MonoBehaviour
         {
             OnHitByProjectile();
         }
+
+        LeechEffect(attacker, damage);
     }
 
     //Method to trigger events on taking damage (such as damage numbers flying up off enemies)
@@ -298,6 +300,12 @@ public class StatBlock : MonoBehaviour
         float mitigation = totalArmour / ((attackerLevel * 50) + totalArmour);
 
         return mitigation;
+    }
+
+    private void LeechEffect(StatBlock attacker, int damage)
+    {
+        float leechAmount = (damage / 100) * attacker.leech.GetValue();
+        attacker.Heal((int)leechAmount);
     }
     #endregion
 
@@ -482,15 +490,15 @@ public class StatBlock : MonoBehaviour
             return 0;
         }
     }
-    public bool HasFeedbackBoon()
+    public int HasFeedbackBoon()
     {
         if (GetBoon(BoonName.Feedback) != null)
         {
-            return true;
+            return level;
         }
         else
         {
-            return false;
+            return 0;
         }
     }
     public bool HasStealthBoon()

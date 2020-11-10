@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class Player : StatBlock
 {
-
-
     private MainControls mControls;
 
     #region Singleton

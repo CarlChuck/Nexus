@@ -9,9 +9,10 @@ public class PlayerController : MonoBehaviour
     //Player speed variable
     public float speed;
 
-    //for dodge
-    private float stamina;
-    private float timer;
+    //for cyber
+    private float cyberTimer;
+    private float bioTimer;
+    private float dodgeSpeed;
     [SerializeField] private GameObject dodgeParticles = default;
     
     public Animator anim;
@@ -52,8 +53,8 @@ public class PlayerController : MonoBehaviour
         speed = 6f; //TODO
         gSelected = null;
         controller = GetComponent<CharacterController>();
-        stamina = 1f;
-        timer = 0.4f;
+        cyberTimer = 0.4f;
+        bioTimer = 0.4f;
     }
 
     void Update()
@@ -61,9 +62,10 @@ public class PlayerController : MonoBehaviour
         //LayerMasks for raycast
         int floorLayerMask = 1 << 20;
 
-        //Dodge timer
+        //Cyber + Bio timers
         float time = Time.deltaTime;
-        timer -= time;
+        cyberTimer -= time;
+        bioTimer -= time;
 
         //Movement variables
         var movementInput = mControls.PlayerControls.Movement.ReadValue<Vector2>();
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (dodgeBool == true)
         {
-            controller.Move(movement * Time.deltaTime * 1.8f);
+            controller.Move(movement * Time.deltaTime * dodgeSpeed);
         }
 
         //Get Player Facing Angle
@@ -103,26 +105,7 @@ public class PlayerController : MonoBehaviour
 
      
     }
-    public void OnDodge()
-    {
-        if (timer <= 0)
-        {
-            timer = stamina;
-            player.globalTimer = 0.5f;
 
-            //Set Dodge Variables
-            StartCoroutine(DodgeShift());
-        }
-    }
-
-    IEnumerator DodgeShift()
-    {
-        dodgeBool = true;
-        dodgeParticles.SetActive(true);
-        yield return new WaitForSeconds(0.4f);
-        dodgeBool = false;
-        dodgeParticles.SetActive(false);
-    }
 
     private void AnimatePlayer(float angle, float moveHorizontal, float moveVertical)
     {
@@ -357,20 +340,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void GetInteraction()
-    {
-        GameObject interactedObject = rayHit.collider.gameObject;
-        if (interactedObject.tag == "Interactable")
-        {
-            gSelected = interactedObject;
-
-            if (Vector3.Distance(transform.position, gSelected.transform.position) < gSelected.GetComponent<Interactable>().radius)
-            {
-                gSelected.GetComponent<Interactable>().interact();
-            }
-        }
-    }
-
     public int ReturnLayer()
     {
         if (rayHit.transform != null)
@@ -382,7 +351,44 @@ public class PlayerController : MonoBehaviour
             return 0;
         }
     }
-
+    #region Button Control Root Functions
+    //Cybernetics
+    public void OnCybernetic()
+    {
+        CyberneticMod currentMod = player.inventory.modCybernetic;
+        switch (currentMod.GetCyberneticType())
+        {
+            case CyberneticType.Dodge:
+                CyberDodge();
+                break;
+            case CyberneticType.AttkSpeed:
+                CyberAttkSpeedBuff();
+                break;
+            case CyberneticType.CorruptResist:
+                CyberCorruptResistBuff();
+                break;
+        }
+    }
+    //TODO Bionetics
+    public void OnBionetic()
+    {
+        BioneticMod currentMod = player.inventory.modBionetic;
+        switch (currentMod.GetBioneticEffect())
+        {
+            case BioneticEffect.Heal:
+                BioHeal();
+                break;
+            case BioneticEffect.HealOverTime:
+                BioHealOverTime();
+                break;
+            case BioneticEffect.AoEHeal:
+                BioAreaHeal();
+                break;
+            case BioneticEffect.Leech:
+                BioLeech();
+                break;
+        }
+    }
     public void OnWeapon1()
     {
         if (player.inventoryOpen == false)
@@ -534,6 +540,119 @@ public class PlayerController : MonoBehaviour
             GetInteraction();
         }
     }
+    #endregion
+
+    #region Button Control Assisting Functions
+    private void CyberDodge()
+    {
+        if (cyberTimer <= 0)
+        {
+            cyberTimer = 2f;
+            dodgeSpeed = 3f;
+            player.globalTimer = 0.5f;
+
+            //Set Dodge Variables
+            StartCoroutine(DodgeShift());
+        }
+    }
+    private void CyberAttkSpeedBuff()
+    {
+        if (cyberTimer <= 0)
+        {
+            cyberTimer = 10f;
+            //TODO cyberAttkBuff
+            //player.globalTimer = 0.5f;
+            //no cooldown for this seems best
+        }
+    }
+    private void CyberCorruptResistBuff()
+    {
+        if (cyberTimer <= 0)
+        {
+            cyberTimer = 10f;
+            player.globalTimer = 0.5f;
+            StartCoroutine(CorruptResistEffect(50, 4f));
+        }
+    }
+    private void BioHeal()
+    {
+        if (bioTimer <= 0)
+        {
+            bioTimer = 5f;
+            int healAmount = (player.vitality.GetValue() / 100) * 60; 
+            player.Heal(healAmount);
+            player.globalTimer = 0.5f;
+        }
+    }
+    private void BioHealOverTime()
+    {
+        if (bioTimer <= 0)
+        {
+            bioTimer = 5f;
+            int healAmount = (player.vitality.GetValue() / 100) * 80;
+            //Heal Over time = healAmount at full value of 5 seconds / regen timer
+            int healOverTimeAmount = healAmount / 5;
+            StartCoroutine(HealOverTimeEffect(healOverTimeAmount, 5f));
+            player.globalTimer = 0.5f;
+        }
+    }
+    private void BioAreaHeal()
+    {
+        if (bioTimer <= 0)
+        {
+            bioTimer = 5f;
+            int healAmount = (player.vitality.GetValue() / 100) * 40;
+            //TODO Add AoE Heal
+            player.globalTimer = 0.5f;
+        }
+    }
+    private void BioLeech()
+    {
+        if (bioTimer <= 0)
+        {
+            bioTimer = 5f;
+            StartCoroutine(LeechEffect(100, 5f));
+            player.globalTimer = 0.5f;
+        }
+    }
+    void GetInteraction()
+    {
+        GameObject interactedObject = rayHit.collider.gameObject;
+        if (interactedObject.tag == "Interactable")
+        {
+            gSelected = interactedObject;
+
+            if (Vector3.Distance(transform.position, gSelected.transform.position) < gSelected.GetComponent<Interactable>().radius)
+            {
+                gSelected.GetComponent<Interactable>().interact();
+            }
+        }
+    }
+    IEnumerator DodgeShift()
+    {
+        dodgeBool = true;
+        dodgeParticles.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        dodgeBool = false;
+        dodgeParticles.SetActive(false);
+    }
+    IEnumerator HealOverTimeEffect(int amount, float duration)
+    {
+        player.regen.AddModifier(amount);
+        yield return new WaitForSeconds(duration);
+        player.regen.RemoveModifier(amount);
+    }
+    IEnumerator LeechEffect(int amount, float duration)
+    {
+        player.leech.AddModifier(amount);
+        yield return new WaitForSeconds(duration);
+        player.leech.RemoveModifier(amount);
+    }
+    IEnumerator CorruptResistEffect(int amount, float duration)
+    {
+        player.corruptionResistance.AddModifier(amount);
+        yield return new WaitForSeconds(duration);
+        player.corruptionResistance.RemoveModifier(amount);
+    }
+    #endregion
 }
-
-

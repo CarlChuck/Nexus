@@ -27,10 +27,10 @@ public class @MainControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Dodge"",
+                    ""name"": ""Cybernetic"",
                     ""type"": ""Button"",
                     ""id"": ""0bb6ef1d-a236-477f-b42d-902fa7751637"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -191,6 +191,14 @@ public class @MainControls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""ec8522fe-4ecd-4c49-883b-a6f44c2ccbcf"",
                     ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Bionetic"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1d20bf2-1b3f-4b23-abc4-304c986b41b0"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -643,7 +651,7 @@ public class @MainControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dodge"",
+                    ""action"": ""Cybernetic"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -712,6 +720,17 @@ public class @MainControls : IInputActionCollection, IDisposable
                     ""action"": ""Weapon3Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbc1ded8-2558-4fbd-bba1-0beaf6ec7a20"",
+                    ""path"": ""<Keyboard>/#(Q)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bionetic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -721,7 +740,7 @@ public class @MainControls : IInputActionCollection, IDisposable
         // PlayerControls
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerControls_Dodge = m_PlayerControls.FindAction("Dodge", throwIfNotFound: true);
+        m_PlayerControls_Cybernetic = m_PlayerControls.FindAction("Cybernetic", throwIfNotFound: true);
         m_PlayerControls_Look = m_PlayerControls.FindAction("Look", throwIfNotFound: true);
         m_PlayerControls_Weapon1 = m_PlayerControls.FindAction("Weapon1", throwIfNotFound: true);
         m_PlayerControls_Weapon2 = m_PlayerControls.FindAction("Weapon2", throwIfNotFound: true);
@@ -742,6 +761,7 @@ public class @MainControls : IInputActionCollection, IDisposable
         m_PlayerControls_Options = m_PlayerControls.FindAction("Options", throwIfNotFound: true);
         m_PlayerControls_Escape = m_PlayerControls.FindAction("Escape", throwIfNotFound: true);
         m_PlayerControls_Interaction = m_PlayerControls.FindAction("Interaction", throwIfNotFound: true);
+        m_PlayerControls_Bionetic = m_PlayerControls.FindAction("Bionetic", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -792,7 +812,7 @@ public class @MainControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_PlayerControls;
     private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
     private readonly InputAction m_PlayerControls_Movement;
-    private readonly InputAction m_PlayerControls_Dodge;
+    private readonly InputAction m_PlayerControls_Cybernetic;
     private readonly InputAction m_PlayerControls_Look;
     private readonly InputAction m_PlayerControls_Weapon1;
     private readonly InputAction m_PlayerControls_Weapon2;
@@ -813,12 +833,13 @@ public class @MainControls : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Options;
     private readonly InputAction m_PlayerControls_Escape;
     private readonly InputAction m_PlayerControls_Interaction;
+    private readonly InputAction m_PlayerControls_Bionetic;
     public struct PlayerControlsActions
     {
         private @MainControls m_Wrapper;
         public PlayerControlsActions(@MainControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
-        public InputAction @Dodge => m_Wrapper.m_PlayerControls_Dodge;
+        public InputAction @Cybernetic => m_Wrapper.m_PlayerControls_Cybernetic;
         public InputAction @Look => m_Wrapper.m_PlayerControls_Look;
         public InputAction @Weapon1 => m_Wrapper.m_PlayerControls_Weapon1;
         public InputAction @Weapon2 => m_Wrapper.m_PlayerControls_Weapon2;
@@ -839,6 +860,7 @@ public class @MainControls : IInputActionCollection, IDisposable
         public InputAction @Options => m_Wrapper.m_PlayerControls_Options;
         public InputAction @Escape => m_Wrapper.m_PlayerControls_Escape;
         public InputAction @Interaction => m_Wrapper.m_PlayerControls_Interaction;
+        public InputAction @Bionetic => m_Wrapper.m_PlayerControls_Bionetic;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -851,9 +873,9 @@ public class @MainControls : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                @Dodge.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDodge;
-                @Dodge.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDodge;
-                @Dodge.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDodge;
+                @Cybernetic.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCybernetic;
+                @Cybernetic.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCybernetic;
+                @Cybernetic.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCybernetic;
                 @Look.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLook;
@@ -914,6 +936,9 @@ public class @MainControls : IInputActionCollection, IDisposable
                 @Interaction.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteraction;
                 @Interaction.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteraction;
                 @Interaction.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteraction;
+                @Bionetic.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBionetic;
+                @Bionetic.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBionetic;
+                @Bionetic.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBionetic;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -921,9 +946,9 @@ public class @MainControls : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Dodge.started += instance.OnDodge;
-                @Dodge.performed += instance.OnDodge;
-                @Dodge.canceled += instance.OnDodge;
+                @Cybernetic.started += instance.OnCybernetic;
+                @Cybernetic.performed += instance.OnCybernetic;
+                @Cybernetic.canceled += instance.OnCybernetic;
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
@@ -984,6 +1009,9 @@ public class @MainControls : IInputActionCollection, IDisposable
                 @Interaction.started += instance.OnInteraction;
                 @Interaction.performed += instance.OnInteraction;
                 @Interaction.canceled += instance.OnInteraction;
+                @Bionetic.started += instance.OnBionetic;
+                @Bionetic.performed += instance.OnBionetic;
+                @Bionetic.canceled += instance.OnBionetic;
             }
         }
     }
@@ -991,7 +1019,7 @@ public class @MainControls : IInputActionCollection, IDisposable
     public interface IPlayerControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnDodge(InputAction.CallbackContext context);
+        void OnCybernetic(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnWeapon1(InputAction.CallbackContext context);
         void OnWeapon2(InputAction.CallbackContext context);
@@ -1012,5 +1040,6 @@ public class @MainControls : IInputActionCollection, IDisposable
         void OnOptions(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnBionetic(InputAction.CallbackContext context);
     }
 }
