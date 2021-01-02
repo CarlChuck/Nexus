@@ -175,6 +175,11 @@ public class Player : StatBlock
         
     }
 
+    public void OnLevelUp()
+    {
+
+
+    }
     public override void UpdateHealth()
     {
         base.UpdateHealth();

@@ -27,7 +27,7 @@ public class StatBlock : MonoBehaviour
     public Stat affliction;
     public Stat persistence;
     public Stat luck;
-    public int xpModifier;
+    public Stat xpGain;
     public Stat leech;
     public Stat regen;
     public Stat feedback;

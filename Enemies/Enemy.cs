@@ -23,10 +23,11 @@ public class Enemy : StatBlock
     [SerializeField] private GameObject freezePrefab = default;
 
     //Properties
-    public int enemyRarity = 1;
     public float attackSpeed = 1f;
     private float coolDown = 0f;
     private bool isKinematicOn = true;
+    private int xpValue;
+    private EnemyQuality enemyRarity = EnemyQuality.Normal;
 
     //Weapon
     public Projectile projectile;
@@ -44,6 +45,7 @@ public class Enemy : StatBlock
         agent.stoppingDistance = projectile.range /2;
         lootSys = LootSystemManager.instance;
         target = Player.instance.player.transform;//TODO AI target selection
+        xpValue = GenerateXPValue();
     }
 
     //AI Behaviour
@@ -126,11 +128,36 @@ public class Enemy : StatBlock
 
     public override void OnDeath()
     {
+        int rarity = 0;
+        if (enemyRarity == EnemyQuality.Weak || enemyRarity == EnemyQuality.Normal)
+        {
+            rarity = 1;
+        }
+        else if (enemyRarity == EnemyQuality.Uncommon)
+        {
+            rarity = 2;
+        }
+        else if (enemyRarity == EnemyQuality.Tough)
+        {
+            rarity = 3;
+        }
+        else if (enemyRarity == EnemyQuality.Rare)
+        {
+            rarity = 4;
+        }
+        else if (enemyRarity == EnemyQuality.Heroic)
+        {
+            rarity = 5;
+        }
+        else if (enemyRarity == EnemyQuality.Unique)
+        {
+            rarity = 6;
+        }
         agent.isStopped = true;
         agent.enabled = false;
         if (state != AIstate.Dead)
         {
-            lootSys.DropLoot(enemyRarity, gameObject.transform.position);
+            lootSys.DropLoot(rarity, gameObject.transform.position);
             CameraController camera = FindObjectOfType<CameraController>();
             camera.shake(0.2f, 0.2f);
             state = AIstate.Dead;
@@ -223,9 +250,60 @@ public class Enemy : StatBlock
     }
     private void GiveXP()
     {
-        float multiplier;
-        //Set multiplier as rarity
-        //give player xp based on level x rarity
+        Player.instance.xp.GainEXP(xpValue);
+    }
+
+    private int GenerateXPValue()
+    {
+        int xp = 5;
+        float multiplier = 1f;
+        int runningLevel = level;
+        if (enemyRarity == EnemyQuality.Weak)
+        {
+            multiplier = 0.5f;
+        }
+        else if (enemyRarity == EnemyQuality.Normal)
+        {
+            multiplier = 1f;
+        }
+        else if (enemyRarity == EnemyQuality.Uncommon)
+        {
+            multiplier = 2f;
+        }
+        else if (enemyRarity == EnemyQuality.Tough)
+        {
+            multiplier = 4f;
+        }
+        else if (enemyRarity == EnemyQuality.Rare)
+        {
+            multiplier = 8f;
+        }
+        else if (enemyRarity == EnemyQuality.Heroic)
+        {
+            multiplier = 10f;
+        }
+        else if (enemyRarity == EnemyQuality.Unique)
+        {
+            multiplier = 20f;
+        }
+
+        if (level <= 5)
+        {
+            for (int i = 0; i <= level; i++)
+            {
+                xp = (int)(xp * 1.2f);
+            }
+        }
+        else if (level > 5)
+        {
+            xp = 10;
+            for (int i = 0; i <= level - 5; i++)
+            {
+                xp = (int)(xp * 1.05f);
+            }
+        }
+        return (int)(xp * multiplier);
     }
     public enum AIstate {Passive, Aggressive, Search, Contact, Attack, Stun, Fear, Dead }
 }
+public enum EnemyQuality {Weak, Normal, Uncommon, Tough, Rare, Heroic, Unique }

@@ -1556,7 +1556,7 @@ public class Item : ScriptableObject
         }
         if (xpGain > 0)
         {
-            player.xpModifier += xpGain;
+            player.xpGain.AddModifier(xpGain);
         }
     }
     public void RemoveStats(StatBlock player)
@@ -1707,7 +1707,7 @@ public class Item : ScriptableObject
         }
         if (xpGain > 0)
         {
-            player.xpModifier -= xpGain;
+            player.xpGain.RemoveModifier(xpGain);
         }
     }
     #endregion

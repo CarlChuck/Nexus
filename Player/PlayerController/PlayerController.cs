@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (dodgeBool == true)
         {
+            //TODO Make a real dodge
             controller.Move(movement * Time.deltaTime * dodgeSpeed);
         }
 
@@ -351,42 +352,49 @@ public class PlayerController : MonoBehaviour
             return 0;
         }
     }
+
     #region Button Control Root Functions
     //Cybernetics
     public void OnCybernetic()
     {
-        CyberneticMod currentMod = player.inventory.modCybernetic;
-        switch (currentMod.GetCyberneticType())
+        if (player.inventory.modCybernetic != null)
         {
-            case CyberneticType.Dodge:
-                CyberDodge();
-                break;
-            case CyberneticType.AttkSpeed:
-                CyberAttkSpeedBuff();
-                break;
-            case CyberneticType.CorruptResist:
-                CyberCorruptResistBuff();
-                break;
+            CyberneticMod currentMod = player.inventory.modCybernetic;
+            switch (currentMod.GetCyberneticType())
+            {
+                case CyberneticType.Dodge:
+                    CyberDodge();
+                    break;
+                case CyberneticType.AttkSpeed:
+                    CyberAttkSpeedBuff();
+                    break;
+                case CyberneticType.CorruptResist:
+                    CyberCorruptResistBuff();
+                    break;
+            }
         }
     }
     //TODO Bionetics
     public void OnBionetic()
     {
-        BioneticMod currentMod = player.inventory.modBionetic;
-        switch (currentMod.GetBioneticEffect())
+        if (player.inventory.modBionetic != null)
         {
-            case BioneticEffect.Heal:
-                BioHeal();
-                break;
-            case BioneticEffect.HealOverTime:
-                BioHealOverTime();
-                break;
-            case BioneticEffect.AoEHeal:
-                BioAreaHeal();
-                break;
-            case BioneticEffect.Leech:
-                BioLeech();
-                break;
+            BioneticMod currentMod = player.inventory.modBionetic;
+            switch (currentMod.GetBioneticEffect())
+            {
+                case BioneticEffect.Heal:
+                    BioHeal();
+                    break;
+                case BioneticEffect.HealOverTime:
+                    BioHealOverTime();
+                    break;
+                case BioneticEffect.AoEHeal:
+                    BioAreaHeal();
+                    break;
+                case BioneticEffect.Leech:
+                    BioLeech();
+                    break;
+            }
         }
     }
     public void OnWeapon1()
