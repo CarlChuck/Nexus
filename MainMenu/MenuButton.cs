@@ -14,6 +14,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] int num = default;
     [SerializeField] MainMenu mMenu = default;
     [SerializeField] MenuFunc mFunc = default;
+    [SerializeField] MenuCharCreatorButtons mAvatarButtons = default;
+    [SerializeField] CharClass mAvatar = default;
     [SerializeField] AudioSource audioOver = default;
     [SerializeField] AudioSource audioClick = default;
 
@@ -40,7 +42,12 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             mMenu.MenuFunction(mFunc);
         }
+        if (mAvatarButtons != null)
+        {
+            mAvatarButtons.LoadThisAvatar(mAvatar);
+        }
         audioClick.Play();
+
     }
 
     public void OnPointerUp(PointerEventData pointerData)
@@ -59,5 +66,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         animator.SetBool("selected", false);
     }
+
+
 
 }

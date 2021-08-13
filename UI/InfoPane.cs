@@ -6,10 +6,13 @@ using UnityEngine.UI;
 
 public class InfoPane : MonoBehaviour
 {
+    private Item item;
+    [SerializeField] private TextMeshProUGUI infoText;
+    [SerializeField] private TextMeshProUGUI infoTitle;
 
-    public TextMeshProUGUI infoText;
-    public TextMeshProUGUI infoTitle;
-
+    [SerializeField] private Image icon;
+    [SerializeField] private Image iconBacking;
+    [SerializeField] private Image textBacking;
     private void Start()
     {
         ResetPane();
@@ -21,8 +24,11 @@ public class InfoPane : MonoBehaviour
         infoText.text = null;
     }
 
-    public void UpdateInfo(Item item)
+    public void UpdateInfo(Item itemIn)
     {
+        item = itemIn;
+        icon.sprite = item.icon;
+        UpdateTheColour();
         infoText.text = "";
         infoTitle.text = item.name;
         infoTitle.text += " (" + item.quality.ToString() + ")";
@@ -36,18 +42,18 @@ public class InfoPane : MonoBehaviour
         }
         else if (item.itemType == ItemType.Skill)
         {/*
-            Skill skill = item as Skill;
-            infoText.text += "Class: " + skill.classRequired.ToString() + "\n";
-            infoText.text += "Damage: " + skill.damage.ToString() + "\n";
+        Skill skill = item as Skill;
+        infoText.text += "Class: " + skill.classRequired.ToString() + "\n";
+        infoText.text += "Damage: " + skill.damage.ToString() + "\n";
 
-            //TODO Cost for class abilities
-            if (skill.classRequired == CharClass.Elementalist)
-            {
-                ElementalistSkill eSkill = skill as ElementalistSkill;
-            }*/
+        //TODO Cost for class abilities
+        if (skill.classRequired == CharClass.Elementalist)
+        {
+            ElementalistSkill eSkill = skill as ElementalistSkill;
+        }*/
         }
         else
-        {  
+        {
             /*
             if (item.vitality != 0)
             {
@@ -127,11 +133,49 @@ public class InfoPane : MonoBehaviour
             }*/
         }
         infoText.text += "\n" + item.description;
+        
+        
+    }
+
+    private void UpdateTheColour()
+    {
+        InventoryUI invUI = InventoryUI.instance;
+
+        switch (item.quality)
+        {
+            case Quality.Common:
+                iconBacking.sprite = invUI.ItemBackCommon;
+                textBacking.sprite = invUI.DirectionalCommon;
+                break;
+            case Quality.Uncommon:
+                iconBacking.sprite = invUI.ItemBackUncommon;
+                textBacking.sprite = invUI.DirectionalUncommon;
+                break;
+            case Quality.Masterwork:
+                iconBacking.sprite = invUI.ItemBackMasterwork;
+                textBacking.sprite = invUI.DirectionalMasterwork;
+                break;
+            case Quality.Rare:
+                iconBacking.sprite = invUI.ItemBackRare;
+                textBacking.sprite = invUI.DirectionalRare;
+                break;
+            case Quality.Legendary:
+                iconBacking.sprite = invUI.ItemBackLegendary;
+                textBacking.sprite = invUI.DirectionalLegendary;
+                break;
+            case Quality.Unique:
+                iconBacking.sprite = invUI.ItemBackUnique;
+                textBacking.sprite = invUI.DirectionalUnique;
+                break;
+        }
     }
 
     public void EmptyInfo()
     {
+        InventoryUI invUI = InventoryUI.instance;
         infoTitle.text = "";
         infoText.text = "";
+        iconBacking.sprite = invUI.ItemBackCommon;
+        textBacking.sprite = invUI.DirectionalCommon;
     }
 }

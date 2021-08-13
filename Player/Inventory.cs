@@ -510,255 +510,255 @@ public class Inventory : MonoBehaviour
 
     #region Move From Inventory to Equipment Slot
     //functions to call moving from inventory to equipslot from outside class and removes existing item in slot back to inventory
-    public void AddWeapon(Weapon weapon, int slotNumber)
+    public void AddWeapon(Weapon weapon, ItemSlot slot)
     {
         switch (player.cClass)
         {
             case CharClass.Golemancer:
-                AddWeaponsGolemancer(weapon, slotNumber);
+                AddWeaponsGolemancer(weapon, slot);
                 break;
             case CharClass.Elementalist:
-                AddWeaponsElementalist(weapon, slotNumber);
+                AddWeaponsElementalist(weapon, slot);
                 break;
             case CharClass.Psyc:
-                AddWeaponsPsyc(weapon, slotNumber);
+                AddWeaponsPsyc(weapon, slot);
                 break;
             case CharClass.Mystic:
-                AddWeaponsMystic(weapon, slotNumber);
+                AddWeaponsMystic(weapon, slot);
                 break;
             case CharClass.Artificer:
-                AddWeaponsArtificer(weapon, slotNumber);
+                AddWeaponsArtificer(weapon, slot);
                 break;
             case CharClass.Apoch:
-                AddWeaponsApoch(weapon, slotNumber);
+                AddWeaponsApoch(weapon, slot);
                 break;
             case CharClass.Crypter:
-                AddWeaponsCrypter(weapon, slotNumber);
+                AddWeaponsCrypter(weapon, slot);
                 break;
             case CharClass.NanoMage:
-                AddWeaponsNanoMage(weapon, slotNumber);
+                AddWeaponsNanoMage(weapon, slot);
                 break;
             case CharClass.Envoy:
-                AddWeaponsEnvoy(weapon, slotNumber);
+                AddWeaponsEnvoy(weapon, slot);
                 break;
             case CharClass.Vigil:
-                AddWeaponsVigil(weapon, slotNumber);
+                AddWeaponsVigil(weapon, slot);
                 break;
             case CharClass.Shadow:
-                AddWeaponsShadow(weapon, slotNumber);
+                AddWeaponsShadow(weapon, slot);
                 break;
             case CharClass.StreetDoctor:
-                AddWeaponsStreetDoc(weapon, slotNumber);
+                AddWeaponsStreetDoc(weapon, slot);
                 break;
         }
     }
-    private void AddWeaponsGolemancer(Weapon weapon, int slotNumber)
+    private void AddWeaponsGolemancer(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.Carbine || weapon.wType == WeaponType.Wand || weapon.wType == WeaponType.Staff)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.Carbine || weapon.wType == WeaponType.Shield || weapon.wType == WeaponType.Foci || weapon.wType == WeaponType.Staff)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsElementalist(Weapon weapon, int slotNumber)
+    private void AddWeaponsElementalist(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Wand)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Wand || weapon.wType == WeaponType.Foci)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsPsyc(Weapon weapon, int slotNumber)
+    private void AddWeaponsPsyc(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Wand || weapon.wType == WeaponType.Staff)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Wand || weapon.wType == WeaponType.Foci || weapon.wType == WeaponType.Staff)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsMystic(Weapon weapon, int slotNumber)
+    private void AddWeaponsMystic(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.Wand || weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Staff)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.Shield || weapon.wType == WeaponType.Foci || weapon.wType == WeaponType.Staff)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsArtificer(Weapon weapon, int slotNumber)
+    private void AddWeaponsArtificer(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.NanoGlove || weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.GravGun)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.Launcher || weapon.wType == WeaponType.Shield ||  weapon.wType == WeaponType.GravGun)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsApoch(Weapon weapon, int slotNumber)
+    private void AddWeaponsApoch(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.Carbine || weapon.wType == WeaponType.GravGun)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.Carbine || weapon.wType == WeaponType.GravGun)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsCrypter(Weapon weapon, int slotNumber)
+    private void AddWeaponsCrypter(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.NanoGlove || weapon.wType == WeaponType.GravGun || weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Melee)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.NanoGlove || weapon.wType == WeaponType.GravGun || weapon.wType == WeaponType.PPistol)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsNanoMage(Weapon weapon, int slotNumber)
+    private void AddWeaponsNanoMage(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.NanoGlove || weapon.wType == WeaponType.GravGun || weapon.wType == WeaponType.Rifle || weapon.wType == WeaponType.HPistol)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.NanoGlove || weapon.wType == WeaponType.GravGun || weapon.wType == WeaponType.Rifle)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsEnvoy(Weapon weapon, int slotNumber)
+    private void AddWeaponsEnvoy(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Rifle)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Shield || weapon.wType == WeaponType.Rifle || weapon.wType == WeaponType.Launcher)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsVigil(Weapon weapon, int slotNumber)
+    private void AddWeaponsVigil(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Carbine || weapon.wType == WeaponType.Rifle)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Carbine || weapon.wType == WeaponType.Rifle || weapon.wType == WeaponType.Launcher)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsShadow(Weapon weapon, int slotNumber)
+    private void AddWeaponsShadow(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Rifle)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.PPistol || weapon.wType == WeaponType.Rifle || weapon.wType == WeaponType.HPistol)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsStreetDoc(Weapon weapon, int slotNumber)
+    private void AddWeaponsStreetDoc(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.wType == WeaponType.Melee || weapon.wType == WeaponType.HPistol || weapon.wType == WeaponType.Carbine)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (weapon.wType == WeaponType.NanoGlove || weapon.wType == WeaponType.Launcher || weapon.wType == WeaponType.Carbine)
             {
-                AddWeaponsFinal(weapon, slotNumber);
+                AddWeaponsFinal(weapon, slot);
             }
         }
     }
-    private void AddWeaponsFinal(Weapon weapon, int slotNumber)
+    private void AddWeaponsFinal(Weapon weapon, ItemSlot slot)
     {
-        if (slotNumber == 1)
+        if (slot == ItemSlot.RWeap)
         {
             if (weapon.handedness != Handed.LeftOnly)
             {
@@ -780,7 +780,7 @@ public class Inventory : MonoBehaviour
             }
 
         }
-        else if (slotNumber == 2)
+        else if (slot == ItemSlot.LWeap)
         {
             if (lHand != null)
             {

@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
 	//Declare player object, and offset variable for the camera position.
     public GameObject player;
-	private Vector3 offset;
+	[SerializeField] private Vector3 offset;
 
     Transform target;
     float pendingShakeDuration = 0f;
@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
         player = Player.instance.gameObject;
         target = GetComponent<Transform>();
         //Centres camera above player.
-        offset = transform.position - player.transform.position;
+        //offset = transform.position - player.transform.position;
         DontDestroyOnLoad(this);
 	}
 

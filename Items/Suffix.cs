@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Item", menuName = "Items/Suffix")]
 public class Suffix : ScriptableObject
 {
     public SuffixName sName;
@@ -32,19 +33,19 @@ public enum SuffixName
 
     //Weapons
     Blistering, Smouldering, Scorching, Searing, Blazing, Flame,            // Thermal Damage
-    Cryo1, Cryo2, Cryo3, Cryo4, Cryo5, Cryo6,                               // Cryo Damage
+    Chill, Cold, Frost, Ice, Rime, Glacier,                                 // Cryo Damage
     Glowing, Static, Arcing, Thunder, Lightning, Storm,                     // Shock Damage (and Stun)
-    Corrosion, Contaminating, Toxicity, Suffering, Rupturing, Irradiating,  // Radiation Damage (+Hex Dot)
-    Psi1, Psi2, Psi3, Psi4, Psi5, Psi6,                                     // Psi Damage
-    Dimension1, Dimension2, Dimension3, Dimension4, Dimension5, Dimension6, // Dimensional Damage
+    Corrosion, Contamination, Toxicity, Suffering, Rupturing, Irradiating,  // Radiation Damage (+Hex Dot)
+    Agitation, Ejection, Suspension, Phobia, Manipulation, Projection,      // Psi Damage
+    Astral, Veil, Planes, Ectoplasm, Banishment, Displacement,              // Dimensional Damage
     Clout, Mutilation, Destruction, Calamity, Havoc, Annihilation,          // Kinetic Damage
-    Poison1, Poison2, Poison3, Poison4, Poison5, Poison6,                   // Poison Damage
-    Bio1, Bio2, Bio3, Bio4, Bio5, Bio6,                                     // Bio Damage
+    Affliction, Contagion, Virulence, Toxins, Blight, Venom,                // Poison Damage
+    Virus, Bacteria, Miasma, Disease, Epidemic, Plague,                     // Bio Damage
     Corrupt1, Corrupt2, Corrupt3, Corrupt4, Corrupt5, Corrupt6,             // Corruption Damage //KEEP OUT OF MAIN LIST (Uniques only)
     Draining, Leech, Enervating, Parasite, Predator, Vampire,               // Leech
 	Exposing, Fragility, Susceptibility,                                    // OnHit - Hex Vuln %
     Lag, Sluggish, Languid,                                                 // OnHit - Hex Slow %
-    Entangle, Quicksand, Quagmire,                                          // OnHit - Hex Snare %
+    Entanglement, Quicksand, Quagmire,                                      // OnHit - Hex Snare %
     Frailty, Feebleness, Debilitation,                                      // OnHit - Hex Weaken %
     Fright, Terror, Horror,                                                 // OnHit - Hex Fear %
     Scowling, Oppressing, Threatening,                                      // OnHit - Hex Intimidate %
@@ -56,13 +57,13 @@ public enum SuffixName
     //Mods
 
     //Mod Enchantment only
-    Warmth, Luminosity, Incandescence, Combustion, Conflagration, Inferno,                      // Thermal Damage %
-    CryoDam1, CryoDam2, CryoDam3, CryoDam4, CryoDam5, CryoDam6,                                 // Cryo Damage %
-    Sparks, Light, Magnetism, Electrons, Volts, Electricity,                                    // Shock Damage %
-    Emission, Gamma, Cosmic, Neutrons, Uranium, Thorium,                                        // Radiation Damage %
-    PsiDam1, PsiDam2, PsiDam3, PsiDam4, PsiDam5, PsiDam6,                                       // Psi Damage %
-    DimensionDam1, DimensionDam2, DimensionDam3, DimensionDam4, DimensionDam5, DimensionDam6,   // Dimensional Damage %
-    Substantial, Corporeal, Material, Somatic, Solid, Kinetic,                                  // Kinetic Damage %
-    PoisonDam1, PoisonDam2, PoisonDam3, PoisonDam4, PoisonDam5, PoisonDam6,                     // Poison Damage %
-    BioDam1, BioDam2, BioDam3, BioDam4, BioDam5, BioDam6,                                       // Bio Damage %
+    Thermal,                                                                // Thermal Damage %
+    Cryogenics,                                                             // Cryo Damage %
+    Shock,                                                                  // Shock Damage %
+    Radiation,                                                              // Radiation Damage %
+    Psy,                                                                    // Psi Damage %
+    Dimensions,                                                             // Dimensional Damage %
+    Kinetic,                                                                // Kinetic Damage %
+    Poison,                                                                 // Poison Damage %
+    Biogenics                                                               // Bio Damage %
 }

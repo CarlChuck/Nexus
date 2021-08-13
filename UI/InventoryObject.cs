@@ -7,22 +7,30 @@ using UnityEngine.EventSystems;
 
 public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    public Item item;
-    public Image icon; //To colour for rarity?
-    public TextMeshProUGUI objectText;
+    private Item item;
+    [SerializeField] private Image icon;
+    [SerializeField] private TextMeshProUGUI objectText;
 
-    public Image selectedImage;
-    public Sprite baseImageBorder;
-    public Sprite selectedImageBorder;
-
-
+    [SerializeField] private Image iconBacking;
+    [SerializeField] private Image textBacking;
+    private InventoryUI invUI;
+    private Inventory inv;
+    public void StartItem(Item importItem)
+    {
+        invUI = InventoryUI.instance;
+        inv = Inventory.instance;
+        item = importItem;
+        icon.sprite = item.icon;
+        objectText.text = item.name;
+        SetRarity();
+    }
     public void SelectSlot()
     {
-        selectedImage.sprite = selectedImageBorder;
+        
     }
     public void DeSelectSlot()
     {
-        selectedImage.sprite = baseImageBorder;
+        
     }
 
     public void OnPointerDown(PointerEventData pointerData)
@@ -31,10 +39,9 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     public void OnPointerUp(PointerEventData pointerData)
     {
-        Inventory inv = Inventory.instance;
-        InventoryUI invUI = InventoryUI.instance;
-        ItemType iType = invUI.selected.iType;
-        int slotNum = invUI.selected.slotNumber;
+        ItemType iType = invUI.selectedSlot.iType;
+        //int slotNum = invUI.selectedSlot.slotNumber;
+        ItemSlot slot = invUI.selectedSlot.slot;
 
         switch (iType)
         {
@@ -66,7 +73,7 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 inv.AddModBionetic(item as BioneticMod);
                 break;
             case ItemType.Weapon:
-                inv.AddWeapon(item as Weapon, slotNum);
+                inv.AddWeapon(item as Weapon, slot);
                 break;
             case ItemType.Skill://TODO
                 //inv.AddSkill(item as Skill, slotNum);
@@ -80,13 +87,42 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerEnter(PointerEventData pointerData)
     {
         SelectSlot();
-        InventoryUI invUI = InventoryUI.instance;
         invUI.InvItemStats(item);
     }
     public void OnPointerExit(PointerEventData pointerData)
     {
         DeSelectSlot();
-        InventoryUI invUI = InventoryUI.instance;
         invUI.InvItemBlank();
+    }
+
+    public void SetRarity()
+    {
+        switch (item.quality)
+        {
+            case Quality.Common:
+                iconBacking.sprite = invUI.ItemBackCommon;
+                textBacking.sprite = invUI.DirectionalCommon;
+                break;
+            case Quality.Uncommon:
+                iconBacking.sprite = invUI.ItemBackUncommon;
+                textBacking.sprite = invUI.DirectionalUncommon;
+                break;
+            case Quality.Masterwork:
+                iconBacking.sprite = invUI.ItemBackMasterwork;
+                textBacking.sprite = invUI.DirectionalMasterwork;
+                break;
+            case Quality.Rare:
+                iconBacking.sprite = invUI.ItemBackRare;
+                textBacking.sprite = invUI.DirectionalRare;
+                break;
+            case Quality.Legendary:
+                iconBacking.sprite = invUI.ItemBackLegendary;
+                textBacking.sprite = invUI.DirectionalLegendary;
+                break;
+            case Quality.Unique:
+                iconBacking.sprite = invUI.ItemBackUnique;
+                textBacking.sprite = invUI.DirectionalUnique;
+                break;
+        }
     }
 }

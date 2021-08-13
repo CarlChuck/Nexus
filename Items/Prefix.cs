@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Item", menuName = "Items/Prefix")]
 public class Prefix : ScriptableObject
 {
     public PrefixName pName;
@@ -18,20 +20,20 @@ public enum PrefixName
 
     //Armour
     Stout, Durable, Tough, Stalwart, Fortified, Invincible,                         // + Armour %
-    Carnelian, Spinel, Russet, Jasper, Garnet, Ruby,                                // + Thermal Resist
-    Cryo1, Cryo2, Cryo3, Cryo4, Cryo5, Cryo6,                                       // + Cryo Resist //TODO
-    Citrine, Chrysoberyl, Ocher, Zircon, Amber, Topaz,                              // + Shock Resist
-    AllEle1, AllEle2, AllEle3, AllEle4, AllEle5, AllEle6,                           // + All Elemental Resists //TODO
-    Peridot, Verdelite, Beryl, Viridian, Jade, Emerald,                             // + Radiation Resist
-    Psi1, Psi2, Psi3, Psi4, Psi5, Psi6,                                             // + Psi Resist //TODO
-    Dimension1, Dimension2, Dimension3, Dimension4, Dimension5, Dimension6,         // + Dimensional Resist //TODO
-    AllCyber1, AllCyber2, AllCyber3, AllCyber4, AllCyber5, AllCyber6,               // + All Cyber Resists //TODO
-    Flourite, Charoite, Sugilite, Kunzite, Iolite, Amethyst,                        // + Kinetic Resist
-    Poison1, Poison2, Poison3, Poison4, Poison5, Poison6,                           // + Poison Resist  //TODO
-    Bio1, Bio2, Bio3, Bio4, Bio5, Bio6,                                             // + Bio Resist //TODO
-    AllMundane1, AllMundane2, AllMundane3, AllMundane4, AllMundane5, AllMundane6,   // + All Mundane Resists //TODO
-    Corrupt1, Corrupt2, Corrupt3, Corrupt4, Corrupt5, Corrupt6,                     // + Corruption Resist //TODO
-    Quartz, Coral, Moonstone, Opal, Pearl, Diamond,                                 // + All Resist
+    Ventilated, Ablative, Cooling, Beryllium, Emissive, Thermic,                    // + Thermal Resist
+    Warm, Thawing, Polymer, Nitro, Heated, Insulated,                               // + Cryo Resist
+    AntiStatic, Magnetic, Rubber, Silicone, Dissipative, Grounding,                 // + Shock Resist
+    Stable, Temperate, Constant, Primordial, Primal, Elemental,                     // + All Elemental Resists
+    Hazmat, Lead, Carbide, Ion, Boron, Radium,                                      // + Radiation Resist
+    Neuron, Axon, Synaptic, Telekinetic, Psychokinetic, Psionic,                    // + Psi Resist
+    Spatial, Manifold, Tesseract, Quantum, Euclidean, Absolute,                     // + Dimensional Resist 
+    Tech, Synthetic, Fabricated, Graviton, Synthwave, Holographic,                  // + All Cyber Resists
+    Sturdy, Compact, Rock, Steel, Dense, Solid,                                     // + Kinetic Resist 
+    Neutralising, Vaccine, Antibody, Mithridatism, Immune, Antidote,                // + Poison Resist
+    Alkaline, Sodium, Acerbic, Antibiotic, Antigen, Genetic,                        // + Bio Resist 
+    Counteractive, Obstructive, Aversive, Hindering, Defiant, Resiliant,            // + All Mundane Resists
+    Declining, Decaying, Degenerating, Ataxic, Entropic, Tide,                      // + Corruption Resist
+    Quartz, Amethyst, Sapphire, Emerald, Ruby, Diamond,                             // + All Resist
     Favoured, Successful, Fortunate, Wealthy, Prosperous, Lucky,                    // + Luck
 
     //Weapons

@@ -485,8 +485,41 @@ public class LootSystemManager : MonoBehaviour
         bool genItem = false;
         Prefix pFix = GeneratePrefix();
         foreach (ItemType iType in pFix.iTypes)
-        {
-            if (iType == item.itemType)
+        {               
+            //CHECKS FOR SHIELD ONLY PREFIXES
+            if (iType == ItemType.Weapon)
+            {
+                //Checking each prefix name
+                if( pFix.pName == PrefixName.Reinforced || 
+                    pFix.pName == PrefixName.Preserving || 
+                    pFix.pName == PrefixName.Shielding || 
+                    pFix.pName == PrefixName.Defending || 
+                    pFix.pName == PrefixName.Protecting ||
+                    pFix.pName == PrefixName.Guarding ||
+                    pFix.pName == PrefixName.Disrupting ||
+                    pFix.pName == PrefixName.Obstructing ||
+                    pFix.pName == PrefixName.Deflecting ||
+                    pFix.pName == PrefixName.Repelling ||
+                    pFix.pName == PrefixName.Parrying ||
+                    pFix.pName == PrefixName.Warding)
+                {
+                    if(item is Weapon)
+                    {
+                        Weapon weapon = item as Weapon;
+                        if (weapon.wType == WeaponType.Shield)
+                        {
+                            item.AddPrefix(pFix);
+                            genItem = true;
+                        }
+                    }
+                }
+                else if (item is Weapon)
+                {
+                    item.AddPrefix(pFix);
+                    genItem = true;
+                }
+            }
+            else if (iType == item.itemType)
             {
                 item.AddPrefix(pFix);
                 genItem = true;

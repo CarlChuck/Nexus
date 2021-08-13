@@ -26,48 +26,42 @@ public class InventoryUI : MonoBehaviour
     public GameObject handItemPane;
     public GameObject legItemPane;
     public GameObject feetItemPane;
+    public GameObject bioneticItemPane;
+    public GameObject enchantmentItemPane;
+    public GameObject geneticItemPane;
+    public GameObject cyberneticItemPane;
 
     //selected inventory slot
-    public InventorySlot selected;
+    public InventorySlot selectedSlot;
 
     public InventoryObject invObject;
 
     public InfoPane equippedItemInfo;
     public InfoPane invItemInfo;
 
-    //The inventory equip docks
-    public InventorySlot weapon1;
-    public InventorySlot weapon2;
-    public InventorySlot headItem;
-    public InventorySlot chestItem;
-    public InventorySlot handItem;
-    public InventorySlot legItem;
-    public InventorySlot feetItem;
-    public InventorySlot skill5;
-    public InventorySlot skill6;
-    public InventorySlot skill7;
-    public InventorySlot skill8;
-    public InventorySlot skill9;
-    public InventorySlot skill10;
-    public InventorySlot skill11;
-    public InventorySlot skill12;
-    public InventorySlot outfit;
+    public List<InventorySlot> invSlots;
 
-    //Inventory item display icons
-    public Image weapon1Icon;
-    public Image weapon2Icon;
-    public Image headItemIcon;
-    public Image chestItemIcon;
-    public Image handItemIcon;
-    public Image feetItemIcon;
-    public Image legItemIcon;
-    public Image skill1Icon;
-    public Image skill2Icon;
-    public Image skill3Icon;
-    public Image skill4Icon;
-    public Image skill5Icon;
-    public Image skill6Icon;
-    public Image outfitIcon;
+    //Images for swapping into items
+    public Sprite ItemBackCommon;
+    public Sprite ItemBackUncommon;
+    public Sprite ItemBackMasterwork;
+    public Sprite ItemBackRare;
+    public Sprite ItemBackLegendary;
+    public Sprite ItemBackUnique;
+
+    public Sprite DirectionalCommon;
+    public Sprite DirectionalUncommon;
+    public Sprite DirectionalMasterwork;
+    public Sprite DirectionalRare;
+    public Sprite DirectionalLegendary;
+    public Sprite DirectionalUnique;
+
+    public Color colourCommon;
+    public Color colourUncommon;
+    public Color colourMasterwork;
+    public Color colourRare;
+    public Color colourLegendary;
+    public Color colourUnique;
 
     void Start ()
     {
@@ -85,48 +79,51 @@ public class InventoryUI : MonoBehaviour
         ClearPanel(headItemPane);
         ClearPanel(chestItemPane);
         ClearPanel(legItemPane);
+        ClearPanel(feetItemPane);
+        ClearPanel(handItemPane);
+        ClearPanel(bioneticItemPane);
+        ClearPanel(enchantmentItemPane);
+        ClearPanel(geneticItemPane);
+        ClearPanel(cyberneticItemPane);
         ClearPanel(skillPane);
-        //TODO Add other updates
+
         UpdatePanel(inventory.weaponry, weaponPane);
         UpdatePanel(inventory.headSlots, headItemPane);
         UpdatePanel(inventory.chestSlots, chestItemPane);
         UpdatePanel(inventory.legSlots, legItemPane);
+        UpdatePanel(inventory.feetSlots, feetItemPane);
+        UpdatePanel(inventory.handSlots, handItemPane);
+        UpdatePanel(inventory.modBionetics, bioneticItemPane);
+        UpdatePanel(inventory.modEnchantments, enchantmentItemPane);
+        UpdatePanel(inventory.modGenetics, geneticItemPane);
+        UpdatePanel(inventory.modCybernetics, cyberneticItemPane);
         UpdatePanel(inventory.skills, skillPane);
-
-        UpdateSlot(inventory.rHand, weapon1);
-        UpdateSlot(inventory.lHand, weapon2);
-        UpdateSlot(inventory.headSlot, headItem);
-        UpdateSlot(inventory.chestSlot, chestItem);
-        UpdateSlot(inventory.legSlot, legItem);
 
 
         weaponManager.UpdateWeapons();
-        UpdateIcons();
+        //UpdateIcons();
         Player player = Player.instance; 
         stats.UpdateAllStats(player);
     }
 
+    public void UpdateFromSelectedSlot(InventorySlot slot)
+    {
+        selectedSlot = slot;
+        OpenPaneFromItem(slot.iType);
+    }
     //Update/Clear panels and slots
     void UpdatePanel(List<Item> items, GameObject pane)
     {
+
         foreach (Item item in items)
         {
-            InventoryObject emptyItem = Instantiate(invObject);//Instantiate inventory object
-            emptyItem.item = item;
-            emptyItem.icon.sprite = item.icon;
-            emptyItem.objectText.text = item.name;
+            InventoryObject emptyItem = Instantiate(invObject);
+            emptyItem.StartItem(item);
             emptyItem.transform.SetParent(pane.transform);
             emptyItem.transform.localScale = new Vector3(1, 1, 1);
         }
     }
-    void UpdateSlot(Item item, InventorySlot slot)
-    {
-        slot.UpdateItem(item);
-    }
-    void ClearSlot(InventorySlot slot)
-    {
-        slot.RemoveItem();
-    }
+
     void ClearPanel(GameObject panel)
     {
         foreach (Transform child in panel.transform)
@@ -134,59 +131,20 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-    
-    void UpdateIcons() //TODO add additional updates
-    {
-        NullIcons();
-        if (inventory.rHand != null)
-        {
-            weapon1Icon.gameObject.SetActive(true);
-            weapon1Icon.sprite = inventory.rHand.icon;
-        }
-        if (inventory.lHand != null)
-        {
-            weapon2Icon.gameObject.SetActive(true);
-            weapon2Icon.sprite = inventory.lHand.icon;
-        }
-        if (inventory.headSlot != null)
-        {
-            headItemIcon.gameObject.SetActive(true);
-            headItemIcon.sprite = inventory.headSlot.icon;
-        }
-        if (inventory.chestSlot != null)
-        {
-            chestItemIcon.gameObject.SetActive(true);
-            chestItemIcon.sprite = inventory.chestSlot.icon;
-        }
-        if (inventory.legSlot != null)
-        {
-            legItemIcon.gameObject.SetActive(true);
-            legItemIcon.sprite = inventory.legSlot.icon;
-        }
-    }
-    void NullIcons() //TODO add additional nulls
-    {
-        weapon1Icon.gameObject.SetActive(false);
-        weapon2Icon.gameObject.SetActive(false);
-        headItemIcon.gameObject.SetActive(false);
-        chestItemIcon.gameObject.SetActive(false);
-        legItemIcon.gameObject.SetActive(false);
-        skill1Icon.gameObject.SetActive(false);
-        skill2Icon.gameObject.SetActive(false);
-        skill3Icon.gameObject.SetActive(false);
-        skill4Icon.gameObject.SetActive(false);
-        skill5Icon.gameObject.SetActive(false);
-        skill6Icon.gameObject.SetActive(false);
-        outfitIcon.gameObject.SetActive(false);
-    }
 
-    void CloseAllPanes() //TODO add panes
+    void CloseAllPanes()
     {
         weaponPane.SetActive(false);
         skillPane.SetActive(false);
         headItemPane.SetActive(false);
         chestItemPane.SetActive(false);
         legItemPane.SetActive(false);
+        handItemPane.SetActive(false);
+        feetItemPane.SetActive(false);
+        bioneticItemPane.SetActive(false);
+        enchantmentItemPane.SetActive(false);
+        geneticItemPane.SetActive(false);
+        cyberneticItemPane.SetActive(false);
     }
 
     public void OpenPaneFromItem(ItemType iType) //TODO add others
@@ -209,6 +167,78 @@ public class InventoryUI : MonoBehaviour
             case ItemType.ItemLegs:
                 legItemPane.SetActive(true);
                 break;
+            case ItemType.ItemHands:
+                handItemPane.SetActive(true);
+                break;
+            case ItemType.ItemFeet:
+                feetItemPane.SetActive(true);
+                break;
+            case ItemType.Bionetic:
+                bioneticItemPane.SetActive(true);
+                break;
+            case ItemType.Genetic:
+                geneticItemPane.SetActive(true);
+                break;
+            case ItemType.Cybernetic:
+                cyberneticItemPane.SetActive(true);
+                break;
+            case ItemType.Enchantment:
+                enchantmentItemPane.SetActive(true);
+                break;
+        }
+        UpdateEquippedItemDisplay();
+    }
+    private void UpdateEquippedItemDisplay()
+    {
+        Item itemInSlot = null;
+        switch (selectedSlot.iType)
+        {
+            case ItemType.ItemHead:
+                itemInSlot = inventory.headSlot;
+                break;
+            case ItemType.ItemChest:
+                itemInSlot = inventory.chestSlot;
+                break;
+            case ItemType.ItemHands:
+                itemInSlot = inventory.handSlot;
+                break;
+            case ItemType.ItemLegs:
+                itemInSlot = inventory.legSlot;
+                break;
+            case ItemType.ItemFeet:
+                itemInSlot = inventory.feetSlot;
+                break;
+            case ItemType.Bionetic:
+                itemInSlot = inventory.modBionetic;
+                break;
+            case ItemType.Genetic:
+                itemInSlot = inventory.modGenetic;
+                break;
+            case ItemType.Cybernetic:
+                itemInSlot = inventory.modCybernetic;
+                break;
+            case ItemType.Enchantment:
+                itemInSlot = inventory.modEnchantment;
+                break;
+            case ItemType.Weapon:
+                if (selectedSlot.slot == ItemSlot.RWeap)
+                {
+                    itemInSlot = inventory.rHand;
+                }
+                else
+                {
+                    itemInSlot = inventory.lHand;
+                }
+                break;
+        }
+        if (itemInSlot != null)
+        {
+            equippedItemInfo.gameObject.SetActive(true);
+            equippedItemInfo.UpdateInfo(itemInSlot);
+        }
+        else
+        {
+            equippedItemInfo.gameObject.SetActive(false);
         }
     }
 

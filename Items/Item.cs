@@ -254,257 +254,275 @@ public class Item : ScriptableObject
                 case PrefixName.Invincible:
                     armourPercent += rValue;
                     break;
-                case PrefixName.Carnelian:
+                case PrefixName.Ventilated:
                     thermalResistance += rValue;
                     break;
-                case PrefixName.Spinel:
+                case PrefixName.Ablative:
                     thermalResistance += rValue;
                     break;
-                case PrefixName.Russet:
+                case PrefixName.Cooling:
                     thermalResistance += rValue;
                     break;
-                case PrefixName.Jasper:
+                case PrefixName.Beryllium:
                     thermalResistance += rValue;
                     break;
-                case PrefixName.Garnet:
+                case PrefixName.Emissive:
                     thermalResistance += rValue;
                     break;
-                case PrefixName.Ruby:
+                case PrefixName.Thermic:
                     thermalResistance += rValue;
                     break;
-                case PrefixName.Cryo1:
+                case PrefixName.Warm:
                     cryoResistance += rValue;
                     break;
-                case PrefixName.Cryo2:
+                case PrefixName.Thawing:
                     cryoResistance += rValue;
                     break;
-                case PrefixName.Cryo3:
+                case PrefixName.Polymer:
                     cryoResistance += rValue;
                     break;
-                case PrefixName.Cryo4:
+                case PrefixName.Nitro:
                     cryoResistance += rValue;
                     break;
-                case PrefixName.Cryo5:
+                case PrefixName.Heated:
                     cryoResistance += rValue;
                     break;
-                case PrefixName.Cryo6:
+                case PrefixName.Insulated:
                     cryoResistance += rValue;
                     break;
-                case PrefixName.Citrine:
+                case PrefixName.AntiStatic:
                     shockResistance += rValue;
                     break;
-                case PrefixName.Chrysoberyl:
+                case PrefixName.Magnetic:
                     shockResistance += rValue;
                     break;
-                case PrefixName.Ocher:
+                case PrefixName.Rubber:
                     shockResistance += rValue;
                     break;
-                case PrefixName.Zircon:
+                case PrefixName.Silicone:
                     shockResistance += rValue;
                     break;
-                case PrefixName.Amber:
+                case PrefixName.Dissipative:
                     shockResistance += rValue;
                     break;
-                case PrefixName.Topaz:
+                case PrefixName.Grounding:
                     shockResistance += rValue;
                     break;
-                case PrefixName.AllEle1:
-                    thermalResistance += rValue;
-                    cryoResistance += rValue;
-                    shockResistance += rValue;
-                    break;
-                case PrefixName.AllEle2:
+                case PrefixName.Stable:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
                     break;
-                case PrefixName.AllEle3:
+                case PrefixName.Temperate:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
                     break;
-                case PrefixName.AllEle4:
+                case PrefixName.Constant:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
                     break;
-                case PrefixName.AllEle5:
+                case PrefixName.Primordial:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
                     break;
-                case PrefixName.AllEle6:
+                case PrefixName.Primal:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
                     break;
-                case PrefixName.Peridot:
+                case PrefixName.Elemental:
+                    thermalResistance += rValue;
+                    cryoResistance += rValue;
+                    shockResistance += rValue;
+                    break;
+                case PrefixName.Hazmat:
                     radiationResistance += rValue;
                     break;
-                case PrefixName.Verdelite:
+                case PrefixName.Lead:
                     radiationResistance += rValue;
                     break;
-                case PrefixName.Beryl:
+                case PrefixName.Carbide:
                     radiationResistance += rValue;
                     break;
-                case PrefixName.Viridian:
+                case PrefixName.Ion:
                     radiationResistance += rValue;
                     break;
-                case PrefixName.Jade:
+                case PrefixName.Boron:
                     radiationResistance += rValue;
                     break;
-                case PrefixName.Emerald:
+                case PrefixName.Radium:
                     radiationResistance += rValue;
                     break;
-                case PrefixName.Psi1:
+                case PrefixName.Neuron:
                     psiResistance += rValue;
                     break;
-                case PrefixName.Psi2:
+                case PrefixName.Axon:
                     psiResistance += rValue;
                     break;
-                case PrefixName.Psi3:
+                case PrefixName.Synaptic:
                     psiResistance += rValue;
                     break;
-                case PrefixName.Psi4:
+                case PrefixName.Telekinetic:
                     psiResistance += rValue;
                     break;
-                case PrefixName.Psi5:
+                case PrefixName.Psychokinetic:
                     psiResistance += rValue;
                     break;
-                case PrefixName.Psi6:
+                case PrefixName.Psionic:
                     psiResistance += rValue;
                     break;
-                case PrefixName.Dimension1:
+                case PrefixName.Spatial:
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.Dimension2:
+                case PrefixName.Manifold:
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.Dimension3:
+                case PrefixName.Tesseract:
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.Dimension4:
+                case PrefixName.Quantum:
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.Dimension5:
+                case PrefixName.Euclidean:
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.Dimension6:
+                case PrefixName.Absolute:
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.AllCyber1:
-                    radiationResistance += rValue;
-                    psiResistance += rValue;
-                    dimensionResistance += rValue;
-                    break;
-                case PrefixName.AllCyber2:
-                    radiationResistance += rValue;
-                    psiResistance += rValue;
-                    dimensionResistance += rValue;
-                    break;
-                case PrefixName.AllCyber3:
+                case PrefixName.Tech:
                     radiationResistance += rValue;
                     psiResistance += rValue;
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.AllCyber4:
+                case PrefixName.Synthetic:
                     radiationResistance += rValue;
                     psiResistance += rValue;
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.AllCyber5:
+                case PrefixName.Fabricated:
                     radiationResistance += rValue;
                     psiResistance += rValue;
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.AllCyber6:
+                case PrefixName.Graviton:
                     radiationResistance += rValue;
                     psiResistance += rValue;
                     dimensionResistance += rValue;
                     break;
-                case PrefixName.Flourite:
+                case PrefixName.Synthwave:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Holographic:
+                    radiationResistance += rValue;
+                    psiResistance += rValue;
+                    dimensionResistance += rValue;
+                    break;
+                case PrefixName.Sturdy:
                     kineticResistance += rValue;
                     break;
-                case PrefixName.Charoite:
+                case PrefixName.Compact:
                     kineticResistance += rValue;
                     break;
-                case PrefixName.Sugilite:
+                case PrefixName.Rock:
                     kineticResistance += rValue;
                     break;
-                case PrefixName.Kunzite:
+                case PrefixName.Steel:
                     kineticResistance += rValue;
                     break;
-                case PrefixName.Iolite:
+                case PrefixName.Dense:
                     kineticResistance += rValue;
                     break;
-                case PrefixName.Amethyst:
+                case PrefixName.Solid:
                     kineticResistance += rValue;
                     break;
-                case PrefixName.Poison1:
+                case PrefixName.Neutralising:
                     poisonResistance += rValue;
                     break;
-                case PrefixName.Poison2:
+                case PrefixName.Vaccine:
                     poisonResistance += rValue;
                     break;
-                case PrefixName.Poison3:
+                case PrefixName.Antibody:
                     poisonResistance += rValue;
                     break;
-                case PrefixName.Poison4:
+                case PrefixName.Mithridatism:
                     poisonResistance += rValue;
                     break;
-                case PrefixName.Poison5:
+                case PrefixName.Immune:
                     poisonResistance += rValue;
                     break;
-                case PrefixName.Poison6:
+                case PrefixName.Antidote:
                     poisonResistance += rValue;
                     break;
-                case PrefixName.Bio1:
+                case PrefixName.Alkaline:
                     bioResistance += rValue;
                     break;
-                case PrefixName.Bio2:
+                case PrefixName.Sodium:
                     bioResistance += rValue;
                     break;
-                case PrefixName.Bio3:
+                case PrefixName.Acerbic:
                     bioResistance += rValue;
                     break;
-                case PrefixName.Bio4:
+                case PrefixName.Antibiotic:
                     bioResistance += rValue;
                     break;
-                case PrefixName.Bio5:
+                case PrefixName.Antigen:
                     bioResistance += rValue;
                     break;
-                case PrefixName.Bio6:
+                case PrefixName.Genetic:
                     bioResistance += rValue;
                     break;
-                case PrefixName.AllMundane1:
-                    kineticResistance += rValue;
-                    poisonResistance += rValue;
-                    bioResistance += rValue;
-                    break;
-                case PrefixName.AllMundane2:
-                    kineticResistance += rValue;
-                    poisonResistance += rValue;
-                    bioResistance += rValue;
-                    break;
-                case PrefixName.AllMundane3:
-                    kineticResistance += rValue;
-                    poisonResistance += rValue;
-                    bioResistance += rValue;
-                    break;
-                case PrefixName.AllMundane4:
+                case PrefixName.Counteractive:
                     kineticResistance += rValue;
                     poisonResistance += rValue;
                     bioResistance += rValue;
                     break;
-                case PrefixName.AllMundane5:
+                case PrefixName.Obstructive:
                     kineticResistance += rValue;
                     poisonResistance += rValue;
                     bioResistance += rValue;
                     break;
-                case PrefixName.AllMundane6:
+                case PrefixName.Aversive:
                     kineticResistance += rValue;
                     poisonResistance += rValue;
                     bioResistance += rValue;
+                    break;
+                case PrefixName.Hindering:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Defiant:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Resiliant:
+                    kineticResistance += rValue;
+                    poisonResistance += rValue;
+                    bioResistance += rValue;
+                    break;
+                case PrefixName.Declining:
+                    corruptionResistance += rValue;
+                    break;
+                case PrefixName.Decaying:
+                    corruptionResistance += rValue;
+                    break;
+                case PrefixName.Degenerating:
+                    corruptionResistance += rValue;
+                    break;
+                case PrefixName.Ataxic:
+                    corruptionResistance += rValue;
+                    break;
+                case PrefixName.Entropic:
+                    corruptionResistance += rValue;
+                    break;
+                case PrefixName.Tide:
+                    corruptionResistance += rValue;
                     break;
                 case PrefixName.Quartz:
                     thermalResistance += rValue;
@@ -518,7 +536,7 @@ public class Item : ScriptableObject
                     bioResistance += rValue;
                     corruptionResistance += rValue;
                     break;
-                case PrefixName.Coral:
+                case PrefixName.Amethyst:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
@@ -530,7 +548,7 @@ public class Item : ScriptableObject
                     bioResistance += rValue;
                     corruptionResistance += rValue;
                     break;
-                case PrefixName.Moonstone:
+                case PrefixName.Sapphire:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
@@ -542,7 +560,7 @@ public class Item : ScriptableObject
                     bioResistance += rValue;
                     corruptionResistance += rValue;
                     break;
-                case PrefixName.Opal:
+                case PrefixName.Emerald:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
@@ -554,7 +572,7 @@ public class Item : ScriptableObject
                     bioResistance += rValue;
                     corruptionResistance += rValue;
                     break;
-                case PrefixName.Pearl:
+                case PrefixName.Ruby:
                     thermalResistance += rValue;
                     cryoResistance += rValue;
                     shockResistance += rValue;
@@ -925,27 +943,27 @@ public class Item : ScriptableObject
                     weaponThermalDamageMin += sfix.min;
                     weaponThermalDamageMax += sfix.max;
                     break;
-                case SuffixName.Cryo1:
+                case SuffixName.Chill:
                     weaponCryoDamageMin += sfix.min;
                     weaponCryoDamageMax += sfix.max;
                     break;
-                case SuffixName.Cryo2:
+                case SuffixName.Cold:
                     weaponCryoDamageMin += sfix.min;
                     weaponCryoDamageMax += sfix.max;
                     break;
-                case SuffixName.Cryo3:
+                case SuffixName.Frost:
                     weaponCryoDamageMin += sfix.min;
                     weaponCryoDamageMax += sfix.max;
                     break;
-                case SuffixName.Cryo4:
+                case SuffixName.Ice:
                     weaponCryoDamageMin += sfix.min;
                     weaponCryoDamageMax += sfix.max;
                     break;
-                case SuffixName.Cryo5:
+                case SuffixName.Rime:
                     weaponCryoDamageMin += sfix.min;
                     weaponCryoDamageMax += sfix.max;
                     break;
-                case SuffixName.Cryo6:
+                case SuffixName.Glacier:
                     weaponCryoDamageMin += sfix.min;
                     weaponCryoDamageMax += sfix.max;
                     break;
@@ -977,7 +995,7 @@ public class Item : ScriptableObject
                     weaponRadDamageMin += sfix.min;
                     weaponRadDamageMax += sfix.max;
                     break;
-                case SuffixName.Contaminating:
+                case SuffixName.Contamination:
                     weaponRadDamageMin += sfix.min;
                     weaponRadDamageMax += sfix.max;
                     break;
@@ -997,51 +1015,51 @@ public class Item : ScriptableObject
                     weaponRadDamageMin += sfix.min;
                     weaponRadDamageMax += sfix.max;
                     break;
-                case SuffixName.Psi1:
+                case SuffixName.Agitation:
                     weaponPsiDamageMin += sfix.min;
                     weaponPsiDamageMax += sfix.max;
                     break;
-                case SuffixName.Psi2:
+                case SuffixName.Ejection:
                     weaponPsiDamageMin += sfix.min;
                     weaponPsiDamageMax += sfix.max;
                     break;
-                case SuffixName.Psi3:
+                case SuffixName.Suspension:
                     weaponPsiDamageMin += sfix.min;
                     weaponPsiDamageMax += sfix.max;
                     break;
-                case SuffixName.Psi4:
+                case SuffixName.Phobia:
                     weaponPsiDamageMin += sfix.min;
                     weaponPsiDamageMax += sfix.max;
                     break;
-                case SuffixName.Psi5:
+                case SuffixName.Manipulation:
                     weaponPsiDamageMin += sfix.min;
                     weaponPsiDamageMax += sfix.max;
                     break;
-                case SuffixName.Psi6:
+                case SuffixName.Projection:
                     weaponPsiDamageMin += sfix.min;
                     weaponPsiDamageMax += sfix.max;
                     break;
-                case SuffixName.Dimension1:
+                case SuffixName.Astral:
                     weaponDimensionDamageMin += sfix.min;
                     weaponDimensionDamageMax += sfix.max;
                     break;
-                case SuffixName.Dimension2:
+                case SuffixName.Veil:
                     weaponDimensionDamageMin += sfix.min;
                     weaponDimensionDamageMax += sfix.max;
                     break;
-                case SuffixName.Dimension3:
+                case SuffixName.Planes:
                     weaponDimensionDamageMin += sfix.min;
                     weaponDimensionDamageMax += sfix.max;
                     break;
-                case SuffixName.Dimension4:
+                case SuffixName.Ectoplasm:
                     weaponDimensionDamageMin += sfix.min;
                     weaponDimensionDamageMax += sfix.max;
                     break;
-                case SuffixName.Dimension5:
+                case SuffixName.Banishment:
                     weaponDimensionDamageMin += sfix.min;
                     weaponDimensionDamageMax += sfix.max;
                     break;
-                case SuffixName.Dimension6:
+                case SuffixName.Displacement:
                     weaponDimensionDamageMin += sfix.min;
                     weaponDimensionDamageMax += sfix.max;
                     break;
@@ -1069,51 +1087,51 @@ public class Item : ScriptableObject
                     weaponKineticDamageMin += sfix.min;
                     weaponKineticDamageMax += sfix.max;
                     break;
-                case SuffixName.Poison1:
+                case SuffixName.Affliction:
                     weaponPoisonDamageMin += sfix.min;
                     weaponPoisonDamageMax += sfix.max;
                     break;
-                case SuffixName.Poison2:
+                case SuffixName.Contagion:
                     weaponPoisonDamageMin += sfix.min;
                     weaponPoisonDamageMax += sfix.max;
                     break;
-                case SuffixName.Poison3:
+                case SuffixName.Virulence:
                     weaponPoisonDamageMin += sfix.min;
                     weaponPoisonDamageMax += sfix.max;
                     break;
-                case SuffixName.Poison4:
+                case SuffixName.Toxins:
                     weaponPoisonDamageMin += sfix.min;
                     weaponPoisonDamageMax += sfix.max;
                     break;
-                case SuffixName.Poison5:
+                case SuffixName.Blight:
                     weaponPoisonDamageMin += sfix.min;
                     weaponPoisonDamageMax += sfix.max;
                     break;
-                case SuffixName.Poison6:
+                case SuffixName.Venom:
                     weaponPoisonDamageMin += sfix.min;
                     weaponPoisonDamageMax += sfix.max;
                     break;
-                case SuffixName.Bio1:
+                case SuffixName.Virus:
                     weaponBioDamageMin += sfix.min;
                     weaponBioDamageMax += sfix.max;
                     break;
-                case SuffixName.Bio2:
+                case SuffixName.Bacteria:
                     weaponBioDamageMin += sfix.min;
                     weaponBioDamageMax += sfix.max;
                     break;
-                case SuffixName.Bio3:
+                case SuffixName.Miasma:
                     weaponBioDamageMin += sfix.min;
                     weaponBioDamageMax += sfix.max;
                     break;
-                case SuffixName.Bio4:
+                case SuffixName.Disease:
                     weaponBioDamageMin += sfix.min;
                     weaponBioDamageMax += sfix.max;
                     break;
-                case SuffixName.Bio5:
+                case SuffixName.Epidemic:
                     weaponBioDamageMin += sfix.min;
                     weaponBioDamageMax += sfix.max;
                     break;
-                case SuffixName.Bio6:
+                case SuffixName.Plague:
                     weaponBioDamageMin += sfix.min;
                     weaponBioDamageMax += sfix.max;
                     break;
@@ -1153,7 +1171,7 @@ public class Item : ScriptableObject
                 case SuffixName.Languid:
                     onHitSlow += rValue;
                     break;
-                case SuffixName.Entangle:
+                case SuffixName.Entanglement:
                     onHitSnare += rValue;
                     break;
                 case SuffixName.Quicksand:
@@ -1225,166 +1243,31 @@ public class Item : ScriptableObject
                 case SuffixName.Shocking:
                     onHitShock += rValue;
                     break;
-                case SuffixName.Warmth:
+                case SuffixName.Thermal:
                     thermalDamage += rValue;
                     break;
-                case SuffixName.Luminosity:
-                    thermalDamage += rValue;
-                    break;
-                case SuffixName.Incandescence:
-                    thermalDamage += rValue;
-                    break;
-                case SuffixName.Combustion:
-                    thermalDamage += rValue;
-                    break;
-                case SuffixName.Conflagration:
-                    thermalDamage += rValue;
-                    break;
-                case SuffixName.Inferno:
-                    thermalDamage += rValue;
-                    break;
-                case SuffixName.CryoDam1:
+                case SuffixName.Cryogenics:
                     cryoDamage += rValue;
                     break;
-                case SuffixName.CryoDam2:
-                    cryoDamage += rValue;
-                    break;
-                case SuffixName.CryoDam3:
-                    cryoDamage += rValue;
-                    break;
-                case SuffixName.CryoDam4:
-                    cryoDamage += rValue;
-                    break;
-                case SuffixName.CryoDam5:
-                    cryoDamage += rValue;
-                    break;
-                case SuffixName.CryoDam6:
-                    cryoDamage += rValue;
-                    break;
-                case SuffixName.Sparks:
+                case SuffixName.Shock:
                     shockDamage += rValue;
                     break;
-                case SuffixName.Light:
-                    shockDamage += rValue;
-                    break;
-                case SuffixName.Magnetism:
-                    shockDamage += rValue;
-                    break;
-                case SuffixName.Electrons:
-                    shockDamage += rValue;
-                    break;
-                case SuffixName.Volts:
-                    shockDamage += rValue;
-                    break;
-                case SuffixName.Electricity:
-                    shockDamage += rValue;
-                    break;
-                case SuffixName.Emission:
+                case SuffixName.Radiation:
                     radiationDamage += rValue;
                     break;
-                case SuffixName.Gamma:
-                    radiationDamage += rValue;
-                    break;
-                case SuffixName.Cosmic:
-                    radiationDamage += rValue;
-                    break;
-                case SuffixName.Neutrons:
-                    radiationDamage += rValue;
-                    break;
-                case SuffixName.Uranium:
-                    radiationDamage += rValue;
-                    break;
-                case SuffixName.Thorium:
-                    radiationDamage += rValue;
-                    break;
-                case SuffixName.Substantial:
-                    radiationDamage += rValue;
-                    break;
-                case SuffixName.PsiDam1:
+                case SuffixName.Psy:
                     psiDamage += rValue;
                     break;
-                case SuffixName.PsiDam2:
-                    psiDamage += rValue;
-                    break;
-                case SuffixName.PsiDam3:
-                    psiDamage += rValue;
-                    break;
-                case SuffixName.PsiDam4:
-                    psiDamage += rValue;
-                    break;
-                case SuffixName.PsiDam5:
-                    psiDamage += rValue;
-                    break;
-                case SuffixName.PsiDam6:
-                    psiDamage += rValue;
-                    break;
-                case SuffixName.DimensionDam1:
+                case SuffixName.Dimensions:
                     dimensionDamage += rValue;
-                    break;
-                case SuffixName.DimensionDam2:
-                    dimensionDamage += rValue;
-                    break;
-                case SuffixName.DimensionDam3:
-                    dimensionDamage += rValue;
-                    break;
-                case SuffixName.DimensionDam4:
-                    dimensionDamage += rValue;
-                    break;
-                case SuffixName.DimensionDam5:
-                    dimensionDamage += rValue;
-                    break;
-                case SuffixName.DimensionDam6:
-                    dimensionDamage += rValue;
-                    break;
-                case SuffixName.Corporeal:
-                    kineticDamage += rValue;
-                    break;
-                case SuffixName.Material:
-                    kineticDamage += rValue;
-                    break;
-                case SuffixName.Somatic:
-                    kineticDamage += rValue;
-                    break;
-                case SuffixName.Solid:
-                    kineticDamage += rValue;
                     break;
                 case SuffixName.Kinetic:
                     kineticDamage += rValue;
                     break;
-                case SuffixName.PoisonDam1:
+                case SuffixName.Poison:
                     poisonDamage += rValue;
                     break;
-                case SuffixName.PoisonDam2:
-                    poisonDamage += rValue;
-                    break;
-                case SuffixName.PoisonDam3:
-                    poisonDamage += rValue;
-                    break;
-                case SuffixName.PoisonDam4:
-                    poisonDamage += rValue;
-                    break;
-                case SuffixName.PoisonDam5:
-                    poisonDamage += rValue;
-                    break;
-                case SuffixName.PoisonDam6:
-                    poisonDamage += rValue;
-                    break;
-                case SuffixName.BioDam1:
-                    bioDamage += rValue;
-                    break;
-                case SuffixName.BioDam2:
-                    bioDamage += rValue;
-                    break;
-                case SuffixName.BioDam3:
-                    bioDamage += rValue;
-                    break;
-                case SuffixName.BioDam4:
-                    bioDamage += rValue;
-                    break;
-                case SuffixName.BioDam5:
-                    bioDamage += rValue;
-                    break;
-                case SuffixName.BioDam6:
+                case SuffixName.Biogenics:
                     bioDamage += rValue;
                     break;
             }
@@ -1712,6 +1595,6 @@ public class Item : ScriptableObject
     }
     #endregion
 }
-public enum ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, Cybernetic, Bionetic, Genetic, Enchantment, Skill }
+public enum ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, Cybernetic, Bionetic, Genetic, Enchantment, Skill}
 public enum Quality { Common, Uncommon, Masterwork, Rare, Legendary, Unique }
 
