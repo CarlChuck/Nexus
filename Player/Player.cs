@@ -119,9 +119,9 @@ public class Player : StatBlock
 
     void NewCharacter()
     {
-        MCharStats mCharStats = GameObject.FindGameObjectWithTag("varStorage").GetComponent<MCharStats>();
-        charName = mCharStats.charName;
-        cClass = mCharStats.cClass;
+        //MCharStats mCharStats = GameObject.FindGameObjectWithTag("varStorage").GetComponent<MCharStats>();
+        //charName = mCharStats.charName;
+        //cClass = mCharStats.cClass;
         vitality.baseValue = 100;
         armour.baseValue = 10;
         strength.baseValue = 10;
@@ -167,7 +167,7 @@ public class Player : StatBlock
         savePoint = AScene.Tutorial;
 
 
-        Destroy(mCharStats.gameObject);
+       //Destroy(mCharStats.gameObject);
     }
 
     public override void OnDeath()

@@ -6,67 +6,75 @@ using UnityEngine.EventSystems;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] Animator animator = default;
-    [SerializeField] GameObject toOpen = default;
-    [SerializeField] GameObject toClose = default;
-    [SerializeField] MCharStats mStats = default;
-    [SerializeField] bool setClass = default;
-    [SerializeField] int num = default;
-    [SerializeField] MainMenu mMenu = default;
-    [SerializeField] MenuFunc mFunc = default;
-    [SerializeField] MenuCharCreatorButtons mAvatarButtons = default;
-    [SerializeField] CharClass mAvatar = default;
-    [SerializeField] AudioSource audioOver = default;
-    [SerializeField] AudioSource audioClick = default;
+    [SerializeField] private Animator animator = default;
+    [SerializeField] private AudioSource audioOver = default;
+    [SerializeField] private AudioSource audioClick = default;
 
+    //Is this a class button checkbox
+    [SerializeField] private bool classButton = false;
+
+    [Tooltip("If Class Button is false")]
+    [SerializeField] private MenuFunc mFunc = default;
+
+    [Tooltip("If Class Button is true")]
+    [SerializeField] private CharClass mAvatar = default;
+
+
+
+    private MainMenu mMenu = default;
+
+    public void Start()
+    {
+        mMenu = MainMenu.instance;
+    }
 
     public void OnPointerDown(PointerEventData pointerData)
     {
         animator.SetBool("pressed", true);
-        if (toOpen != null)
+
+        if (classButton == true)
         {
-            toOpen.SetActive(true);
+            mMenu.cCreationPane.SetClass(mAvatar);
+            mMenu.mAvatarButtons.LoadThisAvatar(mAvatar);
+            mMenu.cCreationPane.OnUpdateClassInfoWindow();
         }
-        if (toClose != null)
-        {
-            toOpen.SetActive(false);
-        }
-        if (mStats != null)
-        {
-            if (setClass == true)
-            {
-                mStats.SetClass(num);
-            }
-        }
-        if (mMenu != null)
+        else
         {
             mMenu.MenuFunction(mFunc);
         }
-        if (mAvatarButtons != null)
-        {
-            mAvatarButtons.LoadThisAvatar(mAvatar);
-        }
         audioClick.Play();
-
     }
 
     public void OnPointerUp(PointerEventData pointerData)
     {
-        animator.SetBool("pressed", false);
+        if (classButton == false)
+        {
+            animator.SetBool("pressed", false);
+        }
+        else
+        {
+            mMenu.mAvatarButtons.ResetAllButtons();
+            mMenu.mAvatarButtons.UpdateClassDescription();
+            animator.SetBool("selected", true); 
+            animator.SetBool("pressed", false);
+        }
     }
 
     public void OnPointerEnter(PointerEventData pointerData)
     {
         transform.SetAsLastSibling();
-        animator.SetBool("selected", true);
+        animator.SetBool("hover", true);
         audioOver.Play();
     }
 
     public void OnPointerExit(PointerEventData pointerData)
     {
-        animator.SetBool("selected", false);
+        animator.SetBool("hover", false);
     }
 
-
+    public void SetAnimationDeSelected()
+    {
+        animator.SetBool("selected", false);
+    }
 
 }

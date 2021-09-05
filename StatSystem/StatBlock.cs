@@ -893,7 +893,7 @@ public class StatBlock : MonoBehaviour
     }
     #endregion       
 }
-public enum CharClass { Blank, Golemancer, Elementalist, Psyc, Mystic, Crypter, Apoch, Artificer, NanoMage, Vigil, Shadow, Envoy, StreetDoctor }
+public enum CharClass { Blank, Golemancer, Elementalist, Psyc, Mystic, Artificer, Apoch, Crypter, NanoMage, Envoy, Vigil, Shadow, StreetDoctor }
 public enum BoonName { Blank, Resistance, Velocity, Swiftness, Power, Defence, Reflection, Precision, Shielding, Regeneration, Rend, Feedback, Stealth }
 public enum HexName { Blank, Vulnerability, Slow, Snare, Weaken, Blind, Intimidate, Fear, Pin, Charm, Daze, Stun, Taunt, Burn, Chill, 
                         Electrocute, Irradiate, Deteriorate, Phase, Bleed, Disease, Virus, Corrupt }

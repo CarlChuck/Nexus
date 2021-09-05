@@ -7,103 +7,91 @@ using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject frontMenu;
-    [SerializeField] GameObject charPanel;
-    [SerializeField] GameObject charCreatePanel;
-    [SerializeField] MCharStats charStatsPanel;
-    [SerializeField] GameObject warningPanel;
-    [SerializeField] Animator cameraAnimator;
-    [SerializeField] MenuLighting mLighting;
+
+    [SerializeField] private Animator cameraAnimator;
+    private SaveSystemManager cSaveSystem;
+    public CharacterCreationPane cCreationPane = default;
+    public CharacterSelectionPane cSelectionPane = default;
+    public CharacterCreationShowModel mAvatarButtons = default;
+
+
+    #region Singleton
+    public static MainMenu instance;
+
+    public void Awake()
+    {
+        instance = this;
+    }
+    #endregion
 
     private void Start()
     {
-        frontMenu.gameObject.SetActive(true);
-        charPanel.gameObject.SetActive(false);
-        charCreatePanel.gameObject.SetActive(false);
-        warningPanel.gameObject.SetActive(false);
+        cSaveSystem = SaveSystemManager.instance;
     }
+
     public void MenuFunction(MenuFunc mFunc)
     {
-        if (mFunc == MenuFunc.CharSelect)
+        if (mFunc == MenuFunc.CreateCharWindow)
         {
-            CharSelect();
+            OnCharacterCreationWindow();
         }
-        else if (mFunc == MenuFunc.CreateChar)
+        else if (mFunc == MenuFunc.Play)
         {
-            CreateCharacter();
+            OnPlay();
         }
-        else if (mFunc == MenuFunc.EnterGame)
+        else if (mFunc == MenuFunc.Exit)
         {
-            EnterGame();
+            OnExitGame();
         }
-        else if (mFunc == MenuFunc.ExitGame)
+        else if (mFunc == MenuFunc.CreateCharButton)
         {
-            ExitGame();
+            OnCharacterCreateButton();
         }
         else if (mFunc == MenuFunc.MainMenu)
         {
-            MMenu();
+            OnFrontMenu();
         }
-    }
-
-    public void EnterGame()
-    {
-        if (charStatsPanel.cClass == CharClass.Blank /*|| charStatsPanel.charName == ""*/) //may reintroduce character name, but probably not, keeping it there just incase
+        else if (mFunc == MenuFunc.Options)
         {
-            warningPanel.gameObject.SetActive(true);
-        }
-        else
-        {
-            SceneManager.LoadScene("StagingArea");
+            OnOptions();
         }
     }
+    //charStatsPanel.cClass == CharClass.Blank /*|| charStatsPanel.charName == ""*/) //may reintroduce character name, but probably not, keeping it there just incase
+    //TODO enter button greyed out
 
-    public void MMenu()
+    private void OnPlay()
     {
-        frontMenu.gameObject.SetActive(true);
-        charPanel.gameObject.SetActive(false);
-        charCreatePanel.gameObject.SetActive(false);
-        SetAnimationTagsToFalse();
-        cameraAnimator.SetBool("SelectToFront", true);
-        mLighting.ActivateFrontMenuLighting();
+         SceneManager.LoadScene("StagingArea");
     }
 
-    public void CharSelect()
+    private void OnFrontMenu()
     {
-        frontMenu.gameObject.SetActive(false);
-        charPanel.gameObject.SetActive(true);
-        SetAnimationTagsToFalse();
-        cameraAnimator.SetBool("FrontToSelect", true);
-        cameraAnimator.SetBool("CreationToSelect", true);
-        mLighting.ActivateSelectLighting();
+        cSaveSystem.LoadList();
+        cSelectionPane.PopulatePanefromSave();
+        cameraAnimator.SetBool("Creation", false);
+        cameraAnimator.SetBool("Options", false);
     }
 
-    public void CreateCharacter()
+    private void OnCharacterCreationWindow()
     {
-        charPanel.gameObject.SetActive(false);
-        charCreatePanel.gameObject.SetActive(true);
-        SetAnimationTagsToFalse();
-        cameraAnimator.SetBool("SelectToCreation", true);
-        mLighting.ActivateCreationLighting();
+        cameraAnimator.SetBool("Creation", true);
+        cameraAnimator.SetBool("Options", false);
+    }
+    private void OnCharacterCreateButton()
+    {
+        OnFrontMenu();
+        cSaveSystem.CreateCharacter(cCreationPane.charName, cCreationPane.cClass);
     }
 
-    public void ExitGame()
+    private void OnExitGame()
     {
         Application.Quit();
     }
 
-
-    public void Options()
+    private void OnOptions()
     {
-
-    }
-
-    private void SetAnimationTagsToFalse()
-    {
-        cameraAnimator.SetBool("FrontToSelect", false);
-        cameraAnimator.SetBool("SelectToFront", false);
-        cameraAnimator.SetBool("SelectToCreation", false);
-        cameraAnimator.SetBool("CreationToSelect", false);
+        cameraAnimator.SetBool("Creation", false);
+        cameraAnimator.SetBool("Options", true);
     }
 }
-public enum MenuFunc { MainMenu, CharSelect, CreateChar, ExitGame, PlayMusic, SwitchMusic, EnterGame, Options }
+public enum MenuFunc { MainMenu, CreateCharWindow, CreateCharButton, Exit, Play, Options }
