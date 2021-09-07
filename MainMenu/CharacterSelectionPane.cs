@@ -14,10 +14,14 @@ public class CharacterSelectionPane : MonoBehaviour
     public void PopulatePanefromSave()
     {
         //Empty The List
-        foreach (CharacterSelectionButton cButton in characterList)
+        if (characterList.Count != 0)
         {
-            characterList.Remove(cButton);
-            Destroy(cButton.gameObject);
+            foreach (CharacterSelectionButton cButton in characterList)
+            {
+                //characterList.Remove(cButton);
+                Destroy(cButton.gameObject);
+            }
+            characterList = new List<CharacterSelectionButton>();
         }
 
         //Generate List from SaveFile
@@ -25,7 +29,9 @@ public class CharacterSelectionPane : MonoBehaviour
         {
             GameObject newButton = Instantiate(charButtonPrefab, characterButtonsParent.transform);
             CharacterSelectionButton cButton = newButton.GetComponent<CharacterSelectionButton>();
-            //cButton.
+            cButton.SetNameField(cData.GetName());
+            cButton.SetLevelField(cData.GetLevel());
+            cButton.SetClassField(cData.GetCharClass());
             characterList.Add(cButton);
         }
         UpdateGridDepth();

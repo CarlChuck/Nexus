@@ -27,33 +27,35 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         cSaveSystem = SaveSystemManager.instance;
+        cSaveSystem.LoadList();
+        cSelectionPane.PopulatePanefromSave();
     }
 
     public void MenuFunction(MenuFunc mFunc)
     {
-        if (mFunc == MenuFunc.CreateCharWindow)
+        switch (mFunc)
         {
-            OnCharacterCreationWindow();
-        }
-        else if (mFunc == MenuFunc.Play)
-        {
-            OnPlay();
-        }
-        else if (mFunc == MenuFunc.Exit)
-        {
-            OnExitGame();
-        }
-        else if (mFunc == MenuFunc.CreateCharButton)
-        {
-            OnCharacterCreateButton();
-        }
-        else if (mFunc == MenuFunc.MainMenu)
-        {
-            OnFrontMenu();
-        }
-        else if (mFunc == MenuFunc.Options)
-        {
-            OnOptions();
+            case MenuFunc.CreateCharWindow:
+                OnCharacterCreationWindow();
+                break;
+            case MenuFunc.CreateCharButton:
+                OnCharacterCreateButton();
+                break;
+            case MenuFunc.Play:
+                OnPlay();
+                break;
+            case MenuFunc.Exit:
+                OnExitGame();
+                break;
+            case MenuFunc.MainMenu:
+                OnFrontMenu();
+                break;
+            case MenuFunc.Options:
+                OnOptions();
+                break;
+            case MenuFunc.DeleteCharacter:
+                OnDeleteCharacter();
+                break;
         }
     }
     //charStatsPanel.cClass == CharClass.Blank /*|| charStatsPanel.charName == ""*/) //may reintroduce character name, but probably not, keeping it there just incase
@@ -93,5 +95,10 @@ public class MainMenu : MonoBehaviour
         cameraAnimator.SetBool("Creation", false);
         cameraAnimator.SetBool("Options", true);
     }
+
+    private void OnDeleteCharacter()
+    {
+        cSaveSystem.DeleteCharacter();
+    }
 }
-public enum MenuFunc { MainMenu, CreateCharWindow, CreateCharButton, Exit, Play, Options }
+public enum MenuFunc { MainMenu, CreateCharWindow, CreateCharButton, Exit, Play, Options, DeleteCharacter }

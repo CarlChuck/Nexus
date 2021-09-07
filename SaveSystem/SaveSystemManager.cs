@@ -46,10 +46,14 @@ public class SaveSystemManager : MonoBehaviour
         return cList;
     }
 
-    public void DeleteCharacter(CharacterData cData)
+    public void DeleteCharacter()
     {
-        cList.Remove(cData);
-        Destroy(cData.gameObject);
+        if (currentCharacter != null)
+        {
+            cList.Remove(currentCharacter);
+            Destroy(currentCharacter.gameObject);
+            currentCharacter = null;
+        }
     }
 
 

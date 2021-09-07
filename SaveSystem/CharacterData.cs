@@ -30,4 +30,28 @@ public class CharacterData : MonoBehaviour
         savePoint = scene;
     }
 
+    public string GetName()
+    {
+        return characterName;
+    }
+
+    public CharClass GetCharClass()
+    {
+        return charClass;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public int GetXP()
+    {
+        return xp;
+    }
+
+    public AScene GetScene()
+    {
+        return savePoint;
+    }
 }
