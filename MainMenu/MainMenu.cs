@@ -83,6 +83,7 @@ public class MainMenu : MonoBehaviour
     {
         OnFrontMenu();
         cSaveSystem.CreateCharacter(cCreationPane.charName, cCreationPane.cClass);
+        cSelectionPane.PopulatePanefromSave();
     }
 
     private void OnExitGame()
@@ -99,6 +100,8 @@ public class MainMenu : MonoBehaviour
     private void OnDeleteCharacter()
     {
         cSaveSystem.DeleteCharacter();
+        cSelectionPane.PopulatePanefromSave();
+
     }
 }
 public enum MenuFunc { MainMenu, CreateCharWindow, CreateCharButton, Exit, Play, Options, DeleteCharacter }

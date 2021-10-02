@@ -29,6 +29,7 @@ public class CharacterSelectionPane : MonoBehaviour
         {
             GameObject newButton = Instantiate(charButtonPrefab, characterButtonsParent.transform);
             CharacterSelectionButton cButton = newButton.GetComponent<CharacterSelectionButton>();
+            cButton.SetDataObject(cData);
             cButton.SetNameField(cData.GetName());
             cButton.SetLevelField(cData.GetLevel());
             cButton.SetClassField(cData.GetCharClass());

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class CharacterData : MonoBehaviour
 {
-    private string characterName;
-    private CharClass charClass;
-    private int level;
-    private int xp;
-    private AScene savePoint;
+    [SerializeField] private string characterName;
+    public CharClass charClass;
+    [SerializeField] private  int level;
+    [SerializeField] private int xp;
+    public AScene savePoint;
 
     public void CreateNew(string cName, CharClass cClass)
     {

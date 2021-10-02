@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SaveSystemManager : MonoBehaviour
 {
-    [SerializeField] private List<CharacterData> cList;
+    public List<CharacterData> cList;
     [SerializeField] private GameObject characterDataContainerPrefab;
-    [SerializeField] private CharacterData currentCharacter;
+    public CharacterData currentCharacter;
 
     #region Singleton
     public static SaveSystemManager instance;
@@ -21,6 +21,7 @@ public class SaveSystemManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
+    #region MenuInteractions
     public void CreateCharacter(string cName, CharClass cClass)
     {
         GameObject newChar = Instantiate(characterDataContainerPrefab, gameObject.transform);
@@ -29,7 +30,6 @@ public class SaveSystemManager : MonoBehaviour
         AddCharacterToList(cData);
         SaveList();
     }
-
 
     public void SelectCharacter(CharacterData cData)
     {
@@ -53,9 +53,10 @@ public class SaveSystemManager : MonoBehaviour
             cList.Remove(currentCharacter);
             Destroy(currentCharacter.gameObject);
             currentCharacter = null;
+            SaveList();
         }
     }
-
+    #endregion
 
     #region Load/Save List
     public void SaveList()
@@ -68,4 +69,6 @@ public class SaveSystemManager : MonoBehaviour
         cList = ES3.Load<List<CharacterData>>("CharacterList");
     }
     #endregion
+
+
 }

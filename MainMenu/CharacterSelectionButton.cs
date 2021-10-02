@@ -13,6 +13,26 @@ public class CharacterSelectionButton : MonoBehaviour, IPointerEnterHandler, IPo
     [SerializeField] private TextMeshProUGUI nameTextField = default;
     [SerializeField] private TextMeshProUGUI levelTextField = default;
     [SerializeField] private TextMeshProUGUI classTextField = default;
+    [SerializeField] private GameObject mesh = default;
+    [SerializeField] private GameObject classIcon = default;
+
+    [SerializeField] private CharacterData characterDataRef;
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("MenuColliders"))
+        {
+            mesh.SetActive(false);
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("MenuColliders"))
+        {
+            mesh.SetActive(true);
+        }
+    }
 
     public void OnPointerEnter(PointerEventData pointerData)
     {
@@ -41,6 +61,7 @@ public class CharacterSelectionButton : MonoBehaviour, IPointerEnterHandler, IPo
     {
         animator.SetBool("select", true);
         animator.SetBool("mouseClickDown", false);
+        OnSelect();
     }
 
     public void OnDeSelect()
@@ -61,5 +82,15 @@ public class CharacterSelectionButton : MonoBehaviour, IPointerEnterHandler, IPo
     public void SetClassField(CharClass cClass)
     {
         classTextField.text = cClass.ToString();
+    }
+
+    public void SetDataObject(CharacterData cData)
+    {
+        characterDataRef = cData;
+    }
+
+    private void OnSelect()
+    {
+        SaveSystemManager.instance.SelectCharacter(characterDataRef);
     }
 }

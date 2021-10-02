@@ -19,13 +19,31 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [Tooltip("If Class Button is true")]
     [SerializeField] private CharClass mAvatar = default;
 
+    [SerializeField] private GameObject baseBackLight = default;
+    [SerializeField] private GameObject selectedBackLight = default;
+    [SerializeField] private GameObject outerBaseBackLight = default;
+    [SerializeField] private GameObject outerSelectedBackLight = default;
+    [SerializeField] private GameObject vfx = default;
+    [SerializeField] private Material emissiveMaterial = default;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color baseColour = default;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color selectedColour = default;
+
 
 
     private MainMenu mMenu = default;
 
     public void Start()
     {
-        mMenu = MainMenu.instance;
+        mMenu = MainMenu.instance; 
+        baseBackLight.SetActive(false);
+        selectedBackLight.SetActive(false);
+        outerBaseBackLight.SetActive(true);
+        outerSelectedBackLight.SetActive(false);
+        emissiveMaterial.EnableKeyword("_EMISSION");
+        vfx.SetActive(false);
+
     }
 
     public void OnPointerDown(PointerEventData pointerData)
@@ -77,4 +95,28 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         animator.SetBool("selected", false);
     }
 
+    public void ButtonMouseOver()
+    {
+        baseBackLight.SetActive(true);
+    }
+    public void ButtonSelect()
+    {
+
+        baseBackLight.SetActive(false);
+        selectedBackLight.SetActive(true);
+        outerBaseBackLight.SetActive(false);
+        outerSelectedBackLight.SetActive(true);
+        emissiveMaterial.SetColor("_EmissiveColor", selectedColour);
+        vfx.SetActive(true);
+    }
+    public void ButtonDeselect()
+    {
+        baseBackLight.SetActive(false);
+        selectedBackLight.SetActive(false);
+        outerBaseBackLight.SetActive(true);
+        outerSelectedBackLight.SetActive(false);
+        emissiveMaterial.SetColor("_EmissiveColor", baseColour);
+        vfx.SetActive(false);
+
+    }
 }
