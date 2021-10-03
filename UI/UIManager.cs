@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ClassMechanicUI apochUI = default;
     [SerializeField] private ClassMechanicUI crypterUI = default;
     [SerializeField] private ClassMechanicUI nanoMageUI = default;
-    [SerializeField] private ClassMechanicUI envoyUI = default;
+    [SerializeField] private ClassMechanicUI guardianUI = default;
     [SerializeField] private ClassMechanicUI vigilUI = default;
     [SerializeField] private ClassMechanicUI shadowUI = default;
     [SerializeField] private ClassMechanicUI streetDocUI = default;
@@ -63,8 +63,8 @@ public class UIManager : MonoBehaviour
             case CharClass.NanoMage:
                 nanoMageUI.gameObject.SetActive(true);
                 break;
-            case CharClass.Envoy:
-                envoyUI.gameObject.SetActive(true);
+            case CharClass.Guardian:
+                guardianUI.gameObject.SetActive(true);
                 break;
             case CharClass.Vigil:
                 vigilUI.gameObject.SetActive(true);
@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
         apochUI.gameObject.SetActive(false);
         crypterUI.gameObject.SetActive(false);
         nanoMageUI.gameObject.SetActive(false);
-        envoyUI.gameObject.SetActive(false);
+        guardianUI.gameObject.SetActive(false);
         vigilUI.gameObject.SetActive(false);
         shadowUI.gameObject.SetActive(false);
         streetDocUI.gameObject.SetActive(false);
@@ -148,9 +148,9 @@ public class UIManager : MonoBehaviour
     {
         return nanoMageUI;
     }
-    public ClassMechanicUI GetEnvoyUI()
+    public ClassMechanicUI GetGuardianUI()
     {
-        return envoyUI;
+        return guardianUI;
     }
     public ClassMechanicUI GetVigilUI()
     {

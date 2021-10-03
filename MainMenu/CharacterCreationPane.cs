@@ -30,7 +30,7 @@ public class CharacterCreationPane : MonoBehaviour
     [SerializeField] private ClassDataObject dApoch;
     [SerializeField] private ClassDataObject dCrypter;
     [SerializeField] private ClassDataObject dNanoMage;
-    [SerializeField] private ClassDataObject dEnvoy;
+    [SerializeField] private ClassDataObject dGuardian;
     [SerializeField] private ClassDataObject dVigil;
     [SerializeField] private ClassDataObject dShadow;
     [SerializeField] private ClassDataObject dStreetDoctor;
@@ -89,8 +89,8 @@ public class CharacterCreationPane : MonoBehaviour
             case CharClass.NanoMage:
                 selectedClass = dNanoMage;
                 break;
-            case CharClass.Envoy:
-                selectedClass = dEnvoy;
+            case CharClass.Guardian:
+                selectedClass = dGuardian;
                 break;
             case CharClass.Vigil:
                 selectedClass = dVigil;
@@ -104,8 +104,9 @@ public class CharacterCreationPane : MonoBehaviour
         }
     }
 
-    public void SetName(Text cName)
+    public void SetName(TMP_InputField cName)
     {
         charName = cName.text;
     }
+
 }

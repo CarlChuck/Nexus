@@ -17,7 +17,7 @@ public class CharacterCreationShowModel : MonoBehaviour
     [SerializeField] private GameObject apochAvatar;
     [SerializeField] private GameObject crypterAvatar;
     [SerializeField] private GameObject nanoMageAvatar;
-    [SerializeField] private GameObject envoyAvatar;
+    [SerializeField] private GameObject guardianAvatar;
     [SerializeField] private GameObject vigilAvatar;
     [SerializeField] private GameObject shadowAvatar;
     [SerializeField] private GameObject streetDocAvatar;
@@ -39,7 +39,7 @@ public class CharacterCreationShowModel : MonoBehaviour
         apochAvatar.SetActive(false);
         crypterAvatar.SetActive(false);
         nanoMageAvatar.SetActive(false);
-        envoyAvatar.SetActive(false);
+        guardianAvatar.SetActive(false);
         vigilAvatar.SetActive(false);
         shadowAvatar.SetActive(false);
         streetDocAvatar.SetActive(false);
@@ -86,8 +86,8 @@ public class CharacterCreationShowModel : MonoBehaviour
             case CharClass.NanoMage:
                 OnOpenNanoMage();
                 break;
-            case CharClass.Envoy:
-                OnOpenEnvoy();
+            case CharClass.Guardian:
+                OnOpenGuardian();
                 break;
             case CharClass.Vigil:
                 OnOpenVigil();
@@ -141,10 +141,10 @@ public class CharacterCreationShowModel : MonoBehaviour
         ResetAllAvatars();
         nanoMageAvatar.SetActive(true);
     }
-    private void OnOpenEnvoy()
+    private void OnOpenGuardian()
     {
         ResetAllAvatars();
-        envoyAvatar.SetActive(true);
+        guardianAvatar.SetActive(true);
     }
     private void OnOpenVigil()
     {

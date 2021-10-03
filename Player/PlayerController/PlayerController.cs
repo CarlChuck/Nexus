@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //LayerMasks for raycast
-        int floorLayerMask = 1 << 20;
+        int floorLayerMask = 1 << 3;
 
         //Cyber + Bio timers
         float time = Time.deltaTime;

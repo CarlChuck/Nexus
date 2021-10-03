@@ -68,8 +68,8 @@ public class InventoryUI : MonoBehaviour
         weaponManager = WeaponManager.instance;
         inventory = Inventory.instance;
         UpdateUI();
-        DontDestroyOnLoad(this);
         CloseAllPanes();
+        DontDestroyOnLoad(this);
     }	
 
     //Update UI from Inventory class

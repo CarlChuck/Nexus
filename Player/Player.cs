@@ -64,10 +64,6 @@ public class Player : StatBlock
 
     public override void Start()
     {
-        if (cClass == CharClass.Blank)
-        {
-            NewCharacter();
-        }
         base.Start();
 
         wManager = WeaponManager.instance;
@@ -75,8 +71,8 @@ public class Player : StatBlock
         level = xp.CurrentLevel();
         globalCoolDown = 0.1f;
         globalTimer = 0;
-        DontDestroyOnLoad(this);
         UpdateHealth();
+        DontDestroyOnLoad(this);
     }
 
     public override void Update()
@@ -117,11 +113,11 @@ public class Player : StatBlock
         base.TakeDamage(attacker, thermDamage, cryoDamage, shockDamage, radDamage, psiDamage, dimensionDamage, kineticDamage, poisonDamage, bioDamage, corruptionDamage);
     }
 
-    void NewCharacter()
+    public void ActivateCharacter(string cName, CharClass charClass, AScene aScene, int xp, int level)
     {
-        //MCharStats mCharStats = GameObject.FindGameObjectWithTag("varStorage").GetComponent<MCharStats>();
-        //charName = mCharStats.charName;
-        //cClass = mCharStats.cClass;
+        charName = cName;
+        cClass = charClass;
+        savePoint = aScene;
         vitality.baseValue = 100;
         armour.baseValue = 10;
         strength.baseValue = 10;
@@ -158,16 +154,47 @@ public class Player : StatBlock
         bioResistance.baseValue = 10;
         corruptionResistance.baseValue = 10;
 
-        if (cClass == CharClass.Elementalist)
+        switch (cClass)
         {
-            gameObject.AddComponent<ElementalistMechanic>();
-            classMechanic = GetComponent<ElementalistMechanic>();
+            case CharClass.Golemancer:
+                //TODO
+                break;
+            case CharClass.Elementalist:
+                gameObject.AddComponent<ElementalistMechanic>();
+                classMechanic = GetComponent<ElementalistMechanic>();
+                break;
+            case CharClass.Psyc:
+                //TODO
+                break;
+            case CharClass.Mystic:
+                //TODO
+                break;
+            case CharClass.Artificer:
+                //TODO
+                break;
+            case CharClass.Apoch:
+                //TODO
+                break;
+            case CharClass.Crypter:
+                //TODO
+                break;
+            case CharClass.NanoMage:
+                //TODO
+                break;
+            case CharClass.Guardian:
+                //TODO
+                break;
+            case CharClass.Vigil:
+                //TODO
+                break;
+            case CharClass.Shadow:
+                //TODO
+                break;
+            case CharClass.StreetDoctor:
+                //TODO
+                break;
         }
         classMechanic.StartClassMechanic();
-        savePoint = AScene.Tutorial;
-
-
-       //Destroy(mCharStats.gameObject);
     }
 
     public override void OnDeath()

@@ -28,8 +28,8 @@ public class EnumsToString : MonoBehaviour
                 return "Vigil";
             case CharClass.Shadow:
                 return "Shadow";
-            case CharClass.Envoy:
-                return "Envoy";
+            case CharClass.Guardian:
+                return "Guardian";
             case CharClass.StreetDoctor:
                 return "Street Doctor";
             default:

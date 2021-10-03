@@ -58,12 +58,10 @@ public class MainMenu : MonoBehaviour
                 break;
         }
     }
-    //charStatsPanel.cClass == CharClass.Blank /*|| charStatsPanel.charName == ""*/) //may reintroduce character name, but probably not, keeping it there just incase
-    //TODO enter button greyed out
 
     private void OnPlay()
     {
-         SceneManager.LoadScene("StagingArea");
+         SceneManager.LoadScene("PlayerUIOverlay");
     }
 
     private void OnFrontMenu()
@@ -81,9 +79,16 @@ public class MainMenu : MonoBehaviour
     }
     private void OnCharacterCreateButton()
     {
-        OnFrontMenu();
-        cSaveSystem.CreateCharacter(cCreationPane.charName, cCreationPane.cClass);
-        cSelectionPane.PopulatePanefromSave();
+        if (IsNameNotBlank(cCreationPane.charName) && !IsNameTaken(cCreationPane.charName))
+        {
+            OnFrontMenu();
+            cSaveSystem.CreateCharacter(cCreationPane.charName, cCreationPane.cClass);
+            cSelectionPane.PopulatePanefromSave();
+        }
+        else
+        {
+            //TODO attention to CharName 
+        }
     }
 
     private void OnExitGame()
@@ -102,6 +107,27 @@ public class MainMenu : MonoBehaviour
         cSaveSystem.DeleteCharacter();
         cSelectionPane.PopulatePanefromSave();
 
+    }
+
+    public bool IsNameNotBlank(string charName)
+    {
+        if (charName == "")
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private bool IsNameTaken(string cName)
+    {
+        foreach (CharacterData cData in SaveSystemManager.instance.GetCharacterList())
+        {
+            if (cData.GetName() == cName)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 public enum MenuFunc { MainMenu, CreateCharWindow, CreateCharButton, Exit, Play, Options, DeleteCharacter }

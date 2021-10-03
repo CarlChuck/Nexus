@@ -16,10 +16,8 @@ public class CameraController : MonoBehaviour
     {
         player = Player.instance.gameObject;
         target = GetComponent<Transform>();
-        //Centres camera above player.
-        //offset = transform.position - player.transform.position;
         DontDestroyOnLoad(this);
-	}
+    }
 
 	void LateUpdate ()
     {

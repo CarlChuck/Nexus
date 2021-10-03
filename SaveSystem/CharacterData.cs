@@ -7,9 +7,10 @@ public class CharacterData : MonoBehaviour
 {
     [SerializeField] private string characterName;
     public CharClass charClass;
-    [SerializeField] private  int level;
+    [SerializeField] private int level;
     [SerializeField] private int xp;
     public AScene savePoint;
+    //TODO Inventory Contents
 
     public void CreateNew(string cName, CharClass cClass)
     {

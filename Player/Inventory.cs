@@ -100,8 +100,7 @@ public class Inventory : MonoBehaviour
 
         //add start gear
         AddStartItems(startItems);
-
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
     }
 
     private void AddStartItems(List<Item> startItems)
@@ -538,8 +537,8 @@ public class Inventory : MonoBehaviour
             case CharClass.NanoMage:
                 AddWeaponsNanoMage(weapon, slot);
                 break;
-            case CharClass.Envoy:
-                AddWeaponsEnvoy(weapon, slot);
+            case CharClass.Guardian:
+                AddWeaponsGuardian(weapon, slot);
                 break;
             case CharClass.Vigil:
                 AddWeaponsVigil(weapon, slot);
@@ -688,7 +687,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsEnvoy(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsGuardian(Weapon weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {

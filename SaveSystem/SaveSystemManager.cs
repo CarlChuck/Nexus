@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SaveSystemManager : MonoBehaviour
 {
-    public List<CharacterData> cList;
+    private List<CharacterData> cList;
     [SerializeField] private GameObject characterDataContainerPrefab;
-    public CharacterData currentCharacter;
+    private CharacterData currentCharacter;
 
     #region Singleton
     public static SaveSystemManager instance;
@@ -36,6 +36,15 @@ public class SaveSystemManager : MonoBehaviour
         currentCharacter = cData;
     }
 
+    public CharacterData GetSelectedCharacter()
+    {
+        return currentCharacter;
+    }
+
+    public List<CharacterData> GetCharacterList()
+    {
+        return cList;
+    }
     public void AddCharacterToList(CharacterData cData)
     {
         cList.Add(cData);

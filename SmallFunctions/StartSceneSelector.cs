@@ -6,24 +6,22 @@ using UnityEngine;
 public class StartSceneSelector : MonoBehaviour
 {
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        AScene scene = Player.instance.savePoint;
-        StartScene(scene);
-    }
-
-    void StartScene(AScene scene)
+    public void LoadScene(AScene scene)
     {
         switch (scene)
         {
             case AScene.Tutorial:
-                SceneManager.LoadScene("EarthD31");
+                SceneManager.LoadScene("AlbionD31");
                 break;
             case AScene.Singularity:
                 SceneManager.LoadScene("SingularityBar");
                 break;
         }
+    }
+
+    private void RemoveOldScene()
+    {
+        //TODO
     }
 }
 

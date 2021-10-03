@@ -18,7 +18,6 @@ public class CharacterSelectionPane : MonoBehaviour
         {
             foreach (CharacterSelectionButton cButton in characterList)
             {
-                //characterList.Remove(cButton);
                 Destroy(cButton.gameObject);
             }
             characterList = new List<CharacterSelectionButton>();
