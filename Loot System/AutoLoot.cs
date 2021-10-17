@@ -13,7 +13,7 @@ public class AutoLoot : MonoBehaviour
         sCol.radius = num;
     }
 
-    public void LootItem(LootItem loot, Item item)
+    public void LootItem(LootItem loot, InventoryItem item)
     {
         switch (aType)
         {
@@ -100,11 +100,13 @@ public class AutoLoot : MonoBehaviour
     }
 
     //Takes the item to player inventory and destroys the in world object
-    private void TakeItem(LootItem loot, Item item)
+    private void TakeItem(LootItem loot, InventoryItem item)
     {
+        /*
         loot.DisableCollider();
         player.inventory.PickUpItem(item);
         Destroy(loot.gameObject, 1);
+        */
     }
 }
 public enum AutoLootType {None, Common, Uncommon, Masterwork, Rare, Legendary, Unique }

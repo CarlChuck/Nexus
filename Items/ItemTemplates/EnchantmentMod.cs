@@ -7,9 +7,5 @@ public class EnchantmentMod : Item
     [SerializeField] private EnchantmentType eType;
     public int amount;
 
-    public EnchantmentType GetEnchantmentType()
-    {
-        return eType;
-    }
 }
 public enum EnchantmentType {ElementRegen }

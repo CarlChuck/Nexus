@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class InfoPane : MonoBehaviour
 {
-    private Item item;
+    private InventoryItem item;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI infoTitle;
 
-    [SerializeField] private Image icon;
+    [SerializeField] private Transform icon3dParent;
+    [SerializeField] private GameObject icon3d;
     [SerializeField] private Image iconBacking;
     [SerializeField] private Image textBacking;
     private void Start()
@@ -24,10 +25,15 @@ public class InfoPane : MonoBehaviour
         infoText.text = null;
     }
 
-    public void UpdateInfo(Item itemIn)
+    public void UpdateInfo(InventoryItem itemIn)
     {
+        if (icon3d != null)
+        {
+            Destroy(icon3d);
+            icon3d = null;
+        }
         item = itemIn;
-        icon.sprite = item.icon;
+        icon3d = Instantiate(item.icon3d, icon3dParent);
         UpdateTheColour();
         infoText.text = "";
         infoTitle.text = item.name;
@@ -35,9 +41,9 @@ public class InfoPane : MonoBehaviour
 
         if (item.itemType == ItemType.Weapon)
         {
-            Weapon weapon = item as Weapon;
-            infoText.text += "Weapon Type: " + weapon.wType.ToString() + "\n";
-            infoText.text += "Handed: " + weapon.handedness.ToString() + "\n";
+
+            infoText.text += "Weapon Type: " + item.wType.ToString() + "\n";
+            infoText.text += "Handed: " + item.handedness.ToString() + "\n";
             //infoText.text += "Damage: " + weapon.damage.ToString() + "\n"; //TODO Damage Range
         }
         else if (item.itemType == ItemType.Skill)

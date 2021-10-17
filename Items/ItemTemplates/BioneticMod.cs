@@ -9,9 +9,5 @@ public class BioneticMod : Item
     public int amount = 0; //percentage of health healed, or percent of damage converted to health
     public float cooldown = 5f;
 
-    public BioneticEffect GetBioneticEffect()
-    {
-        return bEffect;
-    }
 }
 public enum BioneticEffect {Heal, HealOverTime, AoEHeal, Leech }

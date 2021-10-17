@@ -8,9 +8,5 @@ public class CyberneticMod : Item
     public int duration = 0;
     public float cooldown = 0;
 
-    public CyberneticType GetCyberneticType()
-    {
-        return cType;
-    }
 }
 public enum CyberneticType {Dodge, AttkSpeed, CorruptResist, Armour }

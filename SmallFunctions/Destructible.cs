@@ -11,6 +11,14 @@ public class Destructible : StatBlock
     public override void Start()
     {
         base.Start();
+        if (fracture == null)
+        {
+            fracture = GetComponent<Fracture>();
+        }
+        if (bCollider == null)
+        {
+            bCollider = GetComponent<BoxCollider>();
+        }
     }
 
     public override void TakeDamage(StatBlock attacker, float thermDamage, float cryoDamage, float shockDamage, float radDamage, float psiDamage, float dimensionDamage,
@@ -21,7 +29,6 @@ public class Destructible : StatBlock
 
     public override void TakeDamageFinal(StatBlock attacker, int damage)
     {
-        Debug.Log("boom");
         base.TakeDamageFinal(attacker, damage);
     }
 
@@ -31,6 +38,9 @@ public class Destructible : StatBlock
         fracture.OnDestruction();
         CameraController camera = FindObjectOfType<CameraController>();
         camera.shake(0.1f, 0.1f);
-        lootSpawn.DropLoot();
+        if (lootSpawn != null)
+        {
+            lootSpawn.DropLoot();
+        }
     }
 }

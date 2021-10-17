@@ -46,6 +46,21 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     }
 
+    public void OnPointerEnter(PointerEventData pointerData)
+    {
+        transform.SetAsLastSibling();
+        animator.SetBool("hover", true);
+        if (audioOver != null)
+        {
+            audioOver.Play();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData pointerData)
+    {
+        animator.SetBool("hover", false);
+    }
+
     public void OnPointerDown(PointerEventData pointerData)
     {
         animator.SetBool("pressed", true);
@@ -60,7 +75,10 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             mMenu.MenuFunction(mFunc);
         }
-        audioClick.Play();
+        if (audioClick != null)
+        {
+            audioClick.Play();
+        }
     }
 
     public void OnPointerUp(PointerEventData pointerData)
@@ -78,17 +96,6 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
     }
 
-    public void OnPointerEnter(PointerEventData pointerData)
-    {
-        transform.SetAsLastSibling();
-        animator.SetBool("hover", true);
-        audioOver.Play();
-    }
-
-    public void OnPointerExit(PointerEventData pointerData)
-    {
-        animator.SetBool("hover", false);
-    }
 
     public void SetAnimationDeSelected()
     {

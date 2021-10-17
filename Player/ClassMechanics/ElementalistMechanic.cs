@@ -113,7 +113,7 @@ public class ElementalistMechanic : ClassMechanic
     {
         if (inv.eleSkill1 != null)
         {
-            skill1Cooldown = inv.eleSkill1.cooldown;
+            skill1Cooldown = inv.eleSkill1.skillCooldown;
         }
         else
         {
@@ -125,7 +125,7 @@ public class ElementalistMechanic : ClassMechanic
     {
         if (inv.eleSkill1 != null)
         {
-            skill2Cooldown = inv.eleSkill2.cooldown;
+            skill2Cooldown = inv.eleSkill2.skillCooldown;
         }
         else
         {
@@ -137,7 +137,7 @@ public class ElementalistMechanic : ClassMechanic
     {
         if (inv.eleSkill1 != null)
         {
-            eliteSkillCooldown = inv.eleEliteSkill.cooldown;
+            eliteSkillCooldown = inv.eleEliteSkill.skillCooldown;
         }
         else
         {

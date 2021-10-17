@@ -35,7 +35,7 @@ public class Abilities : MonoBehaviour
 
     #region Elementalist
     //Wand 1
-    public void CrystalSwarm(Player player, Weapon weap, Transform emitter)
+    public void CrystalSwarm(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -46,7 +46,7 @@ public class Abilities : MonoBehaviour
         //ConeShot3(eleProj.crystalSwarm, player, emitter, damage, dType, dStat, null, hexes, 0f, 2f);
         RaiseElement(player, value);
     }
-    public void LightningBolt(Player player, Weapon weap, Transform emitter)
+    public void LightningBolt(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -57,7 +57,7 @@ public class Abilities : MonoBehaviour
         //CreateProjectile(eleProj.lightningBolt, player, emitter, damage, dType, dStat, null, hexes, 0f, 1f);
         RaiseElement(player, value);
     }
-    public void FireBolts(Player player, Weapon weap, Transform emitter)
+    public void FireBolts(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -66,7 +66,7 @@ public class Abilities : MonoBehaviour
         //ConeShot3(eleProj.fireBolts, player, emitter, damage, dType, dStat, null);
         RaiseElement(player, value);
     }
-    public void WaterBolt(Player player, Weapon weap, Transform emitter)
+    public void WaterBolt(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -78,7 +78,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Wand 2
-    public void CrystalWave(Player player, Weapon weap, Transform emitter)
+    public void CrystalWave(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -89,7 +89,7 @@ public class Abilities : MonoBehaviour
         //PbAoEShot(eleProj.crystalWave, player, emitter, damage, dType, attackSound, source, dStat, null, hexes, 0f, 2f);
         RaiseElement(player, value);
     }
-    public void ChainLightning(Player player, Weapon weap, Transform emitter)
+    public void ChainLightning(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -98,7 +98,7 @@ public class Abilities : MonoBehaviour
         //CreateProjectile(eleProj.chainLightning, player, emitter, damage, dType, dStat, null);
         RaiseElement(player, value);
     }
-    public void PyroclasticSurge(Player player, Weapon weap, Transform emitter)
+    public void PyroclasticSurge(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -107,7 +107,7 @@ public class Abilities : MonoBehaviour
         //PbAoEShot(eleProj.pyroclasticSurge, player, emitter, damage, dType, attackSound, source, dStat);
         RaiseElement(player, value);
     }
-    public void WaterBlast(Player player, Weapon weap, Transform emitter)
+    public void WaterBlast(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -120,7 +120,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Wand 3
-    public void RockLance(Player player, Weapon weap, Transform emitter)
+    public void RockLance(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -129,7 +129,7 @@ public class Abilities : MonoBehaviour
         //CreateProjectile(eleProj.rockLance, player, emitter, damage, dType, dStat);
         RaiseElement(player, value);
     }
-    public void AirBurst(Player player, Weapon weap, Transform emitter)
+    public void AirBurst(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -139,7 +139,7 @@ public class Abilities : MonoBehaviour
         //TODO add knockback on hit, rather than generic gravity push
         RaiseElement(player, value);
     }
-    public void FireBall(Player player, Weapon weap, Transform emitter)
+    public void FireBall(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -149,7 +149,7 @@ public class Abilities : MonoBehaviour
         //GroundTargetShot(eleProj.fireball, player, emitter, speed, damage, dType, dStat);
         RaiseElement(player, value);
     }
-    public void GlacialSpike(Player player, Weapon weap, Transform emitter)
+    public void GlacialSpike(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -160,7 +160,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Wand 4
-    public void Earthquake(Player player, Weapon weap, Transform emitter)
+    public void Earthquake(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -170,7 +170,7 @@ public class Abilities : MonoBehaviour
         Pbaoe(player, newProj);
         RaiseElement(player, value);
     }
-    public void Cyclone(Player player, Weapon weap, Transform emitter)
+    public void Cyclone(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -180,14 +180,14 @@ public class Abilities : MonoBehaviour
         WornEffect(player, newProj);
         RaiseElement(player, value);
     }
-    public void Firestorm(Player player, Weapon weap, Transform emitter)
+    public void Firestorm(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
         float multiplier = 0.8f;
         //TODO Special
     }
-    public void Permafrost(Player player, Weapon weap, Transform emitter)
+    public void Permafrost(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -199,7 +199,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Heavy Pistol 1
-    public void EarthRound(Player player, Weapon weap, Transform emitter)
+    public void EarthRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -212,7 +212,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.earthRound, player, weap, emitter, dStat, multiplier, null, hexes, 0f, 2f, false, 100);
         RaiseElement(player, value);
     }
-    public void LightningRound(Player player, Weapon weap, Transform emitter)
+    public void LightningRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -223,7 +223,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.lightningRound, player, weap, emitter, dStat, multiplier, null, null, 0f, 0f, false, 30, true);
         RaiseElement(player, value);
     }
-    public void FlameRound(Player player, Weapon weap, Transform emitter)
+    public void FlameRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -234,7 +234,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.flameRound, player, weap, emitter, dStat, multiplier, null, null, 0f, 0f, false, 0, true);
         RaiseElement(player, value);
     }
-    public void IceRound(Player player, Weapon weap, Transform emitter)
+    public void IceRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -249,7 +249,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Heavy Pistol 2
-    public void MeteorShot(Player player, Weapon weap, Transform emitter)
+    public void MeteorShot(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -260,7 +260,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.meteorShot, player, weap, emitter, dStat, multiplier, null, hexes, 0f, 3f, false, 0, false);
         RaiseElement(player, value);
     }
-    public void LightningPulse(Player player, Weapon weap, Transform emitter)
+    public void LightningPulse(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -271,7 +271,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.lightningPulse, player, weap, emitter, dStat, multiplier, null, hexes, 0f, 1f, false, 0, false);
         RaiseElement(player, value);
     }
-    public void Conflagration(Player player, Weapon weap, Transform emitter)
+    public void Conflagration(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -282,7 +282,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.conflagration, player, weap, emitter, dStat, multiplier, null, hexes, 0f, 2f);
         RaiseElement(player, value);
     }
-    public void FrostSpear(Player player, Weapon weap, Transform emitter)
+    public void FrostSpear(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -295,7 +295,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Heavy Pistol 3
-    public void CrystalRound(Player player, Weapon weap, Transform emitter)
+    public void CrystalRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -306,7 +306,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.crystalRound, player, weap, emitter, dStat, multiplier, null, hexes, 0f, 4f, false, 0, false);
         RaiseElement(player, value);
     }
-    public void AirRound(Player player, Weapon weap, Transform emitter)
+    public void AirRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -315,7 +315,7 @@ public class Abilities : MonoBehaviour
         GroundTargetShot(eleProj.airRound, player, weap, emitter, dStat, 30f, multiplier, null, null, 0f, 0f, false, 0, false, true);
         RaiseElement(player, value);
     }
-    public void MagmaRound(Player player, Weapon weap, Transform emitter)
+    public void MagmaRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -324,7 +324,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.magmaRound, player, weap, emitter, dStat, multiplier, null, null, 0f, 0f, false, 0, false);
         RaiseElement(player, value);
     }
-    public void WaterRound(Player player, Weapon weap, Transform emitter)
+    public void WaterRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -337,7 +337,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Heavy Pistol 4
-    public void GravitonCrystal(Player player, Weapon weap, Transform emitter)
+    public void GravitonCrystal(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -348,7 +348,7 @@ public class Abilities : MonoBehaviour
         GroundTargetShot(eleProj.gravitonRound, player, weap, emitter, dStat, multiplier, 30f, null, hexes, 0f, 2f, false, 0, false, false, false, true);
         RaiseElement(player, value);
     }
-    public void StaticForce(Player player, Weapon weap, Transform emitter)
+    public void StaticForce(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -359,7 +359,7 @@ public class Abilities : MonoBehaviour
         SingleShot(eleProj.staticForce, player, weap, emitter, dStat, multiplier, null, hexes, 0f, 1f);
         RaiseElement(player, value);
     }
-    public void FlameBlast(Player player, Weapon weap, Transform emitter)
+    public void FlameBlast(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -370,7 +370,7 @@ public class Abilities : MonoBehaviour
         GroundTargetShot(eleProj.flameBlast, player, weap, emitter, dStat, multiplier, 30f, null, hexes, 0f, 2f, false, 0, false);
         RaiseElement(player, value);
     }
-    public void VapourRound(Player player, Weapon weap, Transform emitter)
+    public void VapourRound(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -383,7 +383,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Focus 3
-    public void MagneticPulse(Player player, Weapon weap, Transform emitter)
+    public void MagneticPulse(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -394,7 +394,7 @@ public class Abilities : MonoBehaviour
         //newProj.pull = true;//TODO
         RaiseElement(player, value);
     }
-    public void GustOfWind(Player player, Weapon weap, Transform emitter)
+    public void GustOfWind(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -405,7 +405,7 @@ public class Abilities : MonoBehaviour
         //newProj.push = true;//TODO
         RaiseElement(player, value);
     }
-    public void RingOfFire(Player player, Weapon weap, Transform emitter)
+    public void RingOfFire(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -418,7 +418,7 @@ public class Abilities : MonoBehaviour
         GroundTargetSpawn(eleProj.ringOfFire, player, weap, emitter, dStat, multiplier, boons, hexes, 10f, 10f);
         RaiseElement(player, value);
     }
-    public void CleansingFog(Player player, Weapon weap, Transform emitter)
+    public void CleansingFog(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -426,7 +426,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Focus 4
-    public void GraniteAura(Player player, Weapon weap, Transform emitter)
+    public void GraniteAura(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -438,7 +438,7 @@ public class Abilities : MonoBehaviour
         WornEffect(player, newProj);
         RaiseElement(player, value);
     }
-    public void ShockingAura(Player player, Weapon weap, Transform emitter)
+    public void ShockingAura(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -452,7 +452,7 @@ public class Abilities : MonoBehaviour
         WornEffect(player, newProj);
         RaiseElement(player, value);
     }
-    public void FlamingAura(Player player, Weapon weap, Transform emitter)
+    public void FlamingAura(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -466,7 +466,7 @@ public class Abilities : MonoBehaviour
         WornEffect(player, newProj);
         RaiseElement(player, value);
     }
-    public void MistAura(Player player, Weapon weap, Transform emitter)
+    public void MistAura(Player player, InventoryItem weap, Transform emitter)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -480,7 +480,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Utilities
-    public void LightningWarp(Player player, Weapon weap)
+    public void LightningWarp(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -502,7 +502,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void CrystalSkin(Player player, Weapon weap)
+    public void CrystalSkin(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -517,7 +517,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void HealingRiver(Player player, Weapon weap)
+    public void HealingRiver(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -532,7 +532,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void Fog(Player player, Weapon weap)
+    public void Fog(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -546,7 +546,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void Sandstorm(Player player, Weapon weap)
+    public void Sandstorm(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -560,7 +560,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void Static(Player player, Weapon weap)
+    public void Static(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -575,7 +575,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void VolcanicRay(Player player, Weapon weap)
+    public void VolcanicRay(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -590,7 +590,7 @@ public class Abilities : MonoBehaviour
             LowerElement(player, value);
         }
     }
-    public void EarthenArmour(Player player, Weapon weap)
+    public void EarthenArmour(Player player, InventoryItem weap)
     {
         int value = 10;
         DamageStat dStat = DamageStat.Arcana;
@@ -692,7 +692,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Shoots 5 projectiles out in a cone
-    public void ConeShot(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0,
+    public void ConeShot(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0,
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         Projectile projectileInstanceA = CreateProjectile(proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
@@ -717,7 +717,7 @@ public class Abilities : MonoBehaviour
     }
     
     //Shoots 3 projectiles in cone
-    public void ConeShot3(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void ConeShot3(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         Projectile projectileInstanceA = CreateProjectile(proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
@@ -734,7 +734,7 @@ public class Abilities : MonoBehaviour
     }
 
     //spawns projectile and shoots it at the cursor, and stops at cursor
-    public void GroundTargetShot(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float speed, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, 
+    public void GroundTargetShot(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float speed, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, 
         float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         Player player = Player.instance;
@@ -756,7 +756,7 @@ public class Abilities : MonoBehaviour
     }
 
     //spawns projectile at cursor
-    public void GroundTargetSpawn(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void GroundTargetSpawn(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         RaycastHit hit;
@@ -772,35 +772,35 @@ public class Abilities : MonoBehaviour
     }
 
     //fires stream of projectiles
-    public void ChannelAttack(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void ChannelAttack(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         StartCoroutine(ChannelAttack(0.03f, proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed));
     }
 
     //fires single shot in mouse cursor direction
-    public void SingleShot(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void SingleShot(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         CreateProjectile(proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
     }
 
     //fires a burst of 3 projectiles in succession
-    public void BurstShot(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void BurstShot(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         StartCoroutine(ProjAttackBurst(0.08f, proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed));
     }
 
     //fires a spray of 4 projectiles that fans out like a cone, but in succession
-    public void SprayShot(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void SprayShot(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         StartCoroutine(ProjSprayBurst(0.1f, proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed));
     }
 
     //fires a burst of 5 projectiles in succession
-    public void FullAutoShot(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
+    public void FullAutoShot(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, float boonDur = 0, float hexDur = 0, 
         bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         StartCoroutine(ProjAttackAuto(0.09f, proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed));
@@ -834,7 +834,7 @@ public class Abilities : MonoBehaviour
             }
         }
     }
-    IEnumerator ChannelAttack(float wTime, Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
+    IEnumerator ChannelAttack(float wTime, Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
         float boonDur = 0, float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, 
         bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
@@ -882,7 +882,7 @@ public class Abilities : MonoBehaviour
 
         CreateProjectile(proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
     }    
-    IEnumerator ProjAttackBurst(float wTime, Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
+    IEnumerator ProjAttackBurst(float wTime, Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
         float boonDur = 0, float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, 
         bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
@@ -894,7 +894,7 @@ public class Abilities : MonoBehaviour
 
         CreateProjectile(proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
     }
-    IEnumerator ProjAttackAuto(float wTime, Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
+    IEnumerator ProjAttackAuto(float wTime, Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
         float boonDur = 0, float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, 
         bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
@@ -913,7 +913,7 @@ public class Abilities : MonoBehaviour
         CreateProjectile(proj, attacker, weap, emitter, dStat, damageMultiplier, boons, hexes, boonDur, hexDur, freeze, passthrough, causeDam, toPush, toPull, persist, inRange, inSpeed);
     }
 
-    IEnumerator ProjSprayBurst(float wTime, Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
+    IEnumerator ProjSprayBurst(float wTime, Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
         float boonDur = 0, float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, 
         bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
@@ -942,7 +942,7 @@ public class Abilities : MonoBehaviour
     }
 
     //Create Projectile Function
-    public Projectile CreateProjectile(Projectile proj, StatBlock attacker, Weapon weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
+    public Projectile CreateProjectile(Projectile proj, StatBlock attacker, InventoryItem weap, Transform emitter, DamageStat dStat, float damageMultiplier, BoonName[] boons = null, HexName[] hexes = null, 
         float boonDur = 0, float hexDur = 0, bool freeze = false, int passthrough = 0, bool causeDam = true, bool toPush = false, bool toPull = false, 
         bool persist = false, float inRange = 30f, int inSpeed = 40)
     {

@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     private StatBlock attacker;
     private DamageType dType;
     private WhoToDamage whoToDam;
-    private Weapon weaponUsed;
+    private InventoryItem weaponUsed;
 
     //Projectile movement
     private Vector3 spawnPosition;
@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     private bool freeze = false;
 
     //Sets projectile and begins
-    public void StartProjectile(StatBlock attk, Weapon weap, DamageStat dStat, Vector3 dir, float mPlier, HexName[] inHexes = null, BoonName[] inBoons = null, float boonDur = 0f, float hexDur = 0f, 
+    public void StartProjectile(StatBlock attk, InventoryItem weap, DamageStat dStat, Vector3 dir, float mPlier, HexName[] inHexes = null, BoonName[] inBoons = null, float boonDur = 0f, float hexDur = 0f, 
         bool toFreeze = false, int passthr = 0, bool causeDam  = true, bool toPush = false, bool toPull = false, bool persist = false, float inRange = 30f, int inSpeed = 40)
     {
         speed = inSpeed;

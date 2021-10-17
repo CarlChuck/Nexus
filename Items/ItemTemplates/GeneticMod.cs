@@ -7,9 +7,5 @@ public class GeneticMod : Item
     [SerializeField] private GeneticType gType;
     public int amount;
 
-    public GeneticType GetGeneticType()
-    {
-        return gType;
-    }
 }
 public enum GeneticType {Regeneration, Feedback, Leech, XpGain, Luck, Armour }

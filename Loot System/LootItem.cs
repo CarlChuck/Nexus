@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class LootItem : MonoBehaviour
 {
-    [SerializeField] private Item item = default;
+    [SerializeField] private InventoryItem item = default;
     [SerializeField] private Rigidbody rb = default;
     [SerializeField] private BoxCollider bCol = default;
     [SerializeField] private SphereCollider sCol = default;
     [SerializeField] private Color rarityColor;
 
 
-    public void ActivateLootItem(Item inItem, Vector3 spawnPos)
+    public void ActivateLootItem(InventoryItem inItem, Vector3 spawnPos)
     {
         //Set Item
         item = inItem;

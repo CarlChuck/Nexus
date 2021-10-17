@@ -112,15 +112,16 @@ public class InventoryUI : MonoBehaviour
         OpenPaneFromItem(slot.iType);
     }
     //Update/Clear panels and slots
-    void UpdatePanel(List<Item> items, GameObject pane)
+    void UpdatePanel(List<InventoryItem> items, GameObject pane)
     {
-
-        foreach (Item item in items)
+        Debug.Log("Updating Panel");
+        foreach (InventoryItem item in items)
         {
             InventoryObject emptyItem = Instantiate(invObject);
             emptyItem.StartItem(item);
             emptyItem.transform.SetParent(pane.transform);
             emptyItem.transform.localScale = new Vector3(1, 1, 1);
+            Debug.Log("Added" + emptyItem.name);
         }
     }
 
@@ -190,7 +191,7 @@ public class InventoryUI : MonoBehaviour
     }
     private void UpdateEquippedItemDisplay()
     {
-        Item itemInSlot = null;
+        InventoryItem itemInSlot = null;
         switch (selectedSlot.iType)
         {
             case ItemType.ItemHead:
@@ -242,11 +243,11 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void EquippedItemStats(Item item)
+    public void EquippedItemStats(InventoryItem item)
     {
         equippedItemInfo.UpdateInfo(item);
     }
-    public void InvItemStats(Item item)
+    public void InvItemStats(InventoryItem item)
     {
         invItemInfo.UpdateInfo(item);
     }

@@ -21,12 +21,16 @@ public class WeaponManager : MonoBehaviour
     public GameObject lHandItem;
 
     //The weapons from inventory
-    public Weapon inRightHand;
-    public Weapon inLeftHand;
+    public InventoryItem inRightHand;
+    public InventoryItem inLeftHand;
+
+    //parent locations for WeaponIcons
+    public Transform RHAbilityIconBase;
+    public Transform LHAbilityIconBase;
 
     //The images in UI bottom panel
-    public Image RHAbilityImage;
-    public Image LHAbilityImage;
+    public GameObject RHAbilityImage;
+    public GameObject LHAbilityImage;
 
     public Inventory inventory;
     [SerializeField] private PlayerAnimator pAnimator;
@@ -39,30 +43,27 @@ public class WeaponManager : MonoBehaviour
         inLeftHand = null;
 
         Destroy(rHandItem);
-        RHAbilityImage.sprite = null;
-        RHAbilityImage.enabled = false;
+        Destroy(RHAbilityImage);
+        RHAbilityImage = null;
   
         Destroy(lHandItem);
-        LHAbilityImage.sprite = null;
-        LHAbilityImage.enabled = false;
+        Destroy(LHAbilityImage);
+        LHAbilityImage = null;
 
         if (inventory.rHand != null)
         {
             inRightHand = inventory.rHand;
-            RHAbilityImage.sprite = inRightHand.icon;
-            RHAbilityImage.enabled = true;
+            RHAbilityImage = Instantiate(inRightHand.icon3d,RHAbilityIconBase);
             if (inRightHand.handedness == Handed.TwoHanded)
             {
-                LHAbilityImage.sprite = inRightHand.icon;
-                LHAbilityImage.enabled = true;
+                LHAbilityImage = Instantiate(inRightHand.icon3d, LHAbilityIconBase);
             }
             rHandItem = Instantiate(inRightHand.mesh, rightHand);
         }
         if (inventory.lHand != null)
         {
             inLeftHand = inventory.lHand;
-            LHAbilityImage.sprite = inLeftHand.icon;
-            LHAbilityImage.enabled = true;
+            LHAbilityImage = Instantiate(inLeftHand.icon3d, LHAbilityIconBase);
             lHandItem = Instantiate(inLeftHand.mesh, leftHand);
         }
     }
@@ -437,7 +438,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Melee1(Player player, Weapon weap, Transform emitter)
+    public void Melee1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -472,7 +473,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Melee2(Player player, Weapon weap, Transform emitter)
+    public void Melee2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -493,7 +494,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Melee3(Player player, Weapon weap, Transform emitter)
+    public void Melee3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -528,7 +529,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Melee4(Player player, Weapon weap, Transform emitter)
+    public void Melee4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -550,7 +551,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Shield3(Player player, Weapon weap, Transform emitter)
+    public void Shield3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -593,7 +594,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Shield4(Player player, Weapon weap, Transform emitter)
+    public void Shield4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -637,7 +638,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void HPistol1(Player player, Weapon weap, Transform emitter)
+    public void HPistol1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -693,7 +694,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void HPistol2(Player player, Weapon weap, Transform emitter)
+    public void HPistol2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -728,7 +729,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void HPistol3(Player player, Weapon weap, Transform emitter)
+    public void HPistol3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -784,7 +785,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void HPistol4(Player player, Weapon weap, Transform emitter)
+    public void HPistol4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -820,7 +821,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void PPistol1(Player player, Weapon weap, Transform emitter)
+    public void PPistol1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -846,7 +847,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void PPistol2(Player player, Weapon weap, Transform emitter)
+    public void PPistol2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -868,7 +869,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void PPistol3(Player player, Weapon weap, Transform emitter)
+    public void PPistol3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -894,7 +895,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void PPistol4(Player player, Weapon weap, Transform emitter)
+    public void PPistol4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -917,7 +918,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Carbine1(Player player, Weapon weap, Transform emitter)
+    public void Carbine1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -952,7 +953,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Carbine2(Player player, Weapon weap, Transform emitter)
+    public void Carbine2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -987,7 +988,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Carbine3(Player player, Weapon weap, Transform emitter)
+    public void Carbine3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1022,7 +1023,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Carbine4(Player player, Weapon weap, Transform emitter)
+    public void Carbine4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1058,7 +1059,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Rifle1(Player player, Weapon weap, Transform emitter)
+    public void Rifle1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1084,7 +1085,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Rifle2(Player player, Weapon weap, Transform emitter)
+    public void Rifle2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1110,7 +1111,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Rifle3(Player player, Weapon weap, Transform emitter)
+    public void Rifle3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1136,7 +1137,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Rifle4(Player player, Weapon weap, Transform emitter)
+    public void Rifle4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1163,7 +1164,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Launcher3(Player player, Weapon weap, Transform emitter)
+    public void Launcher3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1195,7 +1196,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Launcher4(Player player, Weapon weap, Transform emitter)
+    public void Launcher4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1228,7 +1229,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Wand1(Player player, Weapon weap, Transform emitter)
+    public void Wand1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1272,7 +1273,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Wand2(Player player, Weapon weap, Transform emitter)
+    public void Wand2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1297,7 +1298,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Wand3(Player player, Weapon weap, Transform emitter)
+    public void Wand3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1341,7 +1342,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Wand4(Player player, Weapon weap, Transform emitter)
+    public void Wand4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1367,7 +1368,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Staff1(Player player, Weapon weap, Transform emitter)
+    public void Staff1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1397,7 +1398,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Staff2(Player player, Weapon weap, Transform emitter)
+    public void Staff2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1427,7 +1428,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Staff3(Player player, Weapon weap, Transform emitter)
+    public void Staff3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1457,7 +1458,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Staff4(Player player, Weapon weap, Transform emitter)
+    public void Staff4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1488,7 +1489,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Foci3(Player player, Weapon weap, Transform emitter)
+    public void Foci3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1532,7 +1533,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void Foci4(Player player, Weapon weap, Transform emitter)
+    public void Foci4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1577,7 +1578,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void NanoGlove1(Player player, Weapon weap, Transform emitter)
+    public void NanoGlove1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1604,7 +1605,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void NanoGlove2(Player player, Weapon weap, Transform emitter)
+    public void NanoGlove2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1625,7 +1626,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void NanoGlove3(Player player, Weapon weap, Transform emitter)
+    public void NanoGlove3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1652,7 +1653,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void NanoGlove4(Player player, Weapon weap, Transform emitter)
+    public void NanoGlove4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1674,7 +1675,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void GravGun1(Player player, Weapon weap, Transform emitter)
+    public void GravGun1(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1706,7 +1707,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void GravGun2(Player player, Weapon weap, Transform emitter)
+    public void GravGun2(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1738,7 +1739,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void GravGun3(Player player, Weapon weap, Transform emitter)
+    public void GravGun3(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)
@@ -1770,7 +1771,7 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
-    public void GravGun4(Player player, Weapon weap, Transform emitter)
+    public void GravGun4(Player player, InventoryItem weap, Transform emitter)
     {
         Abilities abilities = Abilities.instance;
         switch (player.classMechanic.eAttunement)

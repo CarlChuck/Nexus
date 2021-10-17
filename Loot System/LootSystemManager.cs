@@ -97,6 +97,7 @@ public class LootSystemManager : MonoBehaviour
     [SerializeField] private int[] randomRangeDifficulty6 = { 2000, 2500, 800, 200, 50 };
 
     [SerializeField] private GameObject lootItemPrefab = default;
+    [SerializeField] private InventoryItem inventoryItem = default;
     #endregion
 
     #region Generation Assisting methods
@@ -295,6 +296,7 @@ public class LootSystemManager : MonoBehaviour
     #endregion
     
     //Master method for dropping the loot
+    
     public void DropLoot(int enemyRarity, Vector3 spawnPoint)
     {
         LootTier = LootItemTypeDifficulty(); 
@@ -332,10 +334,21 @@ public class LootSystemManager : MonoBehaviour
             //Spawn the loot items in world
             foreach (Item item in lootList)
             {
-                item.GenerateArmour();
-                item.AddPreSuf();
+                InventoryItem iItem = Instantiate(inventoryItem);
                 GameObject newLootItem = Instantiate(lootItemPrefab);
-                newLootItem.GetComponent<LootItem>().ActivateLootItem(item, spawnPoint);
+                newLootItem.GetComponent<LootItem>().ActivateLootItem(iItem, spawnPoint);
+                GeneratePrefixSuffix(iItem);
+                iItem.BuildInventoryItem(item);
+
+                //generate a name
+                if (item.quality == Quality.Unique)
+                {
+                    //item = GetUniqueItem(item) //TODO
+                }
+                else
+                {
+                    //Generate Name
+                }
             }
         }
     }
@@ -345,15 +358,7 @@ public class LootSystemManager : MonoBehaviour
     {
         Weapon newItem = RandomiseWeapon(lootTier);
         newItem.quality = DifficultyRandomResult(DifficultyLevel(), Player.instance.luck.GetValue());
-        if (newItem.quality == Quality.Unique)
-        {
-            GeneratePrefixSuffix(newItem);
-        }
-        else
-        {
-            newItem = GetUniqueItem(newItem) as Weapon;
-        }
-        newItem.InitialiseWeapon();
+
         return newItem;
     }
     public Item SpawnArmour(int lootTier)
@@ -363,7 +368,7 @@ public class LootSystemManager : MonoBehaviour
         if (randNum == 1)
         {
             newItem = RandomiseChestItem(lootTier);
-        } 
+        }
         else if (randNum == 2)
         {
             newItem = RandomiseFeetItem(lootTier);
@@ -381,15 +386,6 @@ public class LootSystemManager : MonoBehaviour
             newItem = RandomiseLegItem(lootTier);
         }
         newItem.quality = DifficultyRandomResult(DifficultyLevel(), Player.instance.luck.GetValue());
-        if (newItem.quality == Quality.Unique)
-        {
-            GeneratePrefixSuffix(newItem);
-        }
-        else
-        {
-            newItem = GetUniqueItem(newItem);
-        }
-        GeneratePrefixSuffix(newItem);
         return newItem;
     }
     public Item SpawnMod(int lootTier)
@@ -413,30 +409,20 @@ public class LootSystemManager : MonoBehaviour
             newItem = RandomiseModBionetic(lootTier);
         }
         newItem.quality = DifficultyRandomResult(DifficultyLevel(), Player.instance.luck.GetValue());
-        if (newItem.quality == Quality.Unique)
-        {
-            GeneratePrefixSuffix(newItem);
-        }
-        else
-        {
-            newItem = GetUniqueItem(newItem);
-        }
-        GeneratePrefixSuffix(newItem);
         return newItem;
     }
     public Skill SpawnSkill()
     {
-        Skill newItem = RandomiseSkill();        
+        Skill newItem = RandomiseSkill();
         //newItem.quality = DifficultyRandomResult(DifficultyLevel(), Player.instance.luck.GetValue());
-        GeneratePrefixSuffix(newItem);
         return newItem;
     }
-    public Item GetUniqueItem(Item item)
+    public InventoryItem GetUniqueItem(InventoryItem item)
     {
         //replace item with unique
         return item; //temporary to stop errors
     }
-    public void GeneratePrefixSuffix(Item item)
+    public void GeneratePrefixSuffix(InventoryItem item)
     {
         if (item.quality == Quality.Uncommon)
         {
@@ -480,7 +466,7 @@ public class LootSystemManager : MonoBehaviour
 
         }
     }
-    public void AddPrefix(Item item)
+    public void AddPrefix(InventoryItem item)
     {
         bool genItem = false;
         Prefix pFix = GeneratePrefix();
@@ -503,17 +489,17 @@ public class LootSystemManager : MonoBehaviour
                     pFix.pName == PrefixName.Parrying ||
                     pFix.pName == PrefixName.Warding)
                 {
-                    if(item is Weapon)
+                    if(item.itemType == ItemType.Weapon)
                     {
-                        Weapon weapon = item as Weapon;
-                        if (weapon.wType == WeaponType.Shield)
+
+                        if (item.wType == WeaponType.Shield)
                         {
                             item.AddPrefix(pFix);
                             genItem = true;
                         }
                     }
                 }
-                else if (item is Weapon)
+                else if (item.itemType == ItemType.Weapon)
                 {
                     item.AddPrefix(pFix);
                     genItem = true;
@@ -530,7 +516,7 @@ public class LootSystemManager : MonoBehaviour
             AddPrefix(item);
         }
     }
-    public void AddSuffix(Item item)
+    public void AddSuffix(InventoryItem item)
     {
         bool genItem = false;
         Suffix sFix = GenerateSuffix();
@@ -576,7 +562,7 @@ public class LootSystemManager : MonoBehaviour
         string rareName = rarePrefix1 + rarePrefix2 + " " + iName;
         return rareName;
     }
-    public string GenerateMagicalName(Item item)
+    public string GenerateMagicalName(InventoryItem item)
     {
         string iName = item.name;
         string prefix = item.GetPrefixName();
@@ -591,23 +577,23 @@ public class LootSystemManager : MonoBehaviour
     //handItems
     public ItemHands RandomiseHandItem(int lootTier)
     {
-        ItemHands newItem; 
+        ItemHands newItem;
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, handItems2.Count + 1);
-            return newItem = Instantiate(handItems2[randomNumber]);
+            return newItem = handItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, handItems3.Count + 1);
-            return newItem = Instantiate(handItems3[randomNumber]);
+            return newItem = handItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, handItems1.Count + 1);
-            return newItem = Instantiate(handItems1[randomNumber]);
+            return newItem = handItems1[randomNumber];
         }
-    }   
+    }
     //headItems
     public ItemHead RandomiseHeadItem(int lootTier)
     {
@@ -615,19 +601,19 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, headItems2.Count + 1);
-            return newItem = Instantiate(headItems2[randomNumber]);
+            return newItem = headItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, headItems3.Count + 1);
-            return newItem = Instantiate(headItems3[randomNumber]);
+            return newItem = headItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, headItems1.Count + 1);
-            return newItem = Instantiate(headItems1[randomNumber]);
+            return newItem = headItems1[randomNumber];
         }
-    }    
+    }
     //chestItems
     public ItemChest RandomiseChestItem(int lootTier)
     {
@@ -635,17 +621,17 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, chestItems2.Count + 1);
-            return newItem = Instantiate(chestItems2[randomNumber]);
+            return newItem = chestItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, chestItems3.Count + 1);
-            return newItem = Instantiate(chestItems3[randomNumber]);
+            return newItem = chestItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, chestItems1.Count + 1);
-            return newItem = Instantiate(chestItems1[randomNumber]);
+            return newItem = chestItems1[randomNumber];
         }
     }
     //feetItems
@@ -655,17 +641,17 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, feetItems2.Count + 1);
-            return newItem = Instantiate(feetItems2[randomNumber]);
+            return newItem = feetItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, feetItems3.Count + 1);
-            return newItem = Instantiate(feetItems3[randomNumber]);
+            return newItem = feetItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, feetItems1.Count + 1);
-            return newItem = Instantiate(feetItems1[randomNumber]);
+            return newItem = feetItems1[randomNumber];
         }
     }
     //legItems
@@ -675,17 +661,17 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, legItems2.Count + 1);
-            return newItem = Instantiate(legItems2[randomNumber]);
+            return newItem = legItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, legItems3.Count + 1);
-            return newItem = Instantiate(legItems3[randomNumber]);
+            return newItem = legItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, legItems1.Count + 1);
-            return newItem = Instantiate(legItems1[randomNumber]);
+            return newItem = legItems1[randomNumber];
         }
     }
     //modDexItems
@@ -695,18 +681,18 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, modCyberneticItems2.Count + 1);
-            return newItem = Instantiate(modCyberneticItems2[randomNumber]);
+            return newItem = modCyberneticItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, modCyberneticItems3.Count + 1);
-            return newItem = Instantiate(modCyberneticItems3[randomNumber]);
+            return newItem = modCyberneticItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, modCyberneticItems1.Count + 1);
-            return newItem = Instantiate(modCyberneticItems1[randomNumber]);
-        }    
+            return newItem = modCyberneticItems1[randomNumber];
+        }
     }
     //modStrItems
     public EnchantmentMod RandomiseModEnchantment(int lootTier)
@@ -715,17 +701,17 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, modEnchantmentItems2.Count + 1);
-            return newItem = Instantiate(modEnchantmentItems2[randomNumber]);
+            return newItem = modEnchantmentItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, modEnchantmentItems3.Count + 1);
-            return newItem = Instantiate(modEnchantmentItems3[randomNumber]);
+            return newItem = modEnchantmentItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, modEnchantmentItems1.Count + 1);
-            return newItem = Instantiate(modEnchantmentItems1[randomNumber]);
+            return newItem = modEnchantmentItems1[randomNumber];
         }
     }
     //modStaItems
@@ -735,17 +721,17 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, modGeneticItems2.Count + 1);
-            return newItem = Instantiate(modGeneticItems2[randomNumber]);
+            return newItem = modGeneticItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, modGeneticItems3.Count + 1);
-            return newItem = Instantiate(modGeneticItems3[randomNumber]);
+            return newItem = modGeneticItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, modGeneticItems1.Count + 1);
-            return newItem = Instantiate(modGeneticItems1[randomNumber]);
+            return newItem = modGeneticItems1[randomNumber];
         }
     }
     //modHealItems
@@ -755,18 +741,18 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, modBioneticItems2.Count + 1);
-            return newItem = Instantiate(modBioneticItems2[randomNumber]);
+            return newItem = modBioneticItems2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, modBioneticItems3.Count + 1);
-            return newItem = Instantiate(modBioneticItems3[randomNumber]);
+            return newItem = modBioneticItems3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, modBioneticItems1.Count + 1);
-            return newItem = Instantiate(modBioneticItems1[randomNumber]);
-        }        
+            return newItem = modBioneticItems1[randomNumber];
+        }
     }
     //weapons
     public Weapon RandomiseWeapon(int lootTier)
@@ -775,17 +761,17 @@ public class LootSystemManager : MonoBehaviour
         if (lootTier == 2)
         {
             int randomNumber = Random.Range(0, weapons2.Count + 1);
-            return newWeapon = Instantiate(weapons2[randomNumber]);
+            return newWeapon = weapons2[randomNumber];
         }
         else if (lootTier == 3)
         {
             int randomNumber = Random.Range(0, weapons3.Count + 1);
-            return newWeapon = Instantiate(weapons3[randomNumber]);
+            return newWeapon = weapons3[randomNumber];
         }
         else
         {
             int randomNumber = Random.Range(0, weapons1.Count + 1);
-            return newWeapon = Instantiate(weapons1[randomNumber]);
+            return newWeapon = weapons1[randomNumber];
         }
     }
     //Skills
@@ -796,11 +782,11 @@ public class LootSystemManager : MonoBehaviour
         switch (randomNumber)
         {
             case 1:
-                return newSkill = RandomElementalistSkill(); //TODO
+                return newSkill = RandomElementalistSkill(); //TODO Golemancer
             case 2:
                 return newSkill = RandomElementalistSkill();
             case 3:
-                return newSkill = RandomElementalistSkill(); //TODO
+                return newSkill = RandomElementalistSkill(); //TODO etc
             case 4:
                 return newSkill = RandomElementalistSkill(); //TODO
             case 5:
@@ -825,9 +811,9 @@ public class LootSystemManager : MonoBehaviour
     }
     public Skill RandomElementalistSkill()
     {
-        int randomNumber = Random.Range(0, elementalSkills.Count+1);
+        int randomNumber = Random.Range(0, elementalSkills.Count + 1);
         ElementalistSkill newEleSkill;
-        return newEleSkill = Instantiate(elementalSkills[randomNumber]);
+        return newEleSkill = elementalSkills[randomNumber];
     }
     #endregion
 }

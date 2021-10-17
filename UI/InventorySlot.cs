@@ -36,6 +36,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             invSlot.DeSelectSlot();
         }
+        Debug.Log("Selecting SLot");
         SelectSlot();
         invUI.UpdateFromSelectedSlot(this);
     }

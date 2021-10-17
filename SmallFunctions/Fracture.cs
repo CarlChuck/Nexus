@@ -24,9 +24,8 @@ public class Fracture : MonoBehaviour
         if (destroyedItem != null && originalItem != null)
         {        
             //Replaces Objects
-            GameObject fracturedObj = Instantiate(destroyedItem, transform.position, transform.rotation);
-            Destroy(originalItem);
-            originalItem = null;
+            destroyedItem.SetActive(true);
+            originalItem.SetActive(false);
 
             //Applies Force
             Collider[] colliders = Physics.OverlapSphere(transform.position, 30f);
@@ -39,18 +38,20 @@ public class Fracture : MonoBehaviour
                     {
                         if (origin == null)
                         {
-                            rb.AddExplosionForce(1000f, transform.position, 30f);
+                            rb.AddExplosionForce(200f, transform.position, 30f);
+                            StartCoroutine(RemoveThisWithDelay(rb, 5f));
+                            StartCoroutine(RemoveThisWithDelay(rb.gameObject.GetComponent<MeshCollider>(), 5f));
                         }
                         else
                         {
-                            rb.AddExplosionForce(1000f, origin.position, 50f);
+                            rb.AddExplosionForce(200f, origin.position, 50f);
+                            StartCoroutine(RemoveThisWithDelay(rb, 5f));
+                            StartCoroutine(RemoveThisWithDelay(rb.gameObject.GetComponent<MeshCollider>(), 5f));
                         }
                     }
                 }
             }
-            StartCoroutine(RemoveThisWithDelay(fracturedObj, 10f));
-            StartCoroutine(RemoveThisWithDelay(gameObject, 11f));            
-            //Just to destroy both script holder and the item, in case they are located in different areas for cleanup. Though both should be on same object.
+            StartCoroutine(RemoveThisWithDelay(gameObject, 10f));            
         }
     }
     IEnumerator RemoveThisWithDelay(GameObject obj, float delay)
@@ -59,6 +60,22 @@ public class Fracture : MonoBehaviour
         if (obj != null)
         {
             Destroy(obj);
+        }
+    }
+    IEnumerator RemoveThisWithDelay(Rigidbody rb, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
+    }
+    IEnumerator RemoveThisWithDelay(MeshCollider col, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (col != null)
+        {
+            Destroy(col);
         }
     }
 }

@@ -276,7 +276,7 @@ public class Player : StatBlock
             case 1:
                 if (inventory.rHand != null)
                 {
-                    weapon1CoolDown = inventory.rHand.cooldown;
+                    weapon1CoolDown = inventory.rHand.weaponCooldown;
                 }
                 else
                 {
@@ -290,7 +290,7 @@ public class Player : StatBlock
             case 2:
                 if (inventory.rHand != null)
                 {
-                    weapon2CoolDown = inventory.rHand.cooldown;
+                    weapon2CoolDown = inventory.rHand.weaponCooldown;
                 }
                 else
                 {
@@ -304,7 +304,7 @@ public class Player : StatBlock
             case 3:
                 if (inventory.rHand != null)
                 {
-                    weapon3CoolDown = inventory.lHand.cooldown;
+                    weapon3CoolDown = inventory.lHand.weaponCooldown;
                 }
                 else
                 {
@@ -318,7 +318,7 @@ public class Player : StatBlock
             case 4:
                 if (inventory.rHand != null)
                 {
-                    weapon4CoolDown = inventory.lHand.cooldown;
+                    weapon4CoolDown = inventory.lHand.weaponCooldown;
                 }
                 else
                 {

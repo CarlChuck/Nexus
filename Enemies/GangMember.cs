@@ -9,7 +9,7 @@ public class GangMember : Enemy
     private EnemyWeaponMounts eWeaps;
     public GangMemberType gType;
     public RagdollEffect rDoll;
-    [SerializeField] private Weapon equippedWeap;
+    [SerializeField] private InventoryItem equippedWeap;
     private float damageModifier;
 
     public override void Start()

@@ -18,6 +18,19 @@ public class CharacterSelectionButton : MonoBehaviour, IPointerEnterHandler, IPo
 
     [SerializeField] private CharacterData characterDataRef;
 
+    [SerializeField] private GameObject baseBackLight = default;
+    [SerializeField] private GameObject selectedBackLight = default;
+    [SerializeField] private GameObject vfx = default;
+    [SerializeField] private Renderer emissiveMaterial = default;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color baseColour = default;
+    [ColorUsage(true, true)]
+    [SerializeField] private Color selectedColour = default;
+    [SerializeField] private Color baseTextColour = default;
+    [SerializeField] private Color hoverTextColour = default;
+    [SerializeField] private Color selectedTextColour = default;
+
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("MenuColliders"))
@@ -49,19 +62,28 @@ public class CharacterSelectionButton : MonoBehaviour, IPointerEnterHandler, IPo
     }
 
     public void OnPointerDown(PointerEventData pointerData)
-    {
-        animator.SetBool("mouseClickDown", true);
-        if (audioClick != null)
+    {        
+        //If this one not already selected
+        if (!MainMenu.instance.cSelectionPane.IsCharacterSelected(this))
         {
-            audioClick.Play();
+            animator.SetBool("mouseClickDown", true);
+            if (audioClick != null)
+            {
+                audioClick.Play();
+            }
+            MainMenu.instance.cSelectionPane.OnAButtonSelected();
         }
     }
 
     public void OnPointerUp(PointerEventData pointerData)
     {
-        animator.SetBool("select", true);
-        animator.SetBool("mouseClickDown", false);
-        OnSelect();
+        if (!MainMenu.instance.cSelectionPane.IsCharacterSelected(this))
+        {
+            animator.SetBool("select", true);
+            animator.SetBool("mouseClickDown", false);
+            OnSelect();
+            MainMenu.instance.cSelectionPane.OnSelectACharacter(this);
+        }
     }
 
     public void OnDeSelect()
@@ -92,5 +114,39 @@ public class CharacterSelectionButton : MonoBehaviour, IPointerEnterHandler, IPo
     private void OnSelect()
     {
         SaveSystemManager.instance.SelectCharacter(characterDataRef);
+    }
+    public void ButtonMouseOver()
+    {
+        baseBackLight.SetActive(true);
+        nameTextField.color = hoverTextColour;
+        levelTextField.color = hoverTextColour;
+        classTextField.color = hoverTextColour;
+    }
+    public void ButtonMouseExit()
+    {
+        baseBackLight.SetActive(false);
+        nameTextField.color = baseTextColour;
+        levelTextField.color = baseTextColour;
+        classTextField.color = baseTextColour;
+    }
+    public void ButtonSelect()
+    {
+        baseBackLight.SetActive(false);
+        selectedBackLight.SetActive(true);
+        nameTextField.color = selectedTextColour;
+        levelTextField.color = selectedTextColour;
+        classTextField.color = selectedTextColour;
+        emissiveMaterial.material.SetColor("_EmissiveColor", selectedColour);
+        vfx.SetActive(true);
+    }
+    public void ButtonDeselect()
+    {
+        baseBackLight.SetActive(false);
+        selectedBackLight.SetActive(false);
+        nameTextField.color = baseTextColour;
+        levelTextField.color = baseTextColour;
+        classTextField.color = baseTextColour;
+        emissiveMaterial.material.SetColor("_EmissiveColor", baseColour);
+        vfx.SetActive(false);
     }
 }

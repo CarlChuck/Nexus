@@ -1,17 +1,19 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : ScriptableObject
+public class InventoryItem : MonoBehaviour
 {
     [Header("Main")]
-    public Sprite icon = null; //Set in Inspector
-    public ItemType itemType; //Set in Inspector
+    public Item baseItem;
+    public GameObject icon3d = null;
+    public ItemType itemType;
     public Quality quality;
-    public string description; //Set in Inspector
-    public GameObject lootDropGraphic; //Set in Inspector
+    public string description;
     private List<Prefix> prefixes;
     private List<Suffix> suffixes;
+
+    public GameObject lootDropGraphic;
 
     [Header("Requirements")]
     public int requiredLevel = 0;
@@ -19,7 +21,7 @@ public class Item : ScriptableObject
     public int requiredMarksmanship = 0;
     public int requiredArcana = 0;
 
-    #region StatModifiers
+    #region Stats
     [Header("Stat Mods")]
     //Stats
     public int vitality;
@@ -40,7 +42,6 @@ public class Item : ScriptableObject
     public int corruptionResistance;
 
     //Secondary Skills
-    public int healthRegen;
     public int armour;
     public int block;
     public int armourPercent; //TODO
@@ -51,31 +52,55 @@ public class Item : ScriptableObject
     public int devastation;
     public int affliction;
     public int persistence;
+
+    //Tertiary Skills
+    public int healthRegen;
     public int luck;
     public int xpGain;
     public int leechHealth;
+    public int feedback;
 
-    [Header("OnHit/Struck")]
-    //Item On Hit/Struck Abilities
+    #endregion
+
+    #region ArmourStats
+    [Header("ARMOUR")]
+    //Armour Additionals
+    public int armourMin;
+    public int armourMax;
+
     public int onStruckResistance;
     public int onStruckPrecision;
     public int onStruckReflection;
     public int onStruckDefence;
     public int onStruckFeedback;
     public int onHitVulnerability;
-    public int onHitSlow;
-    public int onHitSnare;
-    public int onHitWeaken;
-    public int onHitFear;
-    public int onHitIntimidate;
-    public int onHitTaunt;
-    public int onHitBurn;
-    public int onHitBleed;
-    public int onHitShock;
 
-    [Header("Weapons Only")]
-    //Weapon additional
-    public Animator anim; 
+
+    #endregion
+
+    #region SkillStats
+    public CharClass classRequired;
+    public float skillCooldown;
+    public int damage;
+    public int boonDuration;
+    public int hexDuration;
+
+    #region EleSkills
+    public EleSkill eleSkill;
+    public EleEliteSkill eleEliteSkill;
+    #endregion
+
+
+    #endregion
+
+    #region WeaponStats
+    [Header("WEAPON")]
+
+    public Handed handedness;
+    public WeaponType wType;
+    public GameObject mesh;
+
+    //Starting damage from weapon
     public int weaponThermalDamageMin;
     public int weaponThermalDamageMax;
     public int weaponCryoDamageMin;
@@ -97,12 +122,71 @@ public class Item : ScriptableObject
     public int weaponCorruptionDamageMin;
     public int weaponCorruptionDamageMax;
 
-    [Header("Armour Only")]
-    //Armour Additionals
-    public int armourMin;
-    public int armourMax;
+    //Damage mods from prefix/suffix
+    public int thermalMin;
+    public int thermalMax;
+    public int cryoMin;
+    public int cryoMax;
+    public int shockMin;
+    public int shockMax;
+    public int radMin;
+    public int radMax;
+    public int psiMin;
+    public int psiMax;
+    public int dimensionMin;
+    public int dimensionMax;
+    public int kineticMin;
+    public int kineticMax;
+    public int poisonMin;
+    public int poisonMax;
+    public int bioMin;
+    public int bioMax;
+    public int corruptionMin;
+    public int corruptionMax;
 
-    [Header("Mods Only")]
+    //Final damage calculated by type
+    public int finalThermalMin;
+    public int finalThermalMax;
+    public int finalCryoMin;
+    public int finalCryoMax;
+    public int finalShockMin;
+    public int finalShockMax;
+    public int finalRadMin;
+    public int finalRadMax;
+    public int finalPsiMin;
+    public int finalPsiMax;
+    public int finalDimensionMin;
+    public int finalDimensionMax;
+    public int finalKineticMin;
+    public int finalKineticMax;
+    public int finalPoisonMin;
+    public int finalPoisonMax;
+    public int finalBioMin;
+    public int finalBioMax;
+    public int finalCorruptionMin;
+    public int finalCorruptionMax;
+
+    //Total damage for purposes of displaying on UI
+    public int totalDamageMin;
+    public int totalDamageMax;
+
+    public bool melee;
+    public float weaponCooldown;
+
+    //OnHits
+    public int onHitSlow;
+    public int onHitSnare;
+    public int onHitWeaken;
+    public int onHitFear;
+    public int onHitIntimidate;
+    public int onHitTaunt;
+    public int onHitBurn;
+    public int onHitBleed;
+    public int onHitShock;
+    #endregion
+
+    #region ModStats
+    [Header("MODS")]
     //Hidden Skills
     public int thermalDamage;
     public int cryoDamage;
@@ -114,7 +198,40 @@ public class Item : ScriptableObject
     public int poisonDamage;
     public int bioDamage;
     public int corruptionDamage;
+
+    [Header("GENETIC")]
+    [SerializeField] private GeneticType gType;
+    public int geneticAmount;
+
+    [Header("ENCHANTMENTS")]
+    [SerializeField] private EnchantmentType eType;
+    public int enchantmentAmount;
+
+    [Header("CYBERNETIC")]
+    [SerializeField] private CyberneticType cType;
+    public int cyberDuration = 0;
+    public float cyberCooldown = 0;
+
+    [Header("BIONETIC")]
+    [SerializeField] private BioneticEffect bEffect;
+    public int bioDuration = 0;
+    public int bioAmount = 0; //percentage of health healed, or percent of damage converted to health
+    public float bioCooldown = 5f;
     #endregion
+
+
+    public void BuildInventoryItem(Item item)
+    {
+        baseItem = item;
+        itemType = item.itemType;
+        quality = item.quality;
+        icon3d = item.icon3d;
+        description = item.description;
+        lootDropGraphic = item.lootDropGraphic;
+        GenerateArmour();
+        AddPreSuf();
+        InitialiseWeapon();
+    }
 
     #region Create Item
     //AddPrefix/Suffix (maybe never need remove)
@@ -168,18 +285,23 @@ public class Item : ScriptableObject
 
     public void GenerateArmour()
     {
-        if (armourMin > 0)
+        if (itemType == ItemType.ItemChest || itemType == ItemType.ItemFeet || itemType == ItemType.ItemHands || itemType == ItemType.ItemHead || itemType == ItemType.ItemLegs)
         {
-            armour = Random.Range(armourMin, armourMax +1);
+            if (baseItem.armourMin > 0)
+            {
+                armour = Random.Range(armourMin, armourMax + 1);
+            }
         }
+
     }
 
     //Add Stats from Prefix/Suffix to Item
+    //TODO maybe need to finish this off
     public void AddPreSuf()
     {
         foreach (Prefix pfix in prefixes)
         {
-            int rValue = Random.Range(pfix.min, pfix.max +1);
+            int rValue = Random.Range(pfix.min, pfix.max + 1);
             switch (pfix.pName)
             {
                 case PrefixName.Rugged:
@@ -1273,6 +1395,36 @@ public class Item : ScriptableObject
             }
         }
     }
+
+    public void InitialiseWeapon()
+    {
+        if (itemType == ItemType.Weapon)
+        {
+            finalThermalMin = thermalMin + ((thermalMin / 100) * damagePercent) + weaponThermalDamageMin;
+            finalThermalMax = thermalMax + ((thermalMax / 100) * damagePercent) + weaponThermalDamageMax;
+            finalCryoMin = cryoMin + ((cryoMin / 100) * damagePercent) + weaponCryoDamageMin;
+            finalCryoMax = cryoMax + ((cryoMax / 100) * damagePercent) + weaponCryoDamageMax;
+            finalShockMin = shockMin + ((shockMin / 100) * damagePercent) + weaponShockDamageMin;
+            finalShockMax = shockMax + ((shockMax / 100) * damagePercent) + weaponShockDamageMax;
+            finalRadMin = radMin + ((radMin / 100) * damagePercent) + weaponRadDamageMin;
+            finalRadMax = radMax + ((radMax / 100) * damagePercent) + weaponRadDamageMin;
+            finalPsiMin = psiMin + ((psiMin / 100) * damagePercent) + weaponPsiDamageMin;
+            finalPsiMax = psiMax + ((psiMax / 100) * damagePercent) + weaponPsiDamageMax;
+            finalDimensionMin = dimensionMin + ((dimensionMin / 100) * damagePercent) + weaponDimensionDamageMin;
+            finalDimensionMax = dimensionMax + ((dimensionMax / 100) * damagePercent) + weaponDimensionDamageMax;
+            finalKineticMin = kineticMin + ((kineticMin / 100) * damagePercent) + weaponKineticDamageMin;
+            finalKineticMax = kineticMax + ((kineticMax / 100) * damagePercent) + weaponKineticDamageMax;
+            finalPoisonMin = poisonMin + ((poisonMin / 100) * damagePercent) + weaponPoisonDamageMin;
+            finalPoisonMax = poisonMax + ((poisonMax / 100) * damagePercent) + weaponPoisonDamageMax;
+            finalBioMin = bioMin + ((bioMin / 100) * damagePercent) + weaponBioDamageMin;
+            finalBioMax = bioMax + ((bioMax / 100) * damagePercent) + weaponBioDamageMax;
+            finalCorruptionMin = corruptionMin + ((corruptionMin / 100) * damagePercent) + weaponCorruptionDamageMin;
+            finalCorruptionMax = corruptionMin + ((corruptionMin / 100) * damagePercent) + weaponCorruptionDamageMin;
+            totalDamageMin = 0;//ALL
+            totalDamageMax = 0;
+        }
+    }
+
     #endregion
 
     #region Equip Item
@@ -1280,12 +1432,12 @@ public class Item : ScriptableObject
     public bool CheckRequirements(Player player)
     {
 
-        if (player.level >= requiredLevel && 
-            player.strength.GetValue() >= requiredStrength && 
-            player.marksmanship.GetValue() >= requiredMarksmanship && 
+        if (player.level >= requiredLevel &&
+            player.strength.GetValue() >= requiredStrength &&
+            player.marksmanship.GetValue() >= requiredMarksmanship &&
             player.arcana.GetValue() >= requiredArcana)
         {
-           return true;
+            return true;
         }
         else
         {
@@ -1320,7 +1472,7 @@ public class Item : ScriptableObject
         if (strength > 0)
         {
             player.strength.AddModifier(strength);
-        }  
+        }
         if (marksmanship > 0)
         {
             player.marksmanship.AddModifier(marksmanship);
@@ -1593,8 +1745,31 @@ public class Item : ScriptableObject
             player.xpGain.RemoveModifier(xpGain);
         }
     }
+
+    #endregion
+
+    #region ModReturns
+    public GeneticType GetGeneticType()
+    {
+        return gType;
+    }
+
+    public EnchantmentType GetEnchantmentType()
+    {
+        return eType;
+    }
+
+    public BioneticEffect GetBioneticEffect()
+    {
+        return bEffect;
+    }
+    public CyberneticType GetCyberneticType()
+    {
+        return cType;
+    }
     #endregion
 }
-public enum ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, Cybernetic, Bionetic, Genetic, Enchantment, Skill}
-public enum Quality { Common, Uncommon, Masterwork, Rare, Legendary, Unique }
+//For reference, original enum are in Item
+//ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, Cybernetic, Bionetic, Genetic, Enchantment, Skill }
+//Quality { Common, Uncommon, Masterwork, Rare, Legendary, Unique }
 

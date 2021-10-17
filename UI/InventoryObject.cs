@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    private Item item;
+    private InventoryItem item;
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI objectText;
 
@@ -15,12 +15,12 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] private Image textBacking;
     private InventoryUI invUI;
     private Inventory inv;
-    public void StartItem(Item importItem)
+    public void StartItem(InventoryItem importItem)
     {
         invUI = InventoryUI.instance;
         inv = Inventory.instance;
         item = importItem;
-        icon.sprite = item.icon;
+        //icon.sprite = item.icon; //TODO generate 3dicon
         objectText.text = item.name;
         SetRarity();
     }
@@ -46,34 +46,34 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
         switch (iType)
         {
             case ItemType.ItemHead:
-                inv.AddHeadSlot(item as ItemHead);
+                inv.AddHeadSlot(item);
                 break;
             case ItemType.ItemChest:
-                inv.AddChestSlot(item as ItemChest);
+                inv.AddChestSlot(item);
                 break;
             case ItemType.ItemLegs:
-                inv.AddLegSlot(item as ItemLegs);
+                inv.AddLegSlot(item);
                 break;
             case ItemType.ItemFeet:
-                inv.AddFeetSlot(item as ItemFeet);
+                inv.AddFeetSlot(item);
                 break;
             case ItemType.ItemHands:
-                inv.AddHandSlot(item as ItemHands);
+                inv.AddHandSlot(item);
                 break;
             case ItemType.Cybernetic:
-                inv.AddModCybernetic(item as CyberneticMod);
+                inv.AddModCybernetic(item);
                 break;
             case ItemType.Enchantment:
-                inv.AddModEnchantment(item as EnchantmentMod);
+                inv.AddModEnchantment(item);
                 break;
             case ItemType.Genetic:
-                inv.AddModGenetic(item as GeneticMod);
+                inv.AddModGenetic(item);
                 break;
             case ItemType.Bionetic:
-                inv.AddModBionetic(item as BioneticMod);
+                inv.AddModBionetic(item);
                 break;
             case ItemType.Weapon:
-                inv.AddWeapon(item as Weapon, slot);
+                inv.AddWeapon(item, slot);
                 break;
             case ItemType.Skill://TODO
                 //inv.AddSkill(item as Skill, slotNum);

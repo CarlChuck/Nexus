@@ -18,45 +18,45 @@ public class Inventory : MonoBehaviour
     #region In Bag Lists
     //Actual 'database' of equipment to aid saving
     //Inventory
-    public List<Item> weaponry = new List<Item>();
-    public List<Item> headSlots = new List<Item>();
-    public List<Item> chestSlots = new List<Item>();
-    public List<Item> legSlots = new List<Item>();
-    public List<Item> handSlots = new List<Item>();
-    public List<Item> feetSlots = new List<Item>();
+    public List<InventoryItem> weaponry = new List<InventoryItem>();
+    public List<InventoryItem> headSlots = new List<InventoryItem>();
+    public List<InventoryItem> chestSlots = new List<InventoryItem>();
+    public List<InventoryItem> legSlots = new List<InventoryItem>();
+    public List<InventoryItem> handSlots = new List<InventoryItem>();
+    public List<InventoryItem> feetSlots = new List<InventoryItem>();
 
-    public List<Item> modBionetics = new List<Item>();
-    public List<Item> modCybernetics = new List<Item>();
-    public List<Item> modEnchantments = new List<Item>();
-    public List<Item> modGenetics = new List<Item>();
+    public List<InventoryItem> modBionetics = new List<InventoryItem>();
+    public List<InventoryItem> modCybernetics = new List<InventoryItem>();
+    public List<InventoryItem> modEnchantments = new List<InventoryItem>();
+    public List<InventoryItem> modGenetics = new List<InventoryItem>();
 
-    public List<Item> skills = new List<Item>();
+    public List<InventoryItem> skills = new List<InventoryItem>();
 
     #endregion
 
     #region Equipped Slots
     //Equipped
-    public Weapon rHand;
-    public Weapon lHand;
-    public ItemHead headSlot;
-    public ItemChest chestSlot;
-    public ItemHands handSlot;
-    public ItemLegs legSlot;
-    public ItemFeet feetSlot;
+    public InventoryItem rHand;
+    public InventoryItem lHand;
+    public InventoryItem headSlot;
+    public InventoryItem chestSlot;
+    public InventoryItem handSlot;
+    public InventoryItem legSlot;
+    public InventoryItem feetSlot;
 
-    public BioneticMod modBionetic;
-    public CyberneticMod modCybernetic;
-    public EnchantmentMod modEnchantment;
-    public GeneticMod modGenetic;
+    public InventoryItem modBionetic;
+    public InventoryItem modCybernetic;
+    public InventoryItem modEnchantment;
+    public InventoryItem modGenetic;
 
 
     //***CLASS SPECIFIC AREA***
     //Golemancer Skills
 
     //Elementalist Skills
-    public ElementalistSkill eleSkill1;
-    public ElementalistSkill eleSkill2;
-    public ElementalistEliteSkill eleEliteSkill;
+    public InventoryItem eleSkill1;
+    public InventoryItem eleSkill2;
+    public InventoryItem eleEliteSkill;
     //Psyc Skills
 
     //Mystic Skills
@@ -87,7 +87,7 @@ public class Inventory : MonoBehaviour
     public Button defaultButton;
 
     //Starting gear
-    public List<Item> startItems;
+    public List<InventoryItem> startItems;
 
     private Player player;
     public InventoryUI invUI;
@@ -103,23 +103,23 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private void AddStartItems(List<Item> startItems)
+    private void AddStartItems(List<InventoryItem> startItems)
     {
-        foreach (Item item in startItems)
+        foreach (InventoryItem item in startItems)
         {
             PickUpItem(item);
         }
     }
 
     #region PICKUP ITEM
-    public void PickUpItem(Item item)
+    public void PickUpItem(InventoryItem item)
     {
         switch (item.itemType)
         {
             case ItemType.ItemHead:
                 if (headSlot == null)
                 {
-                    headSlot = item as ItemHead;
+                    headSlot = item;
                     item.AddStats(player);
                 }
                 else
@@ -130,7 +130,7 @@ public class Inventory : MonoBehaviour
             case ItemType.ItemChest:
                 if (chestSlot == null)
                 {
-                    chestSlot = item as ItemChest;
+                    chestSlot = item;
                     item.AddStats(player);
                 }
                 else
@@ -141,7 +141,7 @@ public class Inventory : MonoBehaviour
             case ItemType.ItemLegs:
                 if (legSlot == null)
                 {
-                    legSlot = item as ItemLegs;
+                    legSlot = item;
                     item.AddStats(player);
                 }
                 else
@@ -152,7 +152,7 @@ public class Inventory : MonoBehaviour
             case ItemType.ItemHands:
                 if (handSlot == null)
                 {
-                    handSlot = item as ItemHands;
+                    handSlot = item;
                     item.AddStats(player);
                 }
                 else
@@ -163,7 +163,7 @@ public class Inventory : MonoBehaviour
             case ItemType.ItemFeet:
                 if (feetSlot == null)
                 {
-                    feetSlot = item as ItemFeet;
+                    feetSlot = item;
                     item.AddStats(player);
                 }
                 else
@@ -172,28 +172,25 @@ public class Inventory : MonoBehaviour
                 }
                 break;
             case ItemType.Skill:
+
                 Add(item, skills);
                 break;
             case ItemType.Weapon:
-                Weapon weap = item as Weapon;
-                weap.InitialiseWeapon();
                 if (rHand == null)
                 {
-
-
-                    if (weap.wType == WeaponType.HPistol || weap.wType == WeaponType.PPistol || weap.wType == WeaponType.Wand)
+                    if (item.wType == WeaponType.HPistol || item.wType == WeaponType.PPistol || item.wType == WeaponType.Wand)
                     {
-                        rHand = weap;
+                        rHand = item;
                         item.AddStats(player);
                     }
                     else
                     {
-                        Add(weap, weaponry);
+                        Add(item, weaponry);
                     }
                 }
                 else
                 {
-                    Add(weap, weaponry);
+                    Add(item, weaponry);
                 }
                 break;
             default:
@@ -205,110 +202,102 @@ public class Inventory : MonoBehaviour
     #endregion
 
     #region Base add/removes
-    private void Add(Item item, List<Item> items)
+    private void Add(InventoryItem item, List<InventoryItem> items)
     {
         if (item.CheckRequirements(player))
         {
-            items.Add(item);
-        }
-    }
-    public void Add(Item item)
-    {
-        if (item.itemType == ItemType.ItemHead)
-        {
-            Add(item, headSlots);
-        }
-        else if (item.itemType == ItemType.ItemChest)
-        {
-            Add(item, chestSlots);
-        }
-        else if (item.itemType == ItemType.ItemLegs)
-        {
-            Add(item, legSlots);
-        }
-        else if (item.itemType == ItemType.ItemHands)
-        {
-            Add(item, handSlots);
-        }
-        else if (item.itemType == ItemType.ItemFeet)
-        {
-            Add(item, feetSlots);
-        }
-        else if (item.itemType == ItemType.Cybernetic)
-        {
-            Add(item, modCybernetics);
-        }
-        else if (item.itemType == ItemType.Genetic)
-        {
-            Add(item, modGenetics);
-        }
-        else if (item.itemType == ItemType.Enchantment)
-        {
-            Add(item, modEnchantments);
-        }
-        else if (item.itemType == ItemType.Bionetic)
-        {
-            Add(item, modBionetics);
-        }
-        else if (item.itemType == ItemType.Skill)
-        {
-            Add(item, skills);
-        }
-        else if (item.itemType == ItemType.Weapon)
-        {
-            Add(item, weaponry);
+            if (item.itemType == ItemType.ItemHead)
+            {
+                headSlots.Add(item);
+            }
+            else if (item.itemType == ItemType.ItemChest)
+            {
+                chestSlots.Add(item);
+            }
+            else if (item.itemType == ItemType.ItemLegs)
+            {
+                legSlots.Add(item);
+            }
+            else if (item.itemType == ItemType.ItemHands)
+            {
+                handSlots.Add(item);
+            }
+            else if (item.itemType == ItemType.ItemFeet)
+            {
+                feetSlots.Add(item);
+            }
+            else if (item.itemType == ItemType.Cybernetic)
+            {
+                modCybernetics.Add(item);
+            }
+            else if (item.itemType == ItemType.Genetic)
+            {
+                modGenetics.Add(item);
+            }
+            else if (item.itemType == ItemType.Enchantment)
+            {
+                modEnchantments.Add(item);
+            }
+            else if (item.itemType == ItemType.Bionetic)
+            {
+                modBionetics.Add(item);
+            }
+            else if (item.itemType == ItemType.Skill)
+            {
+                skills.Add(item);
+            }
+            else if (item.itemType == ItemType.Weapon)
+            {
+                weaponry.Add(item);
+            }
         }
         invUI.UpdateUI();
     }
-    private void Remove(Item item, List<Item> items)
-    {
-        items.Remove(item);
-    }
-    public void Remove(Item item)
+    private void Remove(InventoryItem item, List<InventoryItem> items)
     {
         if (item.itemType == ItemType.ItemHead)
         {
-            Remove(item, headSlots);
+            headSlots.Remove(item);
         }
         else if (item.itemType == ItemType.ItemChest)
         {
-            Remove(item, chestSlots);
+            chestSlots.Remove(item);
         }
         else if (item.itemType == ItemType.ItemLegs)
         {
-            Remove(item, legSlots);
+            legSlots.Remove(item);
         }
         else if (item.itemType == ItemType.ItemHands)
         {
-            Remove(item, handSlots);
+            handSlots.Remove(item);
         }
         else if (item.itemType == ItemType.ItemFeet)
         {
-            Remove(item, feetSlots);
+            feetSlots.Remove(item);
         }
         else if (item.itemType == ItemType.Cybernetic)
         {
-            Remove(item, modCybernetics);
+            modCybernetics.Remove(item);
         }
         else if (item.itemType == ItemType.Genetic)
         {
-            Remove(item, modGenetics);
+            modGenetics.Remove(item);
         }
         else if (item.itemType == ItemType.Enchantment)
         {
-            Remove(item, modEnchantments);
+            modEnchantments.Remove(item);
         }
         else if (item.itemType == ItemType.Bionetic)
         {
-            Remove(item, modBionetics);
+            modBionetics.Remove(item);
         }
         else if (item.itemType == ItemType.Skill)
         {
-            Remove(item, skills);
+            skills.Remove(item);
         }
         else if (item.itemType == ItemType.Weapon)
         {
-            Remove(item, weaponry);
+            weaponry.Remove(item);
         }
         invUI.UpdateUI();
     }
@@ -319,85 +308,85 @@ public class Inventory : MonoBehaviour
     private void RemoveRH()
     {
         rHand.RemoveStats(player);
-        Add(rHand);
+        Add(rHand, weaponry);
         rHand = null;
     }
     private void RemoveLH()
     {
         lHand.RemoveStats(player);
-        Add(lHand);
+        Add(lHand, weaponry);
         lHand = null;
     }
     private void RemoveHeadlot()
     {
         headSlot.RemoveStats(player);
-        Add(headSlot);
+        Add(headSlot, headSlots);
         headSlot = null;
     }   
     private void RemoveChestSlot()
     {
         chestSlot.RemoveStats(player);
-        Add(chestSlot);
+        Add(chestSlot, chestSlots);
         chestSlot = null;
     }
     private void RemoveLegSlot()
     {
         legSlot.RemoveStats(player);
-        Add(legSlot);
+        Add(legSlot, legSlots);
         legSlot = null;
     }
     private void RemoveHandSlot()
     {
         handSlot.RemoveStats(player);
-        Add(handSlot);
+        Add(handSlot, handSlots);
         handSlot = null;
     }
     private void RemoveFeetSlot()
     {
         feetSlot.RemoveStats(player);
-        Add(feetSlot);
+        Add(feetSlot, feetSlots);
         feetSlot = null;
     }
     private void RemovemodCybernetic()
     {
         modCybernetic.RemoveStats(player);
-        Add(modCybernetic);
+        Add(modCybernetic, modCybernetics);
         modCybernetic = null;
     }
     private void RemovemodEnchantment()
     {
         modEnchantment.RemoveStats(player);
-        Add(modEnchantment);
+        Add(modEnchantment, modEnchantments);
         modEnchantment = null;
     }
     private void RemovemodGenetic()
     {
         modGenetic.RemoveStats(player);
-        Add(modGenetic);
+        Add(modGenetic, modGenetics);
         modGenetic = null;
     }
     private void RemovemodBionetic()
     {
         modBionetic.RemoveStats(player);
-        Add(modBionetic);
+        Add(modBionetic, modBionetics);
         modBionetic = null;
     }
     private void RemoveElementalistSkill1()
     {
         eleSkill1.RemoveStats(player);
-        Add(eleSkill1);
+        Add(eleSkill1, skills);
         eleSkill1 = null;
     }
     private void RemoveElementalistSkill2()
     {
         eleSkill2.RemoveStats(player);
-        Add(eleSkill2);
+        Add(eleSkill2, skills);
         eleSkill2 = null;
     }
     private void RemoveElementalistEliteSkill()
     {
         eleEliteSkill.RemoveStats(player);
-        Add(eleEliteSkill);
+        Add(eleEliteSkill, skills);
         eleEliteSkill = null;
     }
 
@@ -505,11 +494,13 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
+
     #endregion
 
     #region Move From Inventory to Equipment Slot
     //functions to call moving from inventory to equipslot from outside class and removes existing item in slot back to inventory
-    public void AddWeapon(Weapon weapon, ItemSlot slot)
+
+    public void AddWeapon(InventoryItem weapon, ItemSlot slot)
     {
         switch (player.cClass)
         {
@@ -551,7 +542,7 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
-    private void AddWeaponsGolemancer(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsGolemancer(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -568,7 +559,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsElementalist(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsElementalist(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -585,7 +576,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsPsyc(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsPsyc(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -602,7 +593,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsMystic(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsMystic(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -619,7 +610,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsArtificer(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsArtificer(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -636,7 +627,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsApoch(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsApoch(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -653,7 +644,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsCrypter(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsCrypter(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -670,7 +661,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsNanoMage(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsNanoMage(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -687,7 +678,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsGuardian(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsGuardian(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -704,7 +695,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsVigil(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsVigil(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -721,7 +712,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsShadow(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsShadow(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -738,7 +729,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsStreetDoc(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsStreetDoc(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -755,7 +746,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
-    private void AddWeaponsFinal(Weapon weapon, ItemSlot slot)
+    private void AddWeaponsFinal(InventoryItem weapon, ItemSlot slot)
     {
         if (slot == ItemSlot.RWeap)
         {
@@ -775,7 +766,7 @@ public class Inventory : MonoBehaviour
                 rHand = weapon; //Add weapon to Right Hand
 
                 weapon.AddStats(player);
-                Remove(weapon); //From Inventory
+                Remove(weapon, weaponry); //From Inventory
             }
 
         }
@@ -803,12 +794,12 @@ public class Inventory : MonoBehaviour
 
             }
             weapon.AddStats(player);
-            Remove(weapon); //From Inventory
+            Remove(weapon, weaponry); //From Inventory
         }
         UpdateIdleAnimation();
     }
 
-    public void AddHeadSlot(ItemHead item)
+    public void AddHeadSlot(InventoryItem item)
     {
         if (headSlot != null)
         {
@@ -816,9 +807,9 @@ public class Inventory : MonoBehaviour
         }
         headSlot = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, headSlots);
     }
-    public void AddChestSlot(ItemChest item)
+    public void AddChestSlot(InventoryItem item)
     {
         if (chestSlot != null)
         {
@@ -826,9 +817,9 @@ public class Inventory : MonoBehaviour
         }
         chestSlot = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, chestSlots);
     }
-    public void AddLegSlot(ItemLegs item)
+    public void AddLegSlot(InventoryItem item)
     {
         if (legSlot != null)
         {
@@ -836,9 +827,9 @@ public class Inventory : MonoBehaviour
         }
         legSlot = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, legSlots);
     }
-    public void AddHandSlot(ItemHands item)
+    public void AddHandSlot(InventoryItem item)
     {
         if (handSlot != null)
         {
@@ -846,9 +837,9 @@ public class Inventory : MonoBehaviour
         }
         handSlot = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, handSlots);
     }
-    public void AddFeetSlot(ItemFeet item)
+    public void AddFeetSlot(InventoryItem item)
     {
         if (feetSlot != null)
         {
@@ -856,9 +847,9 @@ public class Inventory : MonoBehaviour
         }
         feetSlot = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, feetSlots);
     }
-    public void AddModEnchantment(EnchantmentMod item)
+    public void AddModEnchantment(InventoryItem item)
     {
         if (modEnchantment != null)
         {
@@ -866,9 +857,9 @@ public class Inventory : MonoBehaviour
         }
         modEnchantment = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, modEnchantments);
     }
-    public void AddModGenetic(GeneticMod item)
+    public void AddModGenetic(InventoryItem item)
     {
         if (modGenetic != null)
         {
@@ -876,9 +867,9 @@ public class Inventory : MonoBehaviour
         }
         modGenetic = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, modGenetics);
     }
-    public void AddModCybernetic(CyberneticMod item)
+    public void AddModCybernetic(InventoryItem item)
     {
         if (modCybernetic != null)
         {
@@ -886,9 +877,9 @@ public class Inventory : MonoBehaviour
         }
         modCybernetic = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, modCybernetics);
     }
-    public void AddModBionetic(BioneticMod item)
+    public void AddModBionetic(InventoryItem item)
     {
         if (modBionetic != null)
         {
@@ -896,9 +887,9 @@ public class Inventory : MonoBehaviour
         }
         modBionetic = item;
         item.AddStats(player);
-        Remove(item);
+        Remove(item, modBionetics);
     }
-    public void AddElementalistSkill(ElementalistSkill skill, int slotNumber)
+    public void AddElementalistSkill(InventoryItem skill, int slotNumber)
     {
         switch (slotNumber)
         {
@@ -918,7 +909,7 @@ public class Inventory : MonoBehaviour
                 break;
         }
     }
-    public void AddElementalistEliteSkill(ElementalistEliteSkill skill)
+    public void AddElementalistEliteSkill(InventoryItem skill)
     {
         if (eleEliteSkill != null)
         {
@@ -926,6 +917,8 @@ public class Inventory : MonoBehaviour
         }
         eleEliteSkill = skill;
     }
+
+
     #endregion
 
     //Update Animation Idle Root

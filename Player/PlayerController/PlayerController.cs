@@ -359,7 +359,7 @@ public class PlayerController : MonoBehaviour
     {
         if (player.inventory.modCybernetic != null)
         {
-            CyberneticMod currentMod = player.inventory.modCybernetic;
+            InventoryItem currentMod = player.inventory.modCybernetic;
             switch (currentMod.GetCyberneticType())
             {
                 case CyberneticType.Dodge:
@@ -379,7 +379,7 @@ public class PlayerController : MonoBehaviour
     {
         if (player.inventory.modBionetic != null)
         {
-            BioneticMod currentMod = player.inventory.modBionetic;
+            InventoryItem currentMod = player.inventory.modBionetic;
             switch (currentMod.GetBioneticEffect())
             {
                 case BioneticEffect.Heal:

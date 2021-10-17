@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterSelectionPane : MonoBehaviour
 {
     [SerializeField] private List<CharacterSelectionButton> characterList;
+    [SerializeField] private CharacterSelectionButton selectedCharacter;
     [SerializeField] private SaveSystemManager cSaveManager;
     [SerializeField] private RectTransform gridDepth;
     [SerializeField] private GameObject characterButtonsParent;
@@ -49,6 +50,23 @@ public class CharacterSelectionPane : MonoBehaviour
         foreach (CharacterSelectionButton cButton in characterList)
         {
             cButton.OnDeSelect();
+        }
+    }
+
+    public void OnSelectACharacter(CharacterSelectionButton cButton)
+    {
+        selectedCharacter = cButton;
+    }
+
+    public bool IsCharacterSelected(CharacterSelectionButton cButton)
+    {
+        if (cButton == selectedCharacter)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

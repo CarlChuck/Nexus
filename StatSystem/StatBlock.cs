@@ -65,7 +65,7 @@ public class StatBlock : MonoBehaviour
     public Hex hexTemplate;
 
     public GameObject onHitEffect;
-    [SerializeField] private GameObject FloatingDamage;
+    [SerializeField] private GameObject floatingDamage;
 
     [SerializeField] private float takeDamageTimer;
     [SerializeField] private float takeDamageCooldown;
@@ -102,7 +102,7 @@ public class StatBlock : MonoBehaviour
 
     #region Damage Calculation
     //To Deal Damage
-    public void DealDamage(StatBlock target, DamageStat dStat, Weapon weap, float multiplier)
+    public void DealDamage(StatBlock target, DamageStat dStat, InventoryItem weap, float multiplier)
     {
         //Get Weapon Damage and Critical
         bool hasCrit = CriticalHitCalc();
@@ -365,9 +365,12 @@ public class StatBlock : MonoBehaviour
     }
     private void FloatingDamageText(int damNum)
     {
-        GameObject damageNumber = Instantiate(FloatingDamage, transform.position, Quaternion.identity, transform);
-        FloatingDamage fDam = damageNumber.GetComponent<FloatingDamage>();
-        fDam.OnActivate(damNum);
+        if (floatingDamage != null)
+        {
+            GameObject damageNumber = Instantiate(floatingDamage, transform.position, Quaternion.identity, transform);
+            FloatingDamage fDam = damageNumber.GetComponent<FloatingDamage>();
+            fDam.OnActivate(damNum);
+        }
     }
     public virtual void OnStunned(float timer, bool freeze = true)
     {
