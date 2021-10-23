@@ -38,13 +38,13 @@ public class Fracture : MonoBehaviour
                     {
                         if (origin == null)
                         {
-                            rb.AddExplosionForce(200f, transform.position, 30f);
+                            rb.AddExplosionForce(1f, transform.position, 30f);
                             StartCoroutine(RemoveThisWithDelay(rb, 5f));
                             StartCoroutine(RemoveThisWithDelay(rb.gameObject.GetComponent<MeshCollider>(), 5f));
                         }
                         else
                         {
-                            rb.AddExplosionForce(200f, origin.position, 50f);
+                            rb.AddExplosionForce(1f, origin.position, 50f);
                             StartCoroutine(RemoveThisWithDelay(rb, 5f));
                             StartCoroutine(RemoveThisWithDelay(rb.gameObject.GetComponent<MeshCollider>(), 5f));
                         }

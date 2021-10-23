@@ -8,25 +8,38 @@ using UnityEngine.EventSystems;
 public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     private InventoryItem item;
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI objectText;
-
-    [SerializeField] private Image iconBacking;
-    [SerializeField] private Image textBacking;
+    [SerializeField] private Transform icon3dLocation;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI damageText;
+    [SerializeField] private Renderer emissiveRenderer;
+    [SerializeField] private GameObject lighting;
     private InventoryUI invUI;
     private Inventory inv;
+
     public void StartItem(InventoryItem importItem)
     {
         invUI = InventoryUI.instance;
         inv = Inventory.instance;
         item = importItem;
-        //icon.sprite = item.icon; //TODO generate 3dicon
-        objectText.text = item.name;
+        if (item != null)
+        {
+            if (item.icon3d != null)
+            {
+                GameObject newIcon = Instantiate(item.icon3d, icon3dLocation);
+            }
+        }     
+        nameText.text = item.name;
+        damageText.text = item.totalDamageMin + " - " + item.totalDamageMax;
         SetRarity();
     }
     public void SelectSlot()
     {
-        
+
+        SelectSlotGraphic();
+    }
+    public void SelectSlotGraphic()
+    {
+
     }
     public void DeSelectSlot()
     {
@@ -81,18 +94,23 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
             default:
                 break;
         }
-        invUI.invItemInfo.EmptyInfo();
-
+        invUI.UpdateFromSelectedSlot(invUI.selectedSlot);
     }
     public void OnPointerEnter(PointerEventData pointerData)
     {
-        SelectSlot();
-        invUI.InvItemStats(item);
+        if (invUI.selectedSlot != this)
+        {
+            emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.hoverEmissiveColour);
+            lighting.SetActive(true);
+        }
     }
     public void OnPointerExit(PointerEventData pointerData)
     {
-        DeSelectSlot();
-        invUI.InvItemBlank();
+        if (invUI.selectedSlot != this)
+        {
+            SetRarity();
+            lighting.SetActive(false);
+        }
     }
 
     public void SetRarity()
@@ -100,28 +118,28 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
         switch (item.quality)
         {
             case Quality.Common:
-                iconBacking.sprite = invUI.ItemBackCommon;
-                textBacking.sprite = invUI.DirectionalCommon;
+                nameText.color = invUI.commonTextColour;
+                emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.commonEmissiveColour);
                 break;
             case Quality.Uncommon:
-                iconBacking.sprite = invUI.ItemBackUncommon;
-                textBacking.sprite = invUI.DirectionalUncommon;
+                nameText.color = invUI.uncommonTextColour;
+                emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.uncommonEmissiveColour);
                 break;
             case Quality.Masterwork:
-                iconBacking.sprite = invUI.ItemBackMasterwork;
-                textBacking.sprite = invUI.DirectionalMasterwork;
+                nameText.color = invUI.masterworkTextColour;
+                emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.masterworkEmissiveColour);
                 break;
             case Quality.Rare:
-                iconBacking.sprite = invUI.ItemBackRare;
-                textBacking.sprite = invUI.DirectionalRare;
+                nameText.color = invUI.rareTextColour;
+                emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.rareEmissiveColour);
                 break;
             case Quality.Legendary:
-                iconBacking.sprite = invUI.ItemBackLegendary;
-                textBacking.sprite = invUI.DirectionalLegendary;
+                nameText.color = invUI.legendaryTextColour;
+                emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.legendaryEmissiveColour);
                 break;
             case Quality.Unique:
-                iconBacking.sprite = invUI.ItemBackUnique;
-                textBacking.sprite = invUI.DirectionalUnique;
+                nameText.color = invUI.uniqueTextColour;
+                emissiveRenderer.materials[2].SetColor("_EmissiveColor", invUI.uniqueEmissiveColour);
                 break;
         }
     }

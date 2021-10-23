@@ -71,9 +71,9 @@ public class AutoLoot : MonoBehaviour
     }
 
     //Toggles the loot threshold for the autoloot system
-    public void ToggleLootType()
+    public void SetAutoLootType(AutoLootType aLootType)
     {
-        switch (aType)
+        switch (aLootType)
         {
             case AutoLootType.None:
                 aType = AutoLootType.Common;
@@ -102,11 +102,9 @@ public class AutoLoot : MonoBehaviour
     //Takes the item to player inventory and destroys the in world object
     private void TakeItem(LootItem loot, InventoryItem item)
     {
-        /*
         loot.DisableCollider();
         player.inventory.PickUpItem(item);
         Destroy(loot.gameObject, 1);
-        */
     }
 }
 public enum AutoLootType {None, Common, Uncommon, Masterwork, Rare, Legendary, Unique }

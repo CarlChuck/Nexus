@@ -157,7 +157,7 @@ public class Enemy : StatBlock
         agent.enabled = false;
         if (state != AIstate.Dead)
         {
-            lootSys.DropLoot(rarity, gameObject.transform.position);
+            lootSys.DropLoot(rarity, gameObject.transform);
             CameraController camera = FindObjectOfType<CameraController>();
             camera.shake(0.2f, 0.2f);
             state = AIstate.Dead;

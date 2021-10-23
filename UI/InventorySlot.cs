@@ -4,25 +4,37 @@ using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-
-    public GameObject selectedGlow;
     public ItemType iType;
     public ItemSlot slot;
     //public int slotNumber; //Used for skills and weapons
-    private InventoryUI invUI;
+    public InventoryUI invUI;
+    [SerializeField] GameObject hoverLight;
+    [SerializeField] GameObject selectLight;
 
-    private void Awake()
+    [SerializeField] private Renderer rendererForEmission = default;
+
+    private void Start()
     {
         invUI = InventoryUI.instance;
     }
 
     public void SelectSlot()
     {
-        selectedGlow.SetActive(true);
+        invUI = InventoryUI.instance;
+        foreach (InventorySlot invSlot in invUI.invSlots)
+        {
+            invSlot.DeSelectSlot();
+        }
+        invUI.UpdateFromSelectedSlot(this);
+        rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.selectedEmissiveColour);
+        selectLight.SetActive(true);
+        hoverLight.SetActive(false);
     }
     public void DeSelectSlot()
     {
-        selectedGlow.SetActive(false); ;
+        rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.baseEmissiveColour);
+        selectLight.SetActive(false);
+        hoverLight.SetActive(false);
     }
 
     public void OnPointerDown(PointerEventData pointerData)
@@ -31,22 +43,26 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerUp(PointerEventData pointerData)
     {
-        invUI = InventoryUI.instance;
-        foreach (InventorySlot invSlot in invUI.invSlots)
-        {
-            invSlot.DeSelectSlot();
-        }
-        Debug.Log("Selecting SLot");
+
         SelectSlot();
-        invUI.UpdateFromSelectedSlot(this);
     }
     public void OnPointerEnter(PointerEventData pointerData)
     {
-        //TODO add a bounce
+        if (invUI.selectedSlot != this)
+        {
+            rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.hoverEmissiveColour);
+            selectLight.SetActive(false);
+            hoverLight.SetActive(true);
+        }
     }
     public void OnPointerExit(PointerEventData pointerData)
     {
-        //TODO above bounce exit
+        if (invUI.selectedSlot != this)
+        {
+            rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.baseEmissiveColour);
+            selectLight.SetActive(false);
+            hoverLight.SetActive(false);
+        }   
     }
 }
 public enum ItemSlot {RWeap, LWeap}

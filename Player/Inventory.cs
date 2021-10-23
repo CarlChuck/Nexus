@@ -95,18 +95,19 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        DontDestroyOnLoad(this);
         ClosePanel(inventoryPane);
         player = Player.instance;
 
         //add start gear
         AddStartItems(startItems);
-        DontDestroyOnLoad(this);
     }
 
     private void AddStartItems(List<InventoryItem> startItems)
     {
         foreach (InventoryItem item in startItems)
         {
+            item.BuildInventoryItem(item.baseItem, item.baseItem.quality);
             PickUpItem(item);
         }
     }
@@ -169,6 +170,50 @@ public class Inventory : MonoBehaviour
                 else
                 {
                     Add(item, feetSlots);
+                }
+                break;
+            case ItemType.Bionetic:
+                if (modBionetic == null)
+                {
+                    modBionetic = item;
+                    item.AddStats(player);
+                }
+                else
+                {
+                    Add(item, modBionetics);
+                }
+                break;
+            case ItemType.Cybernetic:
+                if (modCybernetic == null)
+                {
+                    modCybernetic = item;
+                    item.AddStats(player);
+                }
+                else
+                {
+                    Add(item, modCybernetics);
+                }
+                break;
+            case ItemType.Genetic:
+                if (modGenetic == null)
+                {
+                    modGenetic = item;
+                    item.AddStats(player);
+                }
+                else
+                {
+                    Add(item, modGenetics);
+                }
+                break;
+            case ItemType.Enchantment:
+                if (modEnchantment == null)
+                {
+                    modEnchantment = item;
+                    item.AddStats(player);
+                }
+                else
+                {
+                    Add(item, modEnchantments);
                 }
                 break;
             case ItemType.Skill:

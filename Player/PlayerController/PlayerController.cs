@@ -55,30 +55,41 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cyberTimer = 0.4f;
         bioTimer = 0.4f;
+
     }
+
 
     void Update()
     {
-        //LayerMasks for raycast
-        int floorLayerMask = 1 << 3;
-
         //Cyber + Bio timers
         float time = Time.deltaTime;
         cyberTimer -= time;
         bioTimer -= time;
 
-        //Movement variables
-        var movementInput = mControls.PlayerControls.Movement.ReadValue<Vector2>();
+        //LayerMasks for raycast
+        int floorLayerMask = 1 << 3;
+
+
+        //Movement Variables
+        Vector2 movementInput = mControls.PlayerControls.Movement.ReadValue<Vector2>();
         Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
-        Ray ray = Camera.main.ScreenPointToRay(mControls.PlayerControls.Look.ReadValue<Vector2>());
-        Vector3 facing = new Vector3(rayHit.point.x, transform.position.y, rayHit.point.z);
         movement = movement * speed * (((player.movement.GetValue() + player.HasSwiftnessBoon() - player.HasSnareHex()) / 100) * player.HasPinHex());
 
-        //Apply Gravity and Normalize
-        movement.y -= 100f * Time.deltaTime;
-        //movement.Normalize();
+        //Apply Gravity
+        movement.y -= 500f * Time.deltaTime;
 
-        //Movement
+        //Facing Variables
+        float facingAngle = Mathf.Atan2(transform.position.x - rayHit.point.x, transform.position.z - rayHit.point.z) * 180 / Mathf.PI;
+        Ray ray = Camera.main.ScreenPointToRay(mControls.PlayerControls.Look.ReadValue<Vector2>());
+        Vector3 facing = new Vector3(rayHit.point.x, transform.position.y, rayHit.point.z);
+
+        //Face the mouse cursor
+        if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, floorLayerMask))
+        {
+            transform.LookAt(facing);
+        }
+
+        //Movement final
         if (dodgeBool == false)
         {
             controller.Move(movement * Time.deltaTime);
@@ -89,22 +100,11 @@ public class PlayerController : MonoBehaviour
             controller.Move(movement * Time.deltaTime * dodgeSpeed);
         }
 
-        //Get Player Facing Angle
-        float facingAngle = Mathf.Atan2(transform.position.x - rayHit.point.x, transform.position.z - rayHit.point.z) * 180 / Mathf.PI;
-
-        //Face mouse cursor
-        if (Physics.Raycast(ray, out rayHit, Mathf.Infinity, floorLayerMask))
-        {
-            transform.LookAt(facing);
-        }
-
         //animations based on facing/move direction
         AnimatePlayer(facingAngle, movementInput.x, movementInput.y);
 
 
-        LayerChange();//calls layerChangeObservers delegate        
-
-     
+        LayerChange();    
     }
 
 
@@ -332,6 +332,7 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("ForwardMovement", forwardMovement);
         anim.SetFloat("SideMovement", sideMovement);
     }
+   
     private void LayerChange()
     {
         if (layerHit != ReturnLayer())

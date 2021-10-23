@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class InfoPane : MonoBehaviour
 {
     private InventoryItem item;
-    [SerializeField] private TextMeshProUGUI infoText;
+    [SerializeField] private TextMeshProUGUI infoTextLeft;
+    [SerializeField] private TextMeshProUGUI infoTextRight;
     [SerializeField] private TextMeshProUGUI infoTitle;
+    [SerializeField] private TextMeshProUGUI valueText;
 
     [SerializeField] private Transform icon3dParent;
     [SerializeField] private GameObject icon3d;
@@ -16,35 +18,32 @@ public class InfoPane : MonoBehaviour
     [SerializeField] private Image textBacking;
     private void Start()
     {
-        ResetPane();
-    }
-
-    public void ResetPane()
-    {
-        infoTitle.text = null;
-        infoText.text = null;
+        EmptyInfo();
     }
 
     public void UpdateInfo(InventoryItem itemIn)
     {
+        item = itemIn;
         if (icon3d != null)
         {
             Destroy(icon3d);
             icon3d = null;
         }
-        item = itemIn;
-        icon3d = Instantiate(item.icon3d, icon3dParent);
+        if (item.icon3d != null)
+        {
+            icon3d = Instantiate(item.icon3d, icon3dParent);
+        }
         UpdateTheColour();
-        infoText.text = "";
+        EmptyInfo();
         infoTitle.text = item.name;
         infoTitle.text += " (" + item.quality.ToString() + ")";
 
         if (item.itemType == ItemType.Weapon)
         {
 
-            infoText.text += "Weapon Type: " + item.wType.ToString() + "\n";
-            infoText.text += "Handed: " + item.handedness.ToString() + "\n";
-            //infoText.text += "Damage: " + weapon.damage.ToString() + "\n"; //TODO Damage Range
+            infoTextLeft.text += "Weapon Type: " + item.wType.ToString() + "\n";
+            infoTextLeft.text += "Handed: " + item.handedness.ToString() + "\n";
+            infoTextRight.text += "Damage: " + item.GetWeaponDamage() + "\n"; 
         }
         else if (item.itemType == ItemType.Skill)
         {/*
@@ -81,9 +80,9 @@ public class InfoPane : MonoBehaviour
             {
                 infoText.text += item.arcana.ToString() + "\n";
             }
-            if (item.fireResistance != 0)
+            if (item.thermalResistance != 0)
             {
-                infoText.text += item.fireResistance.ToString() + "\n";
+                infoText.text += item.thermalResistance.ToString() + "\n";
             }
             if (item.shockResistance != 0)
             {
@@ -136,11 +135,13 @@ public class InfoPane : MonoBehaviour
             if (item.radDamage != 0)
             {
                 infoText.text += item.radDamage.ToString() + "\n";
-            }*/
+            }
+            */
         }
-        infoText.text += "\n" + item.description;
-        
-        
+        infoTextRight.text += "\n" + item.description;
+        infoTextLeft.text += "\n" + item.description;
+
+
     }
 
     private void UpdateTheColour()
@@ -150,38 +151,37 @@ public class InfoPane : MonoBehaviour
         switch (item.quality)
         {
             case Quality.Common:
-                iconBacking.sprite = invUI.ItemBackCommon;
-                textBacking.sprite = invUI.DirectionalCommon;
+                //iconBacking.sprite = invUI.ItemBackCommon;
+                //textBacking.sprite = invUI.DirectionalCommon;
                 break;
             case Quality.Uncommon:
-                iconBacking.sprite = invUI.ItemBackUncommon;
-                textBacking.sprite = invUI.DirectionalUncommon;
+                //iconBacking.sprite = invUI.ItemBackUncommon;
+                //textBacking.sprite = invUI.DirectionalUncommon;
                 break;
             case Quality.Masterwork:
-                iconBacking.sprite = invUI.ItemBackMasterwork;
-                textBacking.sprite = invUI.DirectionalMasterwork;
+                //iconBacking.sprite = invUI.ItemBackMasterwork;
+                //textBacking.sprite = invUI.DirectionalMasterwork;
                 break;
             case Quality.Rare:
-                iconBacking.sprite = invUI.ItemBackRare;
-                textBacking.sprite = invUI.DirectionalRare;
+                //iconBacking.sprite = invUI.ItemBackRare;
+                //textBacking.sprite = invUI.DirectionalRare;
                 break;
             case Quality.Legendary:
-                iconBacking.sprite = invUI.ItemBackLegendary;
-                textBacking.sprite = invUI.DirectionalLegendary;
+                //iconBacking.sprite = invUI.ItemBackLegendary;
+                //textBacking.sprite = invUI.DirectionalLegendary;
                 break;
             case Quality.Unique:
-                iconBacking.sprite = invUI.ItemBackUnique;
-                textBacking.sprite = invUI.DirectionalUnique;
+                //iconBacking.sprite = invUI.ItemBackUnique;
+                //textBacking.sprite = invUI.DirectionalUnique;
                 break;
         }
     }
 
-    public void EmptyInfo()
+    private void EmptyInfo()
     {
         InventoryUI invUI = InventoryUI.instance;
         infoTitle.text = "";
-        infoText.text = "";
-        iconBacking.sprite = invUI.ItemBackCommon;
-        textBacking.sprite = invUI.DirectionalCommon;
+        infoTextRight.text = "";
+        infoTextLeft.text = "";
     }
 }

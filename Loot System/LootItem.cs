@@ -9,12 +9,15 @@ public class LootItem : MonoBehaviour
     [SerializeField] private BoxCollider bCol = default;
     [SerializeField] private SphereCollider sCol = default;
     [SerializeField] private Color rarityColor;
+    [SerializeField] private Transform meshLocation;
+    [SerializeField] private GameObject placeholderMesh;
 
 
-    public void ActivateLootItem(InventoryItem inItem, Vector3 spawnPos)
+    public void ActivateLootItem(InventoryItem inItem, Transform spawnPos)
     {
         //Set Item
         item = inItem;
+        rarityColor = InventoryUI.instance.GetEmissionColorByRarity(item.quality);
 
         //Set colliders
         if (gameObject.GetComponent<BoxCollider>())
@@ -27,10 +30,18 @@ public class LootItem : MonoBehaviour
         }
 
         //Set graphic
-        GameObject model = Instantiate(item.lootDropGraphic, gameObject.transform);
+        if (item.lootDropGraphic != null)
+        {
+            GameObject model = Instantiate(item.lootDropGraphic, meshLocation);
+        }
+        else
+        {
+            placeholderMesh.SetActive(true);
+        }
+
 
         //Set spawn in location
-        Vector3 newPos = new Vector3(spawnPos.x + Random.Range(-0.1f, 0.1f), spawnPos.y, spawnPos.z + Random.Range(-0.1f, 0.1f));
+        Vector3 newPos = new Vector3(spawnPos.position.x + Random.Range(-0.1f, 0.1f), spawnPos.position.y, spawnPos.position.z + Random.Range(-0.1f, 0.1f));
 
         gameObject.transform.position = newPos;
 
@@ -43,7 +54,7 @@ public class LootItem : MonoBehaviour
 
         //Stop Collisions
         StartCoroutine(MakeLootable(1f));
-        StartCoroutine(ClearRb(gameObject, 3f));
+        StartCoroutine(ClearRb(gameObject, 4f));
     }
     private void OnTriggerEnter(Collider collision)
     {

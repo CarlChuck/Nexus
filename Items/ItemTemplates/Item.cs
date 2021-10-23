@@ -17,34 +17,15 @@ public class Item : ScriptableObject
     public int requiredMarksmanship = 0;
     public int requiredArcana = 0;
 
-    [Header("Weapons Only")]
-    //Weapon additional
-    public Animator anim; 
-    public int weaponThermalDamageMin;
-    public int weaponThermalDamageMax;
-    public int weaponCryoDamageMin;
-    public int weaponCryoDamageMax;
-    public int weaponShockDamageMin;
-    public int weaponShockDamageMax;
-    public int weaponRadDamageMin;
-    public int weaponRadDamageMax;
-    public int weaponPsiDamageMin;
-    public int weaponPsiDamageMax;
-    public int weaponDimensionDamageMin;
-    public int weaponDimensionDamageMax;
-    public int weaponKineticDamageMin;
-    public int weaponKineticDamageMax;
-    public int weaponPoisonDamageMin;
-    public int weaponPoisonDamageMax;
-    public int weaponBioDamageMin;
-    public int weaponBioDamageMax;
-    public int weaponCorruptionDamageMin;
-    public int weaponCorruptionDamageMax;
 
-    [Header("Armour Only")]
+
+    [Header("Armour/Shield Only")]
     //Armour range
     public int armourMin;
     public int armourMax;
+
+    [Header("Shield Only")]
+    public int block;
 
     [Header("Mods Only")]
     //Hidden Skills

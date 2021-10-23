@@ -33,48 +33,56 @@ public class InventoryUI : MonoBehaviour
 
     //selected inventory slot
     public InventorySlot selectedSlot;
+    public Transform equippedPane;
 
     public InventoryObject invObject;
 
     public InfoPane equippedItemInfo;
-    public InfoPane invItemInfo;
 
     public List<InventorySlot> invSlots;
 
-    //Images for swapping into items
-    public Sprite ItemBackCommon;
-    public Sprite ItemBackUncommon;
-    public Sprite ItemBackMasterwork;
-    public Sprite ItemBackRare;
-    public Sprite ItemBackLegendary;
-    public Sprite ItemBackUnique;
+    public Color commonTextColour = default;
+    public Color uncommonTextColour = default;
+    public Color masterworkTextColour = default;
+    public Color rareTextColour = default;
+    public Color legendaryTextColour = default;
+    public Color uniqueTextColour = default;
 
-    public Sprite DirectionalCommon;
-    public Sprite DirectionalUncommon;
-    public Sprite DirectionalMasterwork;
-    public Sprite DirectionalRare;
-    public Sprite DirectionalLegendary;
-    public Sprite DirectionalUnique;
+    [ColorUsage(true, true)]
+    public Color commonEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color uncommonEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color masterworkEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color rareEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color legendaryEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color uniqueEmissiveColour = default;
 
-    public Color colourCommon;
-    public Color colourUncommon;
-    public Color colourMasterwork;
-    public Color colourRare;
-    public Color colourLegendary;
-    public Color colourUnique;
+    [ColorUsage(true, true)]
+    public Color baseEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color hoverEmissiveColour = default;
+    [ColorUsage(true, true)]
+    public Color selectedEmissiveColour = default;
+
 
     void Start ()
     {
+        DontDestroyOnLoad(this);
         weaponManager = WeaponManager.instance;
         inventory = Inventory.instance;
-        UpdateUI();
-        CloseAllPanes();
-        DontDestroyOnLoad(this);
+        selectedSlot = invSlots[0];
+        selectedSlot.SelectSlot();
+        UpdateFromSelectedSlot(selectedSlot);
     }	
 
     //Update UI from Inventory class
     public void UpdateUI()
-    {    
+    {
+        ClearEquipped();
         ClearPanel(weaponPane);
         ClearPanel(headItemPane);
         ClearPanel(chestItemPane);
@@ -87,21 +95,164 @@ public class InventoryUI : MonoBehaviour
         ClearPanel(cyberneticItemPane);
         ClearPanel(skillPane);
 
-        UpdatePanel(inventory.weaponry, weaponPane);
-        UpdatePanel(inventory.headSlots, headItemPane);
-        UpdatePanel(inventory.chestSlots, chestItemPane);
-        UpdatePanel(inventory.legSlots, legItemPane);
-        UpdatePanel(inventory.feetSlots, feetItemPane);
-        UpdatePanel(inventory.handSlots, handItemPane);
-        UpdatePanel(inventory.modBionetics, bioneticItemPane);
-        UpdatePanel(inventory.modEnchantments, enchantmentItemPane);
-        UpdatePanel(inventory.modGenetics, geneticItemPane);
-        UpdatePanel(inventory.modCybernetics, cyberneticItemPane);
-        UpdatePanel(inventory.skills, skillPane);
+        if (selectedSlot != null)
+        {
+            if (selectedSlot.slot == ItemSlot.LWeap)
+            {
+                if (inventory.lHand != null)
+                {
+                    UpdatePanel(inventory.weaponry, weaponPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.weaponry, weaponPane);
+                }
+            }
+            else
+            {
+                if (inventory.rHand != null)
+                {
+                    UpdatePanel(inventory.weaponry, weaponPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.weaponry, weaponPane);
+                }
 
+                if (inventory.headSlot != null)
+                {
+                    UpdatePanel(inventory.headSlots, headItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.headSlots, headItemPane);
+                }
+
+                if (inventory.chestSlot != null)
+                {
+                    UpdatePanel(inventory.chestSlots, chestItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.chestSlots, chestItemPane);
+                }
+
+                if (inventory.legSlot != null)
+                {
+                    UpdatePanel(inventory.legSlots, legItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.legSlots, legItemPane);
+                }
+
+                if (inventory.feetSlot != null)
+                {
+                    UpdatePanel(inventory.feetSlots, feetItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.feetSlots, feetItemPane);
+                }
+
+                if (inventory.handSlot != null)
+                {
+                    UpdatePanel(inventory.handSlots, handItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.handSlots, handItemPane);
+                }
+
+                if (inventory.modBionetic != null)
+                {
+                    UpdatePanel(inventory.modBionetics, bioneticItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.modBionetics, bioneticItemPane);
+                }
+
+                if (inventory.modEnchantment != null)
+                {
+                    UpdatePanel(inventory.modEnchantments, enchantmentItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.modEnchantments, enchantmentItemPane);
+                }
+
+                if (inventory.modGenetic != null)
+                {
+                    UpdatePanel(inventory.modGenetics, geneticItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.modGenetics, geneticItemPane);
+                }
+
+                if (inventory.modCybernetic != null)
+                {
+                    UpdatePanel(inventory.modCybernetics, cyberneticItemPane);
+                }
+                else
+                {
+                    UpdatePanel(inventory.modCybernetics, cyberneticItemPane);
+                }
+            }            
+        }
+
+
+        if (selectedSlot != null)
+        {
+            if (selectedSlot.slot == ItemSlot.LWeap)
+            {
+                 UpdateEquippedDisplay(inventory.lHand);
+
+            }
+            else
+            {
+                switch (selectedSlot.iType)
+                {
+                    case ItemType.Weapon:
+                            UpdateEquippedDisplay(inventory.rHand);
+                        break;
+                    case ItemType.ItemChest:
+                            UpdateEquippedDisplay(inventory.chestSlot);
+                        break;
+                    case ItemType.ItemFeet:
+                            UpdateEquippedDisplay(inventory.feetSlot);
+                        break;
+                    case ItemType.ItemHands:
+                            UpdateEquippedDisplay(inventory.handSlot);
+                        break;
+                    case ItemType.ItemHead:
+                            UpdateEquippedDisplay(inventory.headSlot);
+                        break;
+                    case ItemType.ItemLegs:
+                            UpdateEquippedDisplay(inventory.legSlot);
+                        break;
+                    case ItemType.Genetic:
+                            UpdateEquippedDisplay(inventory.modGenetic);
+                        break;
+                    case ItemType.Bionetic:
+                            UpdateEquippedDisplay(inventory.modBionetic);
+                        break;
+                    case ItemType.Cybernetic:
+                            UpdateEquippedDisplay(inventory.modCybernetic);
+                        break;
+                    case ItemType.Enchantment:
+                            UpdateEquippedDisplay(inventory.modEnchantment);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        //UpdatePanel(inventory.skills, skillPane);
 
         weaponManager.UpdateWeapons();
-        //UpdateIcons();
         Player player = Player.instance; 
         stats.UpdateAllStats(player);
     }
@@ -110,22 +261,37 @@ public class InventoryUI : MonoBehaviour
     {
         selectedSlot = slot;
         OpenPaneFromItem(slot.iType);
+        UpdateUI();
     }
+
     //Update/Clear panels and slots
-    void UpdatePanel(List<InventoryItem> items, GameObject pane)
+    private void UpdateEquippedDisplay(InventoryItem equipped)
     {
-        Debug.Log("Updating Panel");
-        foreach (InventoryItem item in items)
+        if (equipped != null)
         {
-            InventoryObject emptyItem = Instantiate(invObject);
-            emptyItem.StartItem(item);
-            emptyItem.transform.SetParent(pane.transform);
-            emptyItem.transform.localScale = new Vector3(1, 1, 1);
-            Debug.Log("Added" + emptyItem.name);
+            InventoryObject emptyItem = Instantiate(invObject, equippedPane);
+            emptyItem.StartItem(equipped);
         }
     }
 
-    void ClearPanel(GameObject panel)
+    private void UpdatePanel(List<InventoryItem> items, GameObject pane)
+    {
+        foreach (InventoryItem item in items)
+        {
+            InventoryObject emptyItem = Instantiate(invObject, pane.transform);
+            emptyItem.StartItem(item);
+        }
+    }
+    
+    private void ClearEquipped()
+    {
+        foreach(Transform child in equippedPane)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+    
+    private void ClearPanel(GameObject panel)
     {
         foreach (Transform child in panel.transform)
         {
@@ -133,7 +299,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    void CloseAllPanes()
+    private void CloseAllPanes()
     {
         weaponPane.SetActive(false);
         skillPane.SetActive(false);
@@ -148,7 +314,7 @@ public class InventoryUI : MonoBehaviour
         cyberneticItemPane.SetActive(false);
     }
 
-    public void OpenPaneFromItem(ItemType iType) //TODO add others
+    private void OpenPaneFromItem(ItemType iType)
     {
         CloseAllPanes();
         switch (iType)
@@ -243,16 +409,44 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void EquippedItemStats(InventoryItem item)
+    public Color GetEmissionColorByRarity(Quality quality)
     {
-        equippedItemInfo.UpdateInfo(item);
+        switch (quality)
+        {
+            case Quality.Common:
+                return commonEmissiveColour;
+            case Quality.Uncommon:
+                return uncommonEmissiveColour;
+            case Quality.Masterwork:
+                return masterworkEmissiveColour;
+            case Quality.Rare:
+                return rareEmissiveColour;
+            case Quality.Legendary:
+                return legendaryEmissiveColour;
+            case Quality.Unique:
+                return uniqueEmissiveColour;
+            default:
+                return baseEmissiveColour;
+        }
     }
-    public void InvItemStats(InventoryItem item)
+    public Color GetColorByRarity(Quality quality)
     {
-        invItemInfo.UpdateInfo(item);
-    }
-    public void InvItemBlank()
-    {
-        invItemInfo.EmptyInfo();
+        switch (quality)
+        {
+            case Quality.Common:
+                return commonTextColour;
+            case Quality.Uncommon:
+                return uncommonTextColour;
+            case Quality.Masterwork:
+                return masterworkTextColour;
+            case Quality.Rare:
+                return rareTextColour;
+            case Quality.Legendary:
+                return legendaryTextColour;
+            case Quality.Unique:
+                return uniqueTextColour;
+            default:
+                return commonTextColour;
+        }
     }
 }
