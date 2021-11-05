@@ -10,8 +10,8 @@ public class InventoryItem : MonoBehaviour
     public ItemType itemType;
     public Quality quality;
     public string description;
-    private List<Prefix> prefixes;
-    private List<Suffix> suffixes;
+    public List<Prefix> prefixes;
+    public List<Suffix> suffixes;
 
     public GameObject lootDropGraphic;
 
@@ -77,6 +77,8 @@ public class InventoryItem : MonoBehaviour
     #endregion
 
     #region SkillStats
+
+    [Header("Skills")]
     public CharClass classRequired;
     public float skillCooldown;
     public int damage;
@@ -84,6 +86,7 @@ public class InventoryItem : MonoBehaviour
     public int hexDuration;
 
     #region EleSkills
+    [Header("Elementalist Skills")]
     public EleSkill eleSkill;
     public EleEliteSkill eleEliteSkill;
     #endregion
@@ -97,6 +100,7 @@ public class InventoryItem : MonoBehaviour
     public Handed handedness;
     public WeaponType wType;
     public GameObject mesh;
+    public List<CharClass> cClasses;
 
     //Starting damage from weapon
     public int weaponThermalDamageMin;
@@ -219,6 +223,8 @@ public class InventoryItem : MonoBehaviour
     public float bioCooldown = 5f;
     #endregion
 
+    [Header("Value")]
+    public int value;
 
     public void BuildInventoryItem(Item item, Quality qual)
     {
@@ -239,9 +245,15 @@ public class InventoryItem : MonoBehaviour
             weaponCooldown = weap.cooldown;
         }
         AddPreSuf();
-        GenerateArmour();
         AddWeaponItemStats();
         InitialiseWeapon();
+        AddModStats();
+        GenerateArmour();
+        if (quality != Quality.Common)
+        {
+            name = GenerateName();
+        }
+        //Calculate Value
     }
 
     #region Create Item
@@ -262,7 +274,90 @@ public class InventoryItem : MonoBehaviour
     {
         suffixes.Remove(sFix);
     }
-    public string GetPrefixName()
+    public void GenerateArmour()
+    {
+        if (itemType == ItemType.ItemChest || itemType == ItemType.ItemFeet || itemType == ItemType.ItemHands || itemType == ItemType.ItemHead || itemType == ItemType.ItemLegs)
+        {
+            if (baseItem.armourMin > 0)
+            {
+                armour = (Random.Range(baseItem.armourMin, baseItem.armourMax + 1) * ((armourPercent + 100)/100));
+            }
+        }
+        if (itemType == ItemType.Cybernetic && cType == CyberneticType.Armour)
+        {
+            if (baseItem.armourMin > 0)
+            {
+                armour = (Random.Range(baseItem.armourMin, baseItem.armourMax + 1) * ((armourPercent + 100) / 100));
+            }
+        }
+        if (itemType == ItemType.Weapon && wType == WeaponType.Shield)
+        {
+            if (baseItem.armourMin > 0)
+            {
+                armour = (Random.Range(baseItem.armourMin, baseItem.armourMax + 1) * ((armourPercent + 100) / 100));
+            }
+        }
+    }
+    public void AddModStats()
+    {
+        thermalDamage = baseItem.thermalDamage;
+        cryoDamage = baseItem.cryoDamage;
+        shockDamage = baseItem.shockDamage;
+        radiationDamage = baseItem.radiationDamage;
+        psiDamage = baseItem.psiDamage;
+        dimensionDamage = baseItem.dimensionDamage;
+        kineticDamage = baseItem.kineticDamage;
+        poisonDamage = baseItem.poisonDamage;
+        bioDamage = baseItem.bioDamage;
+        corruptionDamage = baseItem.corruptionDamage;
+
+        if (baseItem is GeneticMod)
+        {
+            GeneticMod gMod = baseItem as GeneticMod;
+            gType = gMod.gType;
+            geneticAmount = gMod.amount;
+        }
+        if (baseItem is BioneticMod)
+        {
+            BioneticMod bMod = baseItem as BioneticMod;
+            bEffect = bMod.bEffect;
+            bioDuration = bMod.duration;
+            bioAmount = bMod.amount;
+            bioCooldown = bMod.cooldown;
+        }
+        if (baseItem is EnchantmentMod)
+        {
+            EnchantmentMod eMod = baseItem as EnchantmentMod;
+            eType = eMod.eType;
+            enchantmentAmount = eMod.amount;
+        }
+        if (baseItem is CyberneticMod)
+        {
+            CyberneticMod cMod = baseItem as CyberneticMod;
+            cType = cMod.cType;
+            cyberDuration = cMod.duration;
+            cyberCooldown = cMod.cooldown;
+        }
+
+    }
+
+    #region NameGeneration
+    private string GenerateName()
+    {
+        if (quality == Quality.Uncommon || quality == Quality.Masterwork)
+        {
+            return GenerateMagicalName();
+        }
+        else if (quality == Quality.Rare || quality == Quality.Legendary)
+        {
+            return GenerateRareName();
+        }
+        else
+        {
+            return name;
+        }
+    }
+    private string GetPrefixName()
     {
         if (prefixes.Count > 0)
         {
@@ -273,7 +368,7 @@ public class InventoryItem : MonoBehaviour
             return "";
         }
     }
-    public string GetSuffixName()
+    private string GetSuffixName()
     {
         if (suffixes.Count > 0)
         {
@@ -293,18 +388,23 @@ public class InventoryItem : MonoBehaviour
             return "";
         }
     }
-
-    public void GenerateArmour()
+    private string GenerateRareName()
     {
-        if (itemType == ItemType.ItemChest || itemType == ItemType.ItemFeet || itemType == ItemType.ItemHands || itemType == ItemType.ItemHead || itemType == ItemType.ItemLegs || (itemType == ItemType.Weapon && wType == WeaponType.Shield))
-        {
-            if (baseItem.armourMin > 0)
-            {
-                armour = (Random.Range(baseItem.armourMin, baseItem.armourMax + 1) * (armourPercent + 100));
-            }
-        }
-
+        RarePrefixPart1 rand1 = (RarePrefixPart1)Random.Range(0, (int)RarePrefixPart1.Max);
+        RarePrefixPart2 rand2 = (RarePrefixPart2)Random.Range(0, (int)RarePrefixPart2.Max);
+        string rarePrefix1 = rand1.ToString();
+        string rarePrefix2 = rand2.ToString();
+        string rareName = rarePrefix1 + " " + rarePrefix2 + " " + name;
+        return rareName;
     }
+    private string GenerateMagicalName()
+    {
+        string prefix = GetPrefixName();
+        string suffix = GetSuffixName();
+        string magicName = prefix + name + suffix;
+        return magicName;
+    }
+    #endregion
 
     //Add Stats from Prefix/Suffix to Item
     //TODO maybe need to finish this off
@@ -1419,6 +1519,8 @@ public class InventoryItem : MonoBehaviour
         if (baseItem is Weapon)
         {
             Weapon weap = baseItem as Weapon;
+            wType = weap.wType;
+            mesh = weap.mesh;
             weaponThermalDamageMin = weap.weaponThermalDamageMin;
             weaponThermalDamageMax = weap.weaponThermalDamageMax;
             weaponCryoDamageMin = weap.weaponCryoDamageMin;
@@ -1440,7 +1542,6 @@ public class InventoryItem : MonoBehaviour
             weaponCorruptionDamageMin = weap.weaponCorruptionDamageMin;
             weaponCorruptionDamageMax = weap.weaponCorruptionDamageMax;
         }
-
     }
 
     public void InitialiseWeapon()
@@ -1469,7 +1570,93 @@ public class InventoryItem : MonoBehaviour
             finalCorruptionMax = corruptionMax + ((corruptionMax / 100) * damagePercent) + weaponCorruptionDamageMax;
             totalDamageMin = finalThermalMin + finalCryoMin + finalShockMin + finalRadMin + finalPsiMin + finalDimensionMin + finalKineticMin + finalPoisonMin + finalBioMin + finalCorruptionMin;
             totalDamageMax = finalThermalMax + finalCryoMax + finalShockMax + finalRadMax + finalPsiMax + finalDimensionMax + finalKineticMax + finalPoisonMax + finalBioMax + finalCorruptionMax;
+            SetWeaponClasses();
         }       
+    }
+
+    private void SetWeaponClasses()
+    {
+        cClasses = new List<CharClass>();
+        switch (wType)
+        {
+            case WeaponType.Carbine:
+                cClasses.Add(CharClass.Golemancer);
+                cClasses.Add(CharClass.Apoch);
+                cClasses.Add(CharClass.Vigil);
+                cClasses.Add(CharClass.StreetDoctor);
+                break;
+            case WeaponType.Foci:
+                cClasses.Add(CharClass.Golemancer);
+                cClasses.Add(CharClass.Elementalist);
+                cClasses.Add(CharClass.Psyc);
+                cClasses.Add(CharClass.Mystic);
+                break;
+            case WeaponType.GravGun:
+                cClasses.Add(CharClass.Artificer);
+                cClasses.Add(CharClass.Apoch);
+                cClasses.Add(CharClass.Crypter);
+                cClasses.Add(CharClass.NanoMage);
+                break;
+            case WeaponType.HPistol:
+                cClasses.Add(CharClass.Elementalist);
+                cClasses.Add(CharClass.Mystic);
+                cClasses.Add(CharClass.Artificer);
+                cClasses.Add(CharClass.NanoMage);
+                cClasses.Add(CharClass.Guardian);
+                cClasses.Add(CharClass.Vigil);
+                cClasses.Add(CharClass.Shadow);
+                cClasses.Add(CharClass.StreetDoctor);
+                break;
+            case WeaponType.Launcher:
+                cClasses.Add(CharClass.Artificer);
+                cClasses.Add(CharClass.Guardian);
+                cClasses.Add(CharClass.Vigil);
+                cClasses.Add(CharClass.StreetDoctor);
+                break;
+            case WeaponType.Melee:
+                cClasses.Add(CharClass.Mystic);
+                cClasses.Add(CharClass.Apoch);
+                cClasses.Add(CharClass.Crypter);
+                cClasses.Add(CharClass.Guardian);
+                cClasses.Add(CharClass.Shadow);
+                cClasses.Add(CharClass.StreetDoctor);
+                break;
+            case WeaponType.NanoGlove:
+                cClasses.Add(CharClass.Artificer);
+                cClasses.Add(CharClass.Crypter);
+                cClasses.Add(CharClass.NanoMage);
+                cClasses.Add(CharClass.StreetDoctor);
+                break;
+            case WeaponType.PPistol:
+                cClasses.Add(CharClass.Psyc);
+                cClasses.Add(CharClass.Apoch);
+                cClasses.Add(CharClass.Crypter);
+                cClasses.Add(CharClass.Shadow);
+                break;
+            case WeaponType.Rifle:
+                cClasses.Add(CharClass.NanoMage);
+                cClasses.Add(CharClass.Guardian);
+                cClasses.Add(CharClass.Vigil);
+                cClasses.Add(CharClass.Shadow);
+                break;
+            case WeaponType.Shield:
+                cClasses.Add(CharClass.Golemancer);
+                cClasses.Add(CharClass.Mystic);
+                cClasses.Add(CharClass.Artificer);
+                cClasses.Add(CharClass.Guardian);
+                break;
+            case WeaponType.Staff:
+                cClasses.Add(CharClass.Golemancer);
+                cClasses.Add(CharClass.Psyc);
+                cClasses.Add(CharClass.Mystic);
+                break;
+            case WeaponType.Wand:
+                cClasses.Add(CharClass.Golemancer);
+                cClasses.Add(CharClass.Elementalist);
+                cClasses.Add(CharClass.Psyc);
+                cClasses.Add(CharClass.Mystic);
+                break;
+        }
     }
 
     #endregion
@@ -1817,7 +2004,7 @@ public class InventoryItem : MonoBehaviour
 
     public string GetWeaponDamage()
     {
-        string damage = " ";
+        string damage = "Damage: ";
         if (itemType == ItemType.Weapon)
         {
             if (totalDamageMin > 0)
@@ -1830,7 +2017,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalThermalMin > 0)
             {
-                damage = damage + "" + finalThermalMin + " - ";
+                damage = damage + "Thermal: " + finalThermalMin + " - ";
             }        
             if (finalThermalMax > 0)
             {
@@ -1838,7 +2025,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalCryoMin > 0)
             {
-                damage = damage + "" + finalCryoMin + " - ";
+                damage = damage + "Cryo: " + finalCryoMin + " - ";
             }
             if (finalCryoMax > 0)
             {
@@ -1846,7 +2033,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalShockMin > 0)
             {
-                damage = damage + "" + finalShockMin + " - ";
+                damage = damage + "Shock: " + finalShockMin + " - ";
             }
             if (finalShockMax > 0)
             {
@@ -1854,7 +2041,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalRadMin > 0)
             {
-                damage = damage + "" + finalRadMin + " - ";
+                damage = damage + "Radiation: " + finalRadMin + " - ";
             }
             if (finalRadMax > 0)
             {
@@ -1862,7 +2049,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalPsiMin > 0)
             {
-                damage = damage + "" + finalPsiMin + " - ";
+                damage = damage + "Psi: " + finalPsiMin + " - ";
             }
             if (finalPsiMax > 0)
             {
@@ -1870,7 +2057,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalDimensionMin > 0)
             {
-                damage = damage + "" + finalDimensionMin + " - ";
+                damage = damage + "Dimension: " + finalDimensionMin + " - ";
             }
             if (finalDimensionMax > 0)
             {
@@ -1878,7 +2065,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalKineticMin > 0)
             {
-                damage = damage + "" + finalKineticMin + " - ";
+                damage = damage + "Kinetic: " + finalKineticMin + " - ";
             }
             if (finalKineticMax > 0)
             {
@@ -1886,7 +2073,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalPoisonMin > 0)
             {
-                damage = damage + "" + finalPoisonMin + " - ";
+                damage = damage + "Poison: " + finalPoisonMin + " - ";
             }
             if (finalPoisonMax > 0)
             {
@@ -1894,7 +2081,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalBioMin > 0)
             {
-                damage = damage + "" + finalBioMin + " - ";
+                damage = damage + "Bio: " + finalBioMin + " - ";
             }
             if (finalBioMax > 0)
             {
@@ -1902,7 +2089,7 @@ public class InventoryItem : MonoBehaviour
             }
             if (finalCorruptionMin > 0)
             {
-                damage = damage + "" + finalCorruptionMin + " - ";
+                damage = damage + "Corruption: " + finalCorruptionMin + " - ";
             }
             if (finalCorruptionMax > 0)
             {
@@ -1911,9 +2098,34 @@ public class InventoryItem : MonoBehaviour
         }
         return damage;
     }
+    
+    public bool CheckClassAgainstPlayer()
+    {
+        foreach (CharClass cClass in cClasses)
+        {
+            if (cClass == Player.instance.cClass)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public string GetClasses()
+    {
+        string classList = "";
+        foreach (CharClass cClass in cClasses)
+        {
+            classList += cClass.ToString() + ", ";
+        }
+        return classList;
+    }
     #endregion
 }
 //For reference, original enum are in Item
 //ItemType { Weapon, ItemHead, ItemChest, ItemLegs, ItemFeet, ItemHands, Cybernetic, Bionetic, Genetic, Enchantment, Skill }
 //Quality { Common, Uncommon, Masterwork, Rare, Legendary, Unique }
 
+//TODO List of rare names
+public enum RarePrefixPart1 { Chaos, Max }
+public enum RarePrefixPart2 { Bane, Max }

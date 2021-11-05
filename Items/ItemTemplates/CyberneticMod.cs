@@ -4,7 +4,7 @@ using UnityEngine;
 public class CyberneticMod : Item
 {
     [Header("CYBERNETIC")]
-    [SerializeField] private CyberneticType cType;
+    public CyberneticType cType;
     public int duration = 0;
     public float cooldown = 0;
 

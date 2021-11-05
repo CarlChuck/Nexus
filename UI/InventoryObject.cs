@@ -10,7 +10,7 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private InventoryItem item;
     [SerializeField] private Transform icon3dLocation;
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI damageText;
+    [SerializeField] private TextMeshProUGUI additonText;
     [SerializeField] private Renderer emissiveRenderer;
     [SerializeField] private GameObject lighting;
     private InventoryUI invUI;
@@ -29,7 +29,87 @@ public class InventoryObject : MonoBehaviour, IPointerEnterHandler, IPointerExit
             }
         }     
         nameText.text = item.name;
-        damageText.text = item.totalDamageMin + " - " + item.totalDamageMax;
+        if (item.itemType == ItemType.Weapon)
+        {
+            additonText.text = "Damage: " + item.totalDamageMin + " - " + item.totalDamageMax;
+        }
+        if (item.itemType == ItemType.ItemChest || item.itemType == ItemType.ItemFeet || item.itemType == ItemType.ItemHands || item.itemType == ItemType.ItemHead || item.itemType == ItemType.ItemLegs)
+        {
+            additonText.text = "Armour: " + item.armour;
+        }
+        if (item.itemType == ItemType.Enchantment)
+        {
+            if (item.GetEnchantmentType() == EnchantmentType.ElementRegen)
+            {
+                additonText.text = "Passive: Element Regen";
+            }
+
+        }
+        if (item.itemType == ItemType.Cybernetic)
+        {
+            if (item.GetCyberneticType() == CyberneticType.Armour)
+            {
+                additonText.text = "Passive: Armour " + item.armour;
+            }
+            else if (item.GetCyberneticType() == CyberneticType.AttkSpeed)
+            {
+                additonText.text = "On Activate: Attack Speed";
+            }
+            else if (item.GetCyberneticType() == CyberneticType.CorruptResist)
+            {
+                additonText.text = "On Activate: Corrupt Resist";
+            }
+            else if (item.GetCyberneticType() == CyberneticType.Dodge)
+            {
+                additonText.text = "On Activate: Dodge";
+            }
+        }
+        if (item.itemType == ItemType.Bionetic)
+        {
+            if (item.GetBioneticEffect() == BioneticEffect.AoEHeal)
+            {
+                additonText.text = "On Activate: Area Heal";
+            }
+            else if (item.GetBioneticEffect() == BioneticEffect.Heal)
+            {
+                additonText.text = "On Activate: Self Heal";
+            }
+            else if (item.GetBioneticEffect() == BioneticEffect.HealOverTime)
+            {
+                additonText.text = "On Activate: Heal Over Time";
+            }
+            else if (item.GetBioneticEffect() == BioneticEffect.Leech)
+            {
+                additonText.text = "On Activate: Leeching Attacks";
+            }
+        }
+        if (item.itemType == ItemType.Genetic)
+        {
+            if (item.GetGeneticType() == GeneticType.Armour)
+            {
+                additonText.text = "Passive: Amour";
+            }
+            else if (item.GetGeneticType() == GeneticType.Feedback)
+            {
+                additonText.text = "Passive: Feedback";
+            }
+            else if (item.GetGeneticType() == GeneticType.Leech)
+            {
+                additonText.text = "Passive: Leech";
+            }
+            else if (item.GetGeneticType() == GeneticType.Luck)
+            {
+                additonText.text = "Passive: Luck";
+            }
+            else if (item.GetGeneticType() == GeneticType.Regeneration)
+            {
+                additonText.text = "Passive: Regeneration";
+            }
+            else if (item.GetGeneticType() == GeneticType.XpGain)
+            {
+                additonText.text = "Passive: Experience Bonus";
+            }
+        }
         SetRarity();
     }
     public void SelectSlot()

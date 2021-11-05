@@ -4,7 +4,7 @@ using UnityEngine;
 public class GeneticMod : Item
 {
     [Header("GENETIC")]
-    [SerializeField] private GeneticType gType;
+    public GeneticType gType;
     public int amount;
 
 }

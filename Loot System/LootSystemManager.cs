@@ -176,8 +176,8 @@ public class LootSystemManager : MonoBehaviour
             {
                 GameObject newLootItem = Instantiate(lootItemPrefab, spawnPoint.position, Quaternion.identity);
                 InventoryItem iItem = Instantiate(inventoryItem, gameObject.transform);
-                GeneratePrefixSuffix(iItem);
                 Quality qual = DifficultyRandomResult(DifficultyLevel(), Player.instance.luck.GetValue());
+                GeneratePrefixSuffix(iItem, qual);
                 iItem.BuildInventoryItem(item, qual);
                 newLootItem.GetComponent<LootItem>().ActivateLootItem(iItem, spawnPoint);
 
@@ -463,9 +463,9 @@ public class LootSystemManager : MonoBehaviour
         //replace item with unique
         return item; //temporary to stop errors
     }
-    public void GeneratePrefixSuffix(InventoryItem item)
+    public void GeneratePrefixSuffix(InventoryItem item, Quality qual)
     {
-        if (item.quality == Quality.Uncommon)
+        if (qual == Quality.Uncommon)
         {
             int randomNumber = Random.Range(1, 3);
             if (randomNumber == 1)
@@ -476,23 +476,20 @@ public class LootSystemManager : MonoBehaviour
             {
                 AddSuffix(item);
             }
-            item.name = GenerateMagicalName(item);
         }
-        else if (item.quality == Quality.Masterwork)
+        else if (qual == Quality.Masterwork)
         {
             AddPrefix(item);
             AddSuffix(item);
-            item.name = GenerateMagicalName(item);
         }
-        else if (item.quality == Quality.Rare)
+        else if (qual == Quality.Rare)
         {
             AddPrefix(item);
             AddPrefix(item);
             AddSuffix(item);
             AddSuffix(item);
-            item.name = GenerateRareName(item.name);
         }
-        else if (item.quality == Quality.Legendary)
+        else if (qual == Quality.Legendary)
         {
             AddPrefix(item);
             AddPrefix(item);
@@ -500,7 +497,6 @@ public class LootSystemManager : MonoBehaviour
             AddSuffix(item);
             AddSuffix(item);
             AddSuffix(item);
-            item.name = GenerateRareName(item.name);
         }
         else
         {
@@ -576,13 +572,13 @@ public class LootSystemManager : MonoBehaviour
     }
     public Prefix GeneratePrefix()
     {
-        int randomNumber = Random.Range(1, GetPrefixList().Count + 1);
+        int randomNumber = Random.Range(1, GetPrefixList().Count);
         Prefix pFix = GetPrefixList()[randomNumber];
         return pFix;
     }
     public Suffix GenerateSuffix()
     {
-        int randomNumber = Random.Range(1,GetSuffixList().Count + 1);
+        int randomNumber = Random.Range(1,GetSuffixList().Count);
         Suffix sFix = GetSuffixList()[randomNumber];
         return sFix;
     }
@@ -594,23 +590,7 @@ public class LootSystemManager : MonoBehaviour
     {
         return sList1;
     }
-    public string GenerateRareName(string iName)
-    {
-        RarePrefixPart1 rand1 = (RarePrefixPart1)Random.Range(0, (int)RarePrefixPart1.Max);
-        RarePrefixPart2 rand2 = (RarePrefixPart2)Random.Range(0, (int)RarePrefixPart2.Max);
-        string rarePrefix1 = rand1.ToString();
-        string rarePrefix2 = rand2.ToString();
-        string rareName = rarePrefix1 + rarePrefix2 + " " + iName;
-        return rareName;
-    }
-    public string GenerateMagicalName(InventoryItem item)
-    {
-        string iName = item.name;
-        string prefix = item.GetPrefixName();
-        string suffix = item.GetSuffixName();
-        string magicName = prefix + iName + " of " + suffix;
-        return magicName;
-    }
+
     #endregion
 
     //ONLY ELEMENTALIST SKILLS AT THE MOMENT
@@ -858,6 +838,3 @@ public class LootSystemManager : MonoBehaviour
     }
     #endregion
 }
-//TODO List of rare names
-public enum RarePrefixPart1 {Chaos, Max}
-public enum RarePrefixPart2 {Bane, Max}

@@ -4,8 +4,7 @@ using UnityEngine;
 public class EnchantmentMod : Item
 {
     [Header("ENCHANTMENTS")]
-    [SerializeField] private EnchantmentType eType;
+    public EnchantmentType eType;
     public int amount;
-
 }
 public enum EnchantmentType {ElementRegen }
