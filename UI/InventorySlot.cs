@@ -26,13 +26,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             invSlot.DeSelectSlot();
         }
         invUI.UpdateFromSelectedSlot(this);
-        rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.selectedEmissiveColour);
+        rendererForEmission.material.SetColor("_EmissiveColor", invUI.selectedEmissiveColour);
         selectLight.SetActive(true);
         hoverLight.SetActive(false);
     }
     public void DeSelectSlot()
     {
-        rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.baseEmissiveColour);
+        rendererForEmission.material.SetColor("_EmissiveColor", invUI.baseEmissiveColour);
         selectLight.SetActive(false);
         hoverLight.SetActive(false);
     }
@@ -50,7 +50,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (invUI.selectedSlot != this)
         {
-            rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.hoverEmissiveColour);
+            rendererForEmission.material.SetColor("_EmissiveColor", invUI.hoverEmissiveColour);
             selectLight.SetActive(false);
             hoverLight.SetActive(true);
         }
@@ -59,7 +59,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (invUI.selectedSlot != this)
         {
-            rendererForEmission.materials[1].SetColor("_EmissiveColor", invUI.baseEmissiveColour);
+            rendererForEmission.material.SetColor("_EmissiveColor", invUI.baseEmissiveColour);
             selectLight.SetActive(false);
             hoverLight.SetActive(false);
         }   

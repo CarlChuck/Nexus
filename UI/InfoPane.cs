@@ -15,11 +15,26 @@ public class InfoPane : MonoBehaviour
 
     [SerializeField] private Transform icon3dParent;
     [SerializeField] private GameObject icon3d;
-    [SerializeField] private Image iconBacking;
-    [SerializeField] private Image textBacking;
-    private void Start()
+
+    //Lights
+    [SerializeField] private GameObject commonBackLight = default;
+    [SerializeField] private GameObject uncommonBackLight = default;
+    [SerializeField] private GameObject masterworkBackLight = default;
+    [SerializeField] private GameObject rareBackLight = default;
+    [SerializeField] private GameObject legendaryBackLight = default;
+    [SerializeField] private GameObject uniqueBackLight = default;
+
+    //emissive Colours
+    [SerializeField] private Renderer emissiveMaterial = default;
+
+    //Colour sources in InventoryUI
+    [SerializeField] private InventoryUI invUi;
+
+
+    public void Start()
     {
         EmptyInfo();
+        invUi = InventoryUI.instance;
     }
 
     public void UpdateInfo(InventoryItem itemIn)
@@ -219,6 +234,7 @@ public class InfoPane : MonoBehaviour
         infoTextLeft.text += item.description + "\n";
 
         valueText.text = item.value.ToString();
+        SetRarity();
     }
 
     private void UpdateRequirements()
@@ -291,5 +307,86 @@ public class InfoPane : MonoBehaviour
         infoTitle.text = "";
         infoTextRight.text = "";
         infoTextLeft.text = "";
+    }
+
+    private void SetRarity()
+    {
+        if (item.quality == Quality.Common)
+        {
+            SetCommon();
+        }
+        else if (item.quality == Quality.Uncommon)
+        {
+            SetUncommon();
+        }
+        else if (item.quality == Quality.Masterwork)
+        {
+            SetMasterwork();
+        }
+        else if (item.quality == Quality.Rare)
+        {
+            SetRare();
+        }
+        else if (item.quality == Quality.Legendary)
+        {
+            SetLegendary();
+        }
+        else if (item.quality == Quality.Unique)
+        {
+            SetUnique();
+        }
+    }
+
+    private void SetCommon()
+    {
+        emissiveMaterial.material.SetColor("_EmissiveColor", invUi.commonEmissiveColour);
+        SetAllLightsOff();
+        commonBackLight.SetActive(true);
+        infoTitle.color = invUi.commonTextColour;
+    }
+    private void SetUncommon()
+    {
+        emissiveMaterial.material.SetColor("_EmissiveColor", invUi.uncommonEmissiveColour);
+        SetAllLightsOff();
+        uncommonBackLight.SetActive(true);
+        infoTitle.color = invUi.uncommonTextColour;
+    }
+    private void SetMasterwork()
+    {
+        emissiveMaterial.material.SetColor("_EmissiveColor", invUi.masterworkEmissiveColour);
+        SetAllLightsOff();
+        masterworkBackLight.SetActive(true);
+        infoTitle.color = invUi.masterworkTextColour;
+    }
+    private void SetRare()
+    {
+        emissiveMaterial.material.SetColor("_EmissiveColor", invUi.rareEmissiveColour);
+        SetAllLightsOff();
+        rareBackLight.SetActive(true);
+        infoTitle.color = invUi.rareTextColour;
+    }
+    private void SetLegendary()
+    {
+        emissiveMaterial.material.SetColor("_EmissiveColor", invUi.legendaryEmissiveColour);
+        SetAllLightsOff();
+        legendaryBackLight.SetActive(true);
+        infoTitle.color = invUi.legendaryTextColour;
+    }
+    private void SetUnique()
+    {
+        emissiveMaterial.material.SetColor("_EmissiveColor", invUi.uniqueEmissiveColour);
+        SetAllLightsOff();
+        uniqueBackLight.SetActive(true);
+        infoTitle.color = invUi.uniqueTextColour;
+    }
+
+    private void SetAllLightsOff()
+    {
+        commonBackLight.SetActive(false);
+        uncommonBackLight.SetActive(false);
+        masterworkBackLight.SetActive(false);
+        rareBackLight.SetActive(false);
+        legendaryBackLight.SetActive(false);
+        uniqueBackLight.SetActive(false);
     }
 }
